@@ -8,7 +8,7 @@ import { Sidebar } from 'primeng/sidebar';
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent implements AfterViewInit {
-    sidebarVisible = true;
+    sidebarVisible = false;
     @ViewChild('sidebarRef') sidebarRef!: Sidebar;
     items: MenuItem[] = [
         {

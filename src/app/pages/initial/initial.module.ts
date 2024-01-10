@@ -14,6 +14,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TagModule } from 'primeng/tag';
 import { AvatarModule } from 'primeng/avatar';
 import { PanelModule } from 'primeng/panel';
+
 @NgModule({
     declarations: [
         InitialComponent,
