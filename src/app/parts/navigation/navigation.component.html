@@ -1,23 +1,9 @@
-<!-- <p-panelMenu [model]="items"
-                             [multiple]="true"
-                             [style]="{
-                                padding: 0,
-                                width: '100%'
-                                }"
-                                #sidebarRef>
-                    <ng-template let-item pTemplate="header">
-                        {{item.label}} 
-                    </ng-template>
-                    <ng-template let-menus pTemplate="menus">
-                        {{menus.label}} 
-                    </ng-template>
-                </p-panelMenu> -->
+
 <p-toolbar [styleClass]="''">
     <ng-template pTemplate="start">
         <img src="assets/img/logo.png" alt="" class="logo">
     </ng-template>
     <ng-template pTemplate="center">
-
     </ng-template>
     <ng-template pTemplate="end">
         <p-button (click)="sidebarVisible = true" icon="pi pi-bars"></p-button>
@@ -28,9 +14,9 @@
                [showCloseIcon]="true"
                [styleClass]="'p-0'"
                [style]="{
-                    padding: 0
+                    padding: 0,
+                    width: '300px'
                 }">
-
         <ng-template pTemplate="header">
             <img src="assets/img/logo.png" alt="" class="logo">
         </ng-template>
@@ -42,34 +28,53 @@
                 </ng-container>
             </div> -->
             <p-panelMenu [model]="items"
-                             [multiple]="true"
-                             [style]="{
+                         [multiple]="true"
+                         [style]="{
                                 padding: 0,
                                 width: '100%'
                                 }"
-                                #sidebarRef>
-            
-                    <ng-template let-menus pTemplate="menus">
-                        <a class="p-menuitem-link" [routerLink]="menus.routerLink"
-                            [style]="{
+                         #sidebarRef>
+                <ng-template let-menus pTemplate="menus">
+                    <a class="p-menuitem-link" [routerLink]="menus.routerLink"
+                       [style]="{
                                 paddingLeft: menus.padding + 'px'
                             }">
-                            <span class="p-menuitem-icon {{menus.icon}}"></span>
-                            <span class="p-menuitem-text">{{menus.label}}</span>
-                        </a>
-                    </ng-template>
-                </p-panelMenu> 
+                        <span class="p-menuitem-icon {{menus.icon}}"></span>
+                        <span class="p-menuitem-text">{{menus.label}}</span>
+                    </a>
+                </ng-template>
+            </p-panelMenu>
         </ng-template>
         <ng-template pTemplate="footer">
             <p-divider [classList]="'mt-auto'"></p-divider>
-            <span class="rounded-circle">
-                <p-tag icon="pi pi-user" value="Noemi C. Almeida"></p-tag>
-            </span>
-
+            <div class="d-flex align-items-center">
+                <p-button icon="pi pi-user"
+                        styleClass="me-2 text-white"    
+                        [style]="{ 'pointer-events': 'none' }"
+                          severity="secondary"
+                          size="small"
+                          [raised]="true"
+                          [rounded]="true"></p-button>
+                          
+                <span>Noemi C. Almeida</span>
+                <div class="ms-auto">
+                    <p-button icon="bi bi-gear-fill"
+                              severity="primary"
+                              size="small"
+                              [raised]="true"
+                              [rounded]="true"></p-button>
+                    <p-button icon="bi bi-box-arrow-left"
+                        styleClass="ms-2"
+                              
+                              severity="primary"
+                              size="small"
+                              [raised]="true"
+                              [rounded]="true"></p-button>
+                </div>
+            </div>
         </ng-template>
     </p-sidebar>
 </div>
-
 <ng-template #menuItem let-item="item">
     <p-panel
              [toggleable]="item.items"
@@ -81,7 +86,6 @@
              #item>
         <ng-template pTemplate="header">
             <a href="">
-
                 <ng-container
                               [ngTemplateOutlet]="header"
                               [ngTemplateOutletContext]="{item: item}">

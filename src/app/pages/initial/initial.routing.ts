@@ -6,13 +6,19 @@ const alunos = () => import('./pages/alunos/alunos.module').then(res => res.Alun
 const apostilas = () => import('./pages/apostilas/apostilas.module').then(res => res.ApostilasModule);
 const perfil = () => import('./pages/perfil/perfil.module').then(res => res.PerfilModule);
 const professores = () => import('./pages/professores/professores.module').then(res => res.ProfessoresModule);
+const aulas = () => import('./pages/aulas/aulas.module').then(res => res.AulasModule);
+const unidades = () => import('./pages/unidades/unidades.module').then(res => res.UnidadesModule);
+const usuarios = () => import('./pages/usuarios/usuarios.module').then(res => res.UsuariosModule);
 
 const routes: Routes = [
     { path: '', component: InitialComponent, children: [
-        { path: 'alunos', loadChildren: alunos },
-        { path: 'apostilas', loadChildren: apostilas },
-        { path: 'perfil', loadChildren: perfil },
-        { path: 'professores', loadChildren: professores },
+        { path: 'alunos', loadChildren: alunos, title: 'Alunos' },
+        { path: 'apostilas', loadChildren: apostilas, title: 'Apostilas' },
+        { path: 'perfil', loadChildren: perfil, title: 'Perfil' },
+        { path: 'professores', loadChildren: professores, title: 'Professores' },
+        { path: 'aulas', loadChildren: aulas, title: 'Aulas' },
+        { path: 'unidades', loadChildren: unidades, title: 'Unidades' },
+        { path: 'usuarios', loadChildren: usuarios, title: 'Usuários' },
     ] }
 ];
 

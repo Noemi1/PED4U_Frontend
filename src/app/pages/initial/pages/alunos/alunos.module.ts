@@ -12,25 +12,27 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
+import { PrimengModule } from '../../../../shared/primeng.module';
+import { SharedModule } from '../../../../shared/shared.module';
+import { FormComponent } from './form/form.component';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { DeleteComponent } from './delete/delete.component';
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    FormComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,
     AlunosRoutingModule,
     FormsModule,
-    TableModule,
-    DropdownModule,
-    TagModule,
-    SliderModule,
-    ProgressBarModule,
-    MultiSelectModule,
-    InputTextModule,
-    ButtonModule,
-
+    PrimengModule,
+    SharedModule,
+    NgxMaskDirective, 
+    NgxMaskPipe,
   ]
 })
 export class AlunosModule { }
