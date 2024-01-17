@@ -4,8 +4,9 @@ import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { AlunoService } from '../../../../../services/aluno.service';
 import { lastValueFrom } from 'rxjs';
-import { alunoColumns } from '../../../../../models/aluno.model';
-import { AlunoList } from '../../../../../models/aluno.model';
+import { apostilaColumns } from '../../../../../models/apostilas.model';
+import { ApostilaList } from '../../../../../models/apostilas.model';
+import { ApostilaService } from '../../../../../services/apostilas.service';
 
 @Component({
   selector: 'app-list',
@@ -13,14 +14,14 @@ import { AlunoList } from '../../../../../models/aluno.model';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  columns = alunoColumns;
-  title = 'Alunos'
-  list: AlunoList[] = [];
+  columns = apostilaColumns;
+  title = 'Apostilas Ábaco'
+  list: ApostilaList[] = [];
 
 
 
   constructor(
-    private alunoService: AlunoService
+    private apostilaService: ApostilaService
   ) {
   }
 

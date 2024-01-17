@@ -1,37 +1,29 @@
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
 
-export class AlunoList {
-    alunoId: number = 0;
-    nome: string = '';
-    celular: string = '';
-    idade: number = 0;
-    sexo: string = '';
-    horarioTurma: string = '';
-    diaTurma: number = 0;
-    perfilAluno: string = '';
-    dataVigencia: Date = new Date;
-    status:number = 0
-}
-
-export class Aluno {
+export class AulaList {
     id: number = 0;
-    nome: string = '';
-    horarioTurma: string = '';
-    dataNascimento: Date = new Date;
-    data_Vigencia_Inicial: Date = new Date;
-    data_Vigencia_Final: Date = new Date;
-    celular: string = '';
-    pessoa_Id: number = 0;
-    turma_Id: number = 0;
-    status_Id: number = 0;
-    perfil_Id: number = 0;
-    sexo_Id: number = 0;
+    nomeEducador: string = '';
+    apostila: string = '';
+    qtdPaginas: number = 0;
+    falta: string = '';
+    reposicao: string = '';
+
 }
 
-export var alunoColumns: Column[] = [
+export class Aula {
+    id: number = 0;
+    nomeEducador: string = '';
+    apostila: string = '';
+    qtdPaginas: number = 0;
+    falta: string = '';
+    reposicao: string = '';
+
+}
+
+export var aulaColumns: Column[] = [
   {
-      field: 'id',
-      header: 'Id',
+      field: 'nomeEducador',
+      header: 'Nome',
       maskType: MaskType.undefined,
       filterType: FilterType.text,
       filterDisplay: FilterDisplay.menu,
@@ -41,8 +33,8 @@ export var alunoColumns: Column[] = [
 
   },
   {
-      field: 'nome',
-      header: ' Nome',
+      field: 'apostila',
+      header: 'Apostila',
       maskType: MaskType.dateTime,
       filterType: FilterType.date,
       filterDisplay: FilterDisplay.menu,
@@ -52,8 +44,8 @@ export var alunoColumns: Column[] = [
 
   },
   {
-    field: 'idade',
-    header: 'Idade',
+    field: 'qtdPaginas',
+    header: 'Quantidade de Páginas',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,
@@ -63,8 +55,8 @@ export var alunoColumns: Column[] = [
 
 },
 {
-  field: 'genero',
-  header: 'Gênero',
+  field: 'falta',
+  header: 'Falta',
   maskType: MaskType.dateTime,
   filterType: FilterType.date,
   filterDisplay: FilterDisplay.menu,
@@ -74,8 +66,8 @@ export var alunoColumns: Column[] = [
 
 },
 {
-  field: 'horarioTurma',
-  header: 'Horário',
+  field: 'reposicao',
+  header: 'Reposição',
   maskType: MaskType.dateTime,
   filterType: FilterType.date,
   filterDisplay: FilterDisplay.menu,
