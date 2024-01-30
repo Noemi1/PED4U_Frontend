@@ -1,0 +1,121 @@
+<p-dialog header="Header"
+          [(visible)]="visible"
+          (visibleChange)="voltar()"
+          [style]="{width: '900px'}"
+          [modal]="true"
+          [draggable]="true"
+          [resizable]="false"
+          [maximizable]="true"
+          [closable]="true"
+          [closeOnEscape]="true">
+  <ng-template pTemplate="header">
+    <div class="d-flex align-items-center justify-content-center gap-2">
+      <p-avatar icon="bi bi-backpack" shape="circle" size="large" />
+      <h2 class="font-bold white-space-nowrap">Cadastrar</h2>
+    </div>
+  </ng-template>
+  <form #form="ngForm">
+    <div class="row">
+      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Dia da Semana -->
+        <label for="diaSemana" class="mb-1 ms-1">Dia da Semana: <span class="text-danger">*</span></label>
+        <p-dropdown [options]="diaList"
+                    appendTo="body"
+                    class="w-100"
+                    styleClass="w-100"
+                    inputId="diaSemana"
+                    name="diaSemana"
+                    #diaSemana="ngModel"
+                    [(ngModel)]="objeto.diaSemana"
+                    optionLabel="nome"
+                    optionValue="id"
+                    [showClear]="false"
+                    placeholder="Selecione o dia da semana"
+                    [required]="true"></p-dropdown>
+        <div *ngIf="diaSemana.touched && diaSemana.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="diaSemana.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+      <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- Horário -->
+        <label for="horario" class="mb-1 ms-1">Horário: <span class="text-danger">*</span></label>
+        <input pInputText
+               [mask]="'00:00'"
+               [showMaskTyped]="true"
+               name="horario"
+               id="horario"
+               #horario="ngModel"
+               [(ngModel)]="objeto.horario"
+               pattern="\S(.*\S)?"
+               (change)="objeto.horario = horario.value.trim(); "
+               [required]="true">
+        <div *ngIf="horario.touched && horario.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="horario.errors['required']">Este campo é obrigatório.</p>
+          <p class="text-danger my-0 ms-1" *ngIf="horario.errors['mask']">Celular inválidoS.</p>
+        </div>
+      </div>
+      <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- Capacidade de Alunos -->
+        <label for="qtdMaxAlunos" class="mb-1 ms-1">Capacidade de Alunos: <span class="text-danger">*</span></label>
+        <input type="text"
+               pInputText
+               name="qtdMaxAlunos"
+               id="qtdMaxAlunos"
+               name="qtdMaxAlunos"
+               #qtdMaxAlunos="ngModel"
+               [(ngModel)]="objeto.qtdMaxAlunos"
+               placeholder="ex: 12"
+               pattern="\S(.*\S)?"
+               (change)="objeto.qtdMaxAlunos = qtdMaxAlunos.value.trim(); "
+               required />
+        <div *ngIf="qtdMaxAlunos.touched && qtdMaxAlunos.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="qtdMaxAlunos.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"> <!-- Educador -->
+        <label for="unidade_Id" class="mb-1 ms-1">Perfil: <span class="text-danger">*</span></label>
+        <p-dropdown [options]="turmaList"
+                    appendTo="body"
+                    class="w-100"
+                    styleClass="w-100"
+                    inputId="unidade_Id"
+                    name="unidade_Id"
+                    #unidade_Id="ngModel"
+                    [(ngModel)]="objeto.unidade_Id"
+                    optionLabel="nome"
+                    optionValue="id"
+                    [showClear]="false"
+                    placeholder="Selecione o perfil da Turma"
+                    [required]="true"></p-dropdown>
+        <div *ngIf="unidade_Id.touched && unidade_Id.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="unidade_Id.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+      <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"> <!-- Perfil -->
+        <label for="educador_Id" class="mb-1 ms-1">Educador: <span class="text-danger">*</span></label>
+        <p-dropdown [options]="educadorList"
+                    appendTo="body"
+                    class="w-100"
+                    styleClass="w-100"
+                    inputId="educador_Id"
+                    name="educador_Id"
+                    #educador_Id="ngModel"
+                    [(ngModel)]="objeto.educador_Id"
+                    optionLabel="nome"
+                    optionValue="id"
+                    [showClear]="false"
+                    placeholder="Selecione o educador"
+                    [required]="true"></p-dropdown>
+        <div *ngIf="educador_Id.touched && educador_Id.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="educador_Id.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <div class="d-flex align-items-center justify-content-between">
+      <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
+      <p-button icon="pi pi-check" (click)="voltar()" label="Salvar" [loading]="loading"
+                [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

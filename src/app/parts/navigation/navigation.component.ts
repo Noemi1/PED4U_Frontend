@@ -45,6 +45,13 @@ export class NavigationComponent implements AfterViewInit {
                     padding: 15,
 
                 },
+                {
+                  label: 'Turmas',
+                  icon: 'bi bi-person-badge',
+                  routerLink: 'turmas',
+                  padding: 15,
+
+              },
             ]
         },
         {
@@ -56,6 +63,7 @@ export class NavigationComponent implements AfterViewInit {
         {
             label: 'Gerenciar Reposições',
             icon: 'fa fa-clock-rotate-back',
+            routerLink: 'reposicoes',
             padding: 0,
         },
     ];

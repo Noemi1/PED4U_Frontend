@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AccountService } from '../services/account.service';
-import { Crypto } from '../utils/crypto';
+import { Crypto } from '../../utils/crypto';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {

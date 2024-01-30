@@ -1,68 +1,79 @@
 <div #page>
   <p-card>
-      <ng-template pTemplate="header">
-          <app-breadcrumb></app-breadcrumb>
-          <div class="d-flex align-items-center px-4">
-              <p-avatar icon="bi bi-backpack" styleClass="me-2" size="xlarge"></p-avatar>
-              <h3 class="p-card-title my-0">{{title}}</h3>
+    <ng-template pTemplate="header">
+      <app-breadcrumb></app-breadcrumb>
+      <div class="d-flex align-items-center px-4">
+        <p-avatar icon="bi bi-backpack" styleClass="me-2" size="xlarge"></p-avatar>
+        <h3 class="p-card-title my-0">{{title}}</h3>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="body">
+      <p-table
+               #dt1
+               [value]="list"
+               dataKey="id"
+               [rows]="10"
+               [showCurrentPageReport]="true"
+               [rowsPerPageOptions]="[10, 25, 50]"
+               currentPageReportTemplate="Mostrando de {first} até {last} do total de {totalRecords} registros"
+               [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-end ms-auto ">
+            <div class="me-2">
+              <p-button label="Atualizar" severity="secondary" [loading]="loading"
+                        (onClick)="loading = !loading"></p-button>
+            </div>
+            <div class="me-2">
+              <p-button label="Cadastrar" icon="pi pi-plus" [routerLink]="['cadastrar']"></p-button>
+            </div>
+            <div class="me-2">
+              <p-button label="Clear" styleClass="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"
+                        [routerLink]="['cadastrar']"></p-button>
+            </div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input name="filter" pInputText type="text" (input)="dt1.filterGlobal($event, 'contains')"
+                     placeholder="Pesquisar" />
+            </span>
           </div>
-      </ng-template>
-      <ng-template pTemplate="body">
-          <p-table
-                   #dt1
-                   [value]="list"
-                   dataKey="id"
-                   [rows]="10"
-                   [showCurrentPageReport]="true"
-                   [rowsPerPageOptions]="[10, 25, 50]"
-                   [paginator]="true"
-                   currentPageReportTemplate="Mostrando de {first} até {last} do total de {totalRecords} registros"
-                   [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
-              <ng-template pTemplate="caption">
-                  <div class="d-flex justify-content-end ms-auto ">
-                      <div class="me-2">
-                          <p-button label="Atualizar" severity="secondary" [loading]="loading" (onClick)="loading = !loading"></p-button>
-                      </div>
-                      <div class="me-2">
-                          <p-button label="Cadastrar" icon="pi pi-plus" [routerLink]="['cadastrar']"></p-button>
-                      </div>
-                      <div class="me-2">
-                          <p-button label="Clear" styleClass="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)" [routerLink]="['cadastrar']"></p-button>
-                      </div>
-                      <span class="p-input-icon-left">
-                          <i class="pi pi-search"></i>
-                          <input pInputText type="text" (input)="dt1.filterGlobal($event, 'contains')" placeholder="Pesquisar" />
-                      </span>
-                  </div>
-              </ng-template>
-              <ng-template pTemplate="header">
-                 <tr>
-                  <th *ngFor="let coluna of columns">{{ coluna.header}}</th>
-                 </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-item>
-                  <tr #item>
-                      <td>{{columns}}</td>
-                      <td>
-                          <p-toggleButton
-                              [(ngModel)]="menuItem.visible"
-                              onLabel="'I confirm'"
-                              offLabel="'I reject'"
-                              onIcon="'pi pi-times'"
-                              offIcon="'pi pi-bars'"
-                              [style]="{ width: '10em' }"></p-toggleButton>
-                      </td>
-                  </tr>
-                  <p-contextMenu #menuItem [target]="item" [model]="menu"></p-contextMenu>
-              </ng-template>
-              <ng-template pTemplate="emptymessage">
-                  <tr>
-                      <td colspan="7">Nenhum registro encontrado.</td>
-                  </tr>
-              </ng-template>
-          </p-table>
-      </ng-template>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th *ngFor="let coluna of columns">{{ coluna.header}}</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr #itemMenu>
+            <td *ngFor="let coluna of columns">{{ item[coluna.field] }}</td>
+            <td>
+              <p-button
+                [text]="true"
+                (click)="openContextMenu($event, menuItem, item)"
+                [icon]="menuItem.visible() ? 'pi pi-times' : 'pi pi-bars'"
+                [style]="{ width: '10em' }"
+
+              ></p-button>
+            </td>
+          </tr>
+          <p-contextMenu
+            #menuItem
+            [target]="itemMenu"
+            [model]="menu"
+            [appendTo]="'body'"
+
+          ></p-contextMenu>
+        </ng-template>
+
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">Nenhum registro encontrado.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-template>
   </p-card>
 </div>
-<p-contextMenu  [model]="menuGlobal" [target]="page" [hidden]="loading"></p-contextMenu>
+<p-contextMenu [model]="menuGlobal" [target]="page" [hidden]="loading"></p-contextMenu>
 <router-outlet></router-outlet>

@@ -1,0 +1,26 @@
+<p-dialog header="Header"
+          [(visible)]="visible"
+          (visibleChange)="voltar()"
+          [style]="{width: '400px'}"
+          [modal]="true"
+          [draggable]="false"
+          [resizable]="false"
+          [maximizable]="false"
+          [closable]="true"
+          [closeOnEscape]="true">
+    <ng-template pTemplate="header">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+            <p-avatar icon="bi bi-trash" shape="circle" size="large" />
+            <h2 class="font-bold white-space-nowrap my-0">Excluir</h2>
+        </div>
+    </ng-template>
+    <h4>Tem certeza que deseja excluir esse registro?</h4>
+    <h4>Ele não poderá ser recuperado!</h4>
+    <p>Se estiver relacionado a outro registro não poderá ser excluído.</p>
+    <ng-template pTemplate="footer">
+        <div class="d-flex align-items-center justify-content-between">
+            <p-button severity="secondary" (click)="voltar()" label="Voltar" ></p-button>
+            <p-button severity="primary" icon="pi pi-trash" (click)="voltar()" label="Excluir" [loading]="loading" [disabled]="loading" pAutoFocus [autofocus]="true"></p-button>
+        </div>
+    </ng-template>
+</p-dialog>

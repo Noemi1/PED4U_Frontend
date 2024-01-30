@@ -8,8 +8,8 @@ import { PrimengModule } from '../../../../shared/primeng.module';
 import { FormComponent } from './form/form.component';
 import { DeleteComponent } from './delete/delete.component';
 import { InputNumberModule } from 'primeng/inputnumber';
-
-
+import { CheckboxModule } from 'primeng/checkbox';
+import {  NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [
     ListComponent,
@@ -22,7 +22,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
     PrimengModule,
     AulasRoutingModule,
     SharedModule,
-    InputNumberModule
+    InputNumberModule,
+    CheckboxModule,
+    NgxMaskModule.forRoot()
+
   ]
 })
 export class AulasModule { }

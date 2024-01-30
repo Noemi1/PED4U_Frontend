@@ -5,7 +5,7 @@ import { finalize, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Table } from '../utils/table';
-import { LoadingService } from '../parts/loading/loading';
+// import { LoadingService } from '../parts/loading/loading';
 import { getError } from '../utils/error';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class RequestInterceptor implements HttpInterceptor {
         private router: Router,
         private toastr: ToastrService,
         private table: Table,
-        private loadingUtils: LoadingService,
+        // private loadingUtils: LoadingService,
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -46,11 +46,11 @@ export class RequestInterceptor implements HttpInterceptor {
         var loadingHeader = request.headers.get('loading');
         if (notLoading.length == 0 && (request.method == 'POST' || request.method == 'PUT' || request.method == 'DELETE' || loadingHeader == 'true')) {
             if (notLoading.length == 0) {
-                this.loadingUtils.loading.next(true);
-                this.loadingUtils.addLoadingRequest();
+                // this.loadingUtils.loading.next(true);
+                // this.loadingUtils.addLoadingRequest();
             }
         }
-        
+
         this.table.resetSelection();
         return next.handle(request).pipe(
             tap({
@@ -61,7 +61,7 @@ export class RequestInterceptor implements HttpInterceptor {
                             this.table.onRowUnselect();
                         }
                     }
-                    else 
+                    else
                     if (data instanceof HttpResponse) {
                         if ([200, 204, 201].includes(data.status)) {
                             if (data.body && (data.body.sucesso == false || data.body == false)) {
@@ -108,7 +108,7 @@ export class RequestInterceptor implements HttpInterceptor {
                                         this.table.goToCurrentPage();
                                     }, 100);
                                     this.table.loading.next(false)
-                                    this.loadingUtils.loading.next(false);
+                                    // this.loadingUtils.loading.next(false);
                                 }
 
                             }
@@ -134,7 +134,7 @@ export class RequestInterceptor implements HttpInterceptor {
                         this.toastr.error(msg);
                     }
                     this.table.loading.next(false)
-                    this.loadingUtils.loading.next(false);
+                    // this.loadingUtils.loading.next(false);
 
                     return throwError(() => new Error(msg));
 
@@ -143,9 +143,9 @@ export class RequestInterceptor implements HttpInterceptor {
             // Log when response observable either completes or errors
             finalize(() => {
                 this.table.loading.next(false)
-                this.loadingUtils.loading.next(false);
+                // this.loadingUtils.loading.next(false);
                 if (request.method == 'POST' || request.method == 'PUT' || request.method == 'DELETE' || loadingHeader == 'true') {
-                    this.loadingUtils.removeLoadingRequest();
+                    // this.loadingUtils.removeLoadingRequest();
                 }
             }),
         );

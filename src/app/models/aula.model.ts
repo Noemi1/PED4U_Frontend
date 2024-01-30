@@ -1,113 +1,83 @@
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
 
 export class AulaList {
-    id: number = 0;
-    nomeEducador: string = '';
-    apostila: string = '';
-    qtdPaginas: number = 0;
-    falta: string = '';
-    reposicao: string = '';
+  id: number = 0;
+  descricao: string = '';
+  data: Date = new Date;
+  realizada: boolean = false;
+  educadorNome: string = '';
+  horario: string = '';
+  diaSemana: number = 0;
+  turmaId: number = 0;
 
 }
 
 export class Aula {
-    id: number = 0;
-    nomeEducador: string = '';
-    apostila: string = '';
-    qtdPaginas: number = 0;
-    falta: string = '';
-    reposicao: string = '';
+  id: number = 0;
+  descricao: string = '';
+  turma_Id: number = '' as unknown as number;
+  data: Date = new Date;
+  realizada: boolean = false;
+  educador_Id: number = '' as unknown as number
 
 }
 
 export var aulaColumns: Column[] = [
   {
-      field: 'nomeEducador',
-      header: 'Nome',
-      maskType: MaskType.undefined,
-      filterType: FilterType.text,
-      filterDisplay: FilterDisplay.menu,
-      showAddButton: false,
-      showMatchMode: false,
-      showOperator: false,
-
-  },
-  {
-      field: 'apostila',
-      header: 'Apostila',
-      maskType: MaskType.dateTime,
-      filterType: FilterType.date,
-      filterDisplay: FilterDisplay.menu,
-      showAddButton: false,
-      showMatchMode: true,
-      showOperator: false,
-
-  },
-  {
-    field: 'qtdPaginas',
-    header: 'Quantidade de Páginas',
-    maskType: MaskType.dateTime,
-    filterType: FilterType.date,
+    field: 'educadorNome',
+    header: 'Nome',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
     filterDisplay: FilterDisplay.menu,
     showAddButton: false,
-    showMatchMode: true,
+    showMatchMode: false,
     showOperator: false,
 
-},
-{
-  field: 'falta',
-  header: 'Falta',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: true,
-  showOperator: false,
+  },
+  {
+    field: 'descricao',
+    header: 'Descrição',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
 
-},
-{
-  field: 'reposicao',
-  header: 'Reposição',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: true,
-  showOperator: false,
+  },
+  {
+    field: 'data',
+    header: 'Data',
+    maskType: MaskType.dateTime,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
 
-},
-{
-  field: 'diaSemana',
-  header: 'Dia da Semana',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: true,
-  showOperator: false,
+  },
+  {
+    field: 'realizada',
+    header: 'Realizada',
+    filterType: FilterType.text,
+    maskType: MaskType.boolean,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
 
-},
-{
-  field: 'perfil',
-  header: 'Perfil',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: true,
-  showOperator: false,
 
-},
-{
-  field: 'vigencia',
-  header: 'Vigência',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: true,
-  showOperator: false,
+  },
 
-},
+  {
+    field: 'turmaId',
+    header: 'Turma',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
 
+  }
 ];

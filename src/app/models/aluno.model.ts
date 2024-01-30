@@ -2,6 +2,7 @@ import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.i
 
 export class AlunoList {
     alunoId: number = 0;
+    turma_Id: number = 0;
     nome: string = '';
     celular: string = '';
     idade: number = 0;
@@ -10,22 +11,20 @@ export class AlunoList {
     diaTurma: number = 0;
     perfilAluno: string = '';
     dataVigencia: Date = new Date;
-    status:number = 0
+
 }
 
 export class Aluno {
     id: number = 0;
-    nome: string = '';
-    horarioTurma: string = '';
-    dataNascimento: Date = new Date;
+    pessoa_Id: string = '';
+    turma_Id: number = '' as unknown as number;
+    perfil_Id: number = '' as unknown as number;
     data_Vigencia_Inicial: Date = new Date;
     data_Vigencia_Final: Date = new Date;
+    nome: string = '';
+    dataNascimento: Date = new Date;
     celular: string = '';
-    pessoa_Id: number = 0;
-    turma_Id: number = 0;
-    status_Id: number = 0;
-    perfil_Id: number = 0;
-    sexo_Id: number = 0;
+    sexo_Id:  number = '' as unknown as number;
 }
 
 export var alunoColumns: Column[] = [
@@ -43,8 +42,8 @@ export var alunoColumns: Column[] = [
   {
       field: 'nome',
       header: ' Nome',
-      maskType: MaskType.dateTime,
-      filterType: FilterType.date,
+      maskType: MaskType.undefined,
+      filterType: FilterType.text,
       filterDisplay: FilterDisplay.menu,
       showAddButton: false,
       showMatchMode: true,
@@ -52,10 +51,21 @@ export var alunoColumns: Column[] = [
 
   },
   {
+    field: 'celular',
+    header: ' Celular',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: true,
+    showOperator: false,
+
+},
+  {
     field: 'idade',
     header: 'Idade',
-    maskType: MaskType.dateTime,
-    filterType: FilterType.date,
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
     filterDisplay: FilterDisplay.menu,
     showAddButton: false,
     showMatchMode: true,
@@ -65,8 +75,8 @@ export var alunoColumns: Column[] = [
 {
   field: 'genero',
   header: 'Gênero',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
+  maskType: MaskType.undefined,
+  filterType: FilterType.text,
   filterDisplay: FilterDisplay.menu,
   showAddButton: false,
   showMatchMode: true,
@@ -76,8 +86,8 @@ export var alunoColumns: Column[] = [
 {
   field: 'horarioTurma',
   header: 'Horário',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
+  maskType: MaskType.undefined,
+  filterType: FilterType.text,
   filterDisplay: FilterDisplay.menu,
   showAddButton: false,
   showMatchMode: true,
@@ -87,8 +97,8 @@ export var alunoColumns: Column[] = [
 {
   field: 'diaSemana',
   header: 'Dia da Semana',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
+  maskType: MaskType.undefined,
+  filterType: FilterType.text,
   filterDisplay: FilterDisplay.menu,
   showAddButton: false,
   showMatchMode: true,
@@ -98,8 +108,8 @@ export var alunoColumns: Column[] = [
 {
   field: 'perfil',
   header: 'Perfil',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
+  maskType: MaskType.undefined,
+  filterType: FilterType.text,
   filterDisplay: FilterDisplay.menu,
   showAddButton: false,
   showMatchMode: true,
@@ -109,8 +119,8 @@ export var alunoColumns: Column[] = [
 {
   field: 'vigencia',
   header: 'Vigência',
-  maskType: MaskType.dateTime,
-  filterType: FilterType.date,
+  maskType: MaskType.undefined,
+  filterType: FilterType.text,
   filterDisplay: FilterDisplay.menu,
   showAddButton: false,
   showMatchMode: true,

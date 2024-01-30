@@ -5,8 +5,8 @@ import { PrimengModule } from './primeng.module';
 import { FormsModule } from '@angular/forms';
 import { ListSharedComponent } from './list/list.component';
 import { InputNumberModule } from 'primeng/inputnumber';
-
-
+import { CheckboxModule } from 'primeng/checkbox';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CommonModule,
     FormsModule,
     PrimengModule,
-    InputNumberModule
+    InputNumberModule,
+    NgxMaskModule.forRoot()
+
   ],
   exports: [
     BreadcrumbComponent,

@@ -1,0 +1,28 @@
+
+<div class="mb-3">
+    <h3 class="account-title mb-0">Verificação de Conta</h3>
+    <p class="account-text mb-0">Estamos validando os dados da sua conta.</p>
+    <p class="account-text mb-0">Aguarde a conclusão para continuar.</p>
+</div>
+<div>
+    <div *ngIf="loading">
+        <p >Verificando...</p>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+    </div>
+
+    <div *ngIf="!loading">
+        <div  *ngIf="erro">
+            <h6>Erro</h6>
+            <p *ngIf="erro" class="text-danger erro">{{erro}}</p>
+        </div>
+        <div *ngIf="!erro">
+            <h6>Concluída</h6>
+            <p *ngIf="!mensagemSucesso" >Verificação  concluída, faça o login.</p>
+            <p *ngIf="mensagemSucesso">{{mensagemSucesso}}</p>
+        </div>
+        <a class="link mt-2 d-flex" routerLink="/account/login" >
+            <!-- <span class="me-2"><fa-icon [icon]="faChevronCircleLeft"></fa-icon></span> -->
+            Ir para login
+        </a>
+    </div>
+</div>

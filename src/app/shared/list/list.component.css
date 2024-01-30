@@ -127,6 +127,10 @@ tr.selectable {
     vertical-align: middle;
 }
 
+::ng-deep.p-datatable{
+  position: static;
+}
+
 .table-s .table thead th span,
 .table-s .table tbody td span {
     display: block;

@@ -1,0 +1,63 @@
+<p-dialog header="Header"
+          [(visible)]="visible"
+          (visibleChange)="voltar()"
+          [style]="{width: '900px'}"
+          [modal]="true"
+          [draggable]="true"
+          [resizable]="false"
+          [maximizable]="true"
+          [closable]="true"
+          [closeOnEscape]="true">
+    <ng-template pTemplate="header">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+            <p-avatar icon="bi bi-backpack" shape="circle" size="large" />
+            <h2 class="font-bold white-space-nowrap">Cadastrar</h2>
+        </div>
+    </ng-template>
+    <form #form="ngForm">
+        <div class="row">
+          <div class="d-flex flex-column mb-4 col-sm-4 col-4"> <!-- Perfil  -->
+            <label for="perfil" class="mb-1 ms-1"> Perfil: <span class="text-danger">*</span></label>
+            <input type="text"
+                   pInputText
+                   name="perfil"
+                   id="perfil"
+                   name="perfil"
+                   #perfil="ngModel"
+                   [(ngModel)]="objeto.perfil"
+                   pattern="\S(.*\S)?"
+                   (change)="objeto.perfil = perfil.value.trim(); "
+                   required />
+            <div *ngIf="perfil.touched && perfil.errors">
+              <p class="text-danger my-0 ms-1" *ngIf="perfil.errors['required']">Este campo é obrigatório.</p>
+            </div>
+          </div>
+          <div class="d-flex flex-column mb-4 col-sm-4 col-4"> <!-- Nome do Educador  -->
+            <label for="nTurma" class="mb-1 ms-1"> Nome do Educador : <span class="text-danger">*</span></label>
+            <input type="text"
+                   pInputText
+                   name="nTurma"
+                   id="nTurma"
+                   name="nTurma"
+                   #nTurma="ngModel"
+                   [(ngModel)]="objeto.nTurma"
+                   pattern="\S(.*\S)?"
+                   (change)="objeto.nTurma = nTurma.value.trim(); "
+                   required />
+            <div *ngIf="nTurma.touched && nTurma.errors">
+              <p class="text-danger my-0 ms-1" *ngIf="nTurma.errors['required']">Este campo é obrigatório.</p>
+            </div>
+          </div>
+
+
+
+        </div>
+
+    </form>
+    <ng-template pTemplate="footer">
+        <div class="d-flex align-items-center justify-content-between">
+            <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
+            <p-button icon="pi pi-check" (click)="voltar()" label="Salvar" [loading]="loading" [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
+        </div>
+    </ng-template>
+</p-dialog>

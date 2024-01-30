@@ -2,16 +2,16 @@ import { FilterMatchMode } from "primeng/api";
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
 export class ApostilaList {
   id: number = 0;
-  titulo: string = '';
+  nome: string = '';
   qtdePaginas: string = '';
-  materialExtra: string = '';
+  materialExtra: boolean = false;
 }
 
 export class Apostila {
   id: number = 0;
-  titulo: string = '';
+  nome: string = '';
   qtdePaginas: string = '';
-  materialExtra: string = '';
+  materialExtra: boolean = false;
 }
 
 
@@ -39,7 +39,7 @@ export var apostilaColumns: Column[] = [
       filterMatchMode: FilterMatchMode.DATE_IS,
   },
   {
-  field: 'qtdPaginas',
+  field: 'qtdePaginas',
   header: 'Quantidade de Páginas',
   maskType: MaskType.dateTime,
   filterType: FilterType.date,
