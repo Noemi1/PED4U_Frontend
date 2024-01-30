@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center align-items-center">
-  <p-card header="Login" subheader="Insira e-mail e senha para acessar." [style]="{ width: '700px' }"
+  <p-card header="Me cadastrar" subheader="Insira seus dados nos campos abaixo para efetuar seu cadastro." [style]="{ width: '700px' }"
           class="d-flex justify-content-center align-items-center">
     <form #form="ngForm" (ngSubmit)="send(form)">
       <div class="d-flex justify-content-center" [style]="{ width: '100%' }">
@@ -13,35 +13,117 @@
                      name="name"
                      #name="ngModel"
                      [(ngModel)]="objeto.name"
-                     placeholder="**"
+                     placeholder="Informe seu nome"
                      required
-                     minlength="6" />
+                   />
               <label for="name">Nome</label>
+              <div *ngIf="name.touched && name.errors" class="p-1 py-0">
+                <p class="text-danger" *ngIf="name.errors['required']">Este campo é obrigatório.</p>
+            </div>
+            </span>
+          </div>
+          <div class=" my-4">
+            <span class="p-float-label ">
+              <input class="col-12 form-control"
+                     pInputText
+                     id="objeto.telefoneCelular"
+                     name="telefoneCelular"
+                     #telefoneCelular="ngModel"
+                     [(ngModel)]="objeto.telefoneCelular"
+                     placeholder="(xx)xxxx-xxxx"
+
+                     required
+                   />
+              <label for="objeto.telefoneCelular">Telefone/Celular</label>
+              <div *ngIf="telefoneCelular.touched && telefoneCelular.errors" class="p-1 py-0">
+                <p class="text-danger" *ngIf="telefoneCelular.errors['required']">Este campo é obrigatório.</p>
+            </div>
             </span>
           </div>
           <div class=" my-4">
             <span class="p-float-label ">
               <input class=" col-12 form-control"
                      pInputText
-                     id="name"
-                     name="name"
-                     #name="ngModel"
-                     [(ngModel)]="objeto.name"
+                     id="email"
+                     name="email"
+                     #email="ngModel"
+                     [(ngModel)]="objeto.email"
                      placeholder="**"
                      required
-                     minlength="6" />
-              <label for="name">Senha</label>
+                   />
+              <label for="email">E-mail</label>
+              <div *ngIf="email.touched && email.errors" class="p-1 py-0">
+                <p class="text-danger" *ngIf="email.errors['required']">Este campo é obrigatório.</p>
+            </div>
             </span>
           </div>
-
-          <div class="form-group ">
-            <p-button [class]="'d-flex justify-content-center'" type="submit" (click)="send(form)" [style]="{ 'background-color': '#eeae15' }" [disabled]="form.invalid || loading" class="btn btn-primary w-100 py-2">Entrar</p-button>
+          <div class=" my-4">
+            <span class="p-float-label ">
+              <input class=" col-12 form-control"
+                     pInputText
+                     id="password"
+                     name="password"
+                     #password="ngModel"
+                     [(ngModel)]="objeto.password"
+                     placeholder="*******"
+                     required
+                   />
+              <label for="password">Senha</label>
+              <div *ngIf="password.touched && password.errors" class="p-1 py-0">
+                <p class="text-danger" *ngIf="password.errors['required']">Este campo é obrigatório.</p>
+            </div>
+            </span>
           </div>
+          <div class=" my-4">
+            <span class="p-float-label ">
+              <input class=" col-12 form-control"
+                     pInputText
+                     id="confirmPassword"
+                     name="confirmPassword"
+                     #confirmPassword="ngModel"
+                     [(ngModel)]="objeto.confirmPassword"
+                     placeholder="**"
+                     required
+                   />
+              <label for="confirmPassword">Confirme a senha</label>
+              <div *ngIf="confirmPassword.errors != null && confirmPassword.touched" class="p-1 py-0">
+                <p class="text-danger" *ngIf="confirmPassword.errors['required']">Esse campo é obrigatório</p>
+                <p class="text-danger" *ngIf="confirmPassword.errors['minlength']">Confirmação de senha deve conter pelo menos 4 caracteres.</p>
+            </div>
+            <p class="text-danger p-2" *ngIf="password.value != confirmPassword.value">Senhas não são iguais</p>
+            </span>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+                <div class="d-flex align-items-center">
+                    <input type="checkbox"
+                           name="showHide"
+                           id="showHide"
+                           #showHide="ngModel"
+                           ngModel
+                           [value]="true">
+                    <label for="showHide" class="ml-2">
+                        <span *ngIf="showHide.value">Exibir</span>
+                        <span *ngIf="!showHide.value">Esconder</span> senha </label>
+                </div>
+            </div>
         </div>
-        <p-divider layout="vertical" styleClass="flex md:hidden" [align]="'center'"><b>OU</b></p-divider>
+          <div class="form-group form-floating col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            <p-button type="submit" class="btn btn-primary w-100 py-2" [disabled]="form.invalid || loading || (password.value != confirmPassword.value)">
+                Cadastrar
+            </p-button>
+        </div>
+        </div>
+        <p-divider layout="vertical" styleClass="flex md:hidden" [align]="'center'"></p-divider>
         <div [style]="{ width: '50%' }" class="d-flex flex-column justify-content-center align-items-center my-5">
             <img alt="Card" [style]="{ height: '300px', 'object-fit':'cover'}"
-          src="../../../../assets/img/62d46e72269561.5be1c86ef152a.png" />
+          src="../../../../assets/img/box_brain.jpg" />
+
+          <div class="row">
+            <p class="text-danger text-center col-12" *ngIf="erro">{{erro}}</p>
+            <p class="text-center col-12 mb-3">Ao clicar em "cadastrar" você concorda com os <a class="link" routerLink="./termos-de-uso">termos de uso</a> do zentech.</p>
+
+        </div>
         </div>
       </div>
 

@@ -36,14 +36,16 @@
         </div>
       </div>
       <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- Horário -->
+
+
         <label for="horario" class="mb-1 ms-1">Horário: <span class="text-danger">*</span></label>
-        <input pInputText
-               [mask]="'00:00'"
-               [showMaskTyped]="true"
-               name="horario"
-               id="horario"
+        <input
+
+     type="text" id="horario" name="horario" [(ngModel)]="objeto.horario" required pattern="^\d{2}:\d{2}:\d{2}\.\d{5}$"
+        pInputText
+
                #horario="ngModel"
-               [(ngModel)]="objeto.horario"
+
                pattern="\S(.*\S)?"
                (change)="objeto.horario = horario.value.trim(); "
                [required]="true">
@@ -60,10 +62,10 @@
                id="qtdMaxAlunos"
                name="qtdMaxAlunos"
                #qtdMaxAlunos="ngModel"
-               [(ngModel)]="objeto.qtdMaxAlunos"
+               [(ngModel)]="objeto.qtdeMaxAlunos"
                placeholder="ex: 12"
                pattern="\S(.*\S)?"
-               (change)="objeto.qtdMaxAlunos = qtdMaxAlunos.value.trim(); "
+               (change)="objeto.qtdeMaxAlunos = qtdMaxAlunos.value.trim(); "
                required />
         <div *ngIf="qtdMaxAlunos.touched && qtdMaxAlunos.errors">
           <p class="text-danger my-0 ms-1" *ngIf="qtdMaxAlunos.errors['required']">Este campo é obrigatório.</p>
@@ -115,7 +117,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
       <p-button icon="pi pi-check" (click)="voltar()" label="Salvar" [loading]="loading"
-                [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
+                [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"  (click)="send()"></p-button>
     </div>
   </ng-template>
 </p-dialog>

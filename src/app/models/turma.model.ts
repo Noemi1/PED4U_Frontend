@@ -12,10 +12,9 @@ export class TurmasList {
 
     export class Turmas {
       id: number = 0;
-      turmaId: number = '' as unknown as number;
       horario: string = '';
       diaSemana: number = '' as unknown as number;
-      qtdMaxAlunos: number = '' as unknown as number;
+      qtdeMaxAlunos: number = '' as unknown as number;
       educador_Id: number = '' as unknown as number;
       unidade_Id: number = '' as unknown as number;
     }

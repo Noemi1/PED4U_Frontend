@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Turmas } from '../../../../../../models/turma.model';
+import { TurmasService } from '../../../../../../services/turmas.service';
+import { insertOrReplace } from '../../../../../../helpers/service-list';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-form',
@@ -10,6 +13,7 @@ import { Turmas } from '../../../../../../models/turma.model';
 export class FormComponent {
     visible = true;
     loading = false;
+    erro: string = '';
     objeto: Turmas = new Turmas;
     dataVigencia: [Date, Date] = [new Date(2023, 1, 2), new Date(2023, 28, 2)];
     diaList = [
@@ -38,6 +42,7 @@ export class FormComponent {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
+        private turmaService: TurmasService
     ) {
 
     }
@@ -55,4 +60,36 @@ export class FormComponent {
         console.log(this.objeto)
 
     }
+
+    send() {
+      console.log('oi')
+      this.visible = false;
+      var mascara = this.objeto.horario
+      console.log(mascara)
+      console.log('Horário:', this.objeto.horario);
+      return lastValueFrom(this.turmaService.post(this.objeto))
+        .then(res => {
+          if (res.sucesso != false) {
+            if (res.objeto) {
+              insertOrReplace(this.turmaService, res.objeto)
+            } else {
+              lastValueFrom(this.turmaService.getList());
+            }
+            this.voltar();
+          } else {
+            this.erro = res.mensagem;
+          }
+          this.loading = false;
+          setTimeout(() => {
+            this.router.navigate(['..'], { relativeTo: this.route })
+          }, 300);
+          console.log(this.objeto)
+        })
+        .catch(res => {
+          console.error(res)
+
+        })
+
+    }
+
 }

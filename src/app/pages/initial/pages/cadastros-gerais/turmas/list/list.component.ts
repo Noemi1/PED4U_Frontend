@@ -22,6 +22,7 @@ export class ListComponent {
   ) {
     this.turmaService.getList().subscribe(res => {
       this.list = Object.assign([], res);
+      console.log('teste',this.list)
   })
   }
 

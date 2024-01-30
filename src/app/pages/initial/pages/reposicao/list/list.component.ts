@@ -20,7 +20,7 @@ export class ListComponent {
   constructor(private reposicaoService: ReposicaoService) {
     this.reposicaoService.getList().subscribe(res => {
       this.list = Object.assign([], res);
-
+      console.log(this.list)
     });
   }
 

@@ -27,7 +27,7 @@ export var reposicaoColumns: Column[] = [
       filterMatchMode: FilterMatchMode.EQUALS,
   },
   {
-      field: 'alta_Aula_Id',
+      field: 'falta_Aula_Id',
       header: ' Aulta Faltada',
       maskType: MaskType.dateTime,
       filterType: FilterType.date,
@@ -47,18 +47,7 @@ export var reposicaoColumns: Column[] = [
   showMatchMode: true,
   showOperator: false,
   filterMatchMode: FilterMatchMode.DATE_IS,
-},
-  {
-    field: 'materialExtra',
-    header: 'Material Extra',
-    maskType: MaskType.dateTime,
-    filterType: FilterType.date,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: true,
-    showOperator: false,
-    filterMatchMode: FilterMatchMode.DATE_IS,
-},
+}
 ];
 
 

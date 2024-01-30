@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { Turmas, TurmasList } from '../models/turma.model';
 import { environment } from '../../environments/environment.prod';
+import { Response } from '../helpers/request-response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -37,9 +38,9 @@ export class TurmasService {
         }));
     }
 
-    create(request: Turmas) {
-        return this.http.post(`${this.url}/Turma`, request);
-    }
+    post(request: Turmas) {
+      return this.http.post<Response>(`${this.url}/Turma`, request);
+  }
 
     edit(request: Turmas) {
         return this.http.put(`${this.url}/Turma`, request);
