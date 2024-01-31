@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from '../../../../../../models/aluno.model';
 import { NgForm } from '@angular/forms';
@@ -10,8 +10,8 @@ import { lastValueFrom } from 'rxjs';
     templateUrl: './form.component.html',
     styleUrl: './form.component.scss'
 })
-export class FormComponent {
-    visible = true;
+export class FormComponent implements OnDestroy {
+    visible = false;
     loading = false;
     objeto: Aluno = new Aluno;
     erro: string = '';
@@ -31,13 +31,18 @@ export class FormComponent {
         { id: 2, nome: 'Turma 2' },
         { id: 3, nome: 'Turma 3' },
     ];
+    
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private toastr: ToastrService,
         private alunoService: AlunoService
     ) {
+        this.visible = true;
+    }
 
+    ngOnDestroy(): void {
+        this.voltar()
     }
 
     voltar() {
@@ -46,12 +51,10 @@ export class FormComponent {
             this.router.navigate(['..'], { relativeTo: this.route })
         }, 300);
     }
+
     change(e: any) {
-        console.log(e)
-        console.log(this.dataVigencia)
         this.objeto.data_Vigencia_Inicial = this.dataVigencia[0];
         this.objeto.data_Vigencia_Final = this.dataVigencia[1];
-        console.log(this.objeto)
 
     }
 

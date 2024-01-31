@@ -2,5 +2,5 @@
 
 export const environment = {
     production: false,
-      url: 'https://localhost:7138'
+      url: 'https://localhost:44355'
 };

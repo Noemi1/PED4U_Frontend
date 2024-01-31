@@ -1,9 +1,9 @@
 import { LoadingService } from '../../../parts/loading/loading';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEnvelope, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom } from 'rxjs';
-import { Account, Login, Register } from '../../../models/account.model';
+import { Login, Register } from '../../../models/account.model';
 import { AccountService } from '../../../services/account.service';
 import { getError } from '../../../utils/error';
 
@@ -32,23 +32,22 @@ export class LoginComponent {
     ) {
         this.loadingHelper.loading.subscribe(res => this.loading = res);
         lastValueFrom(this.accountService.getList())
-        .then(res => {
-            this.loading = false
-        })
-        .catch(res => {
-            this.loading = false
-        })
+            .then(res => {
+                this.loading = false
+            })
+            .catch(res => {
+                this.loading = false
+            })
         var list = accountService.list.subscribe(res => this.list = res)
         console.log(list)
     }
 
     send() {
-      console.log('teste')
         this.loadingHelper.loading.next(true);
-        console.log(this.login)
         lastValueFrom(this.accountService.login(this.login))
             .then(res => { })
             .catch(res => {
+                this.loadingHelper.loading.next(false);
                 this.err = getError(res)
             });
     }

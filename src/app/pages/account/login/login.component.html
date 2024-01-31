@@ -1,59 +1,74 @@
-<div class="d-flex justify-content-center align-items-center">
-  <p-card header="Login" subheader="Insira e-mail e senha para acessar." [style]="{ width: '700px' }"
-          class="d-flex justify-content-center align-items-center">
-    <ng-template pTemplate="header">
-      <img alt="Card" [style]="{ height: '300px', 'object-fit':'cover'}"
-           src="../../../../assets/img/62d46e72269561.5be1c86ef152a.png" />
-    </ng-template>
-    <form #form="ngForm" (ngSubmit)="send()">
-      <div class="d-flex justify-content-center" [style]="{ width: '100%' }">
-        <div [style]="{ width: '50%' }">
-          <div class="row my-4">
-            <span class="p-float-label">
-              <input class="col-12 form-control"
-                     pInputText
-                     id="email"
-                     name="email"
-                     #email="ngModel"
-                     [(ngModel)]="login.email"
-                     placeholder="example@gmail.com"
-                     required
-                     [pattern]="emailPattern" />
-              <label for="email">E-mail</label>
-            </span>
-          </div>
-
-          <div class="row my-4">
-            <span class="p-float-label ">
-              <input class=" col-12 form-control"
-                     pInputText
-                     id="password"
-                     name="password"
-                     #password="ngModel"
-                     [(ngModel)]="login.password"
-                     placeholder="**"
-                     required
-                     minlength="6" />
-              <label for="password">Senha</label>
-            </span>
-          </div>
-
-          <div class="form-group ">
-            <p-button [class]="'d-flex justify-content-center'" type="submit" (click)="send()" [style]="{ 'background-color': '#eeae15' }" [disabled]="form.invalid || loading" class="btn btn-primary w-100 py-2">Entrar</p-button>
-          </div>
-        </div>
-        <p-divider layout="vertical" styleClass="flex md:hidden" [align]="'center'"><b>OU</b></p-divider>
-        <div [style]="{ width: '50%' }" class="d-flex flex-column justify-content-center align-items-center my-5">
-          <h4 class="my-2">Ainda não possui uma conta?</h4>
-          <p-button label="Me cadastrar" icon="pi pi-user-plus" styleClass="p-button-success w-10rem"  [routerLink]="['..', 'register']"></p-button>
-        </div>
-      </div>
-
-    </form>
-
-
-
-    <ng-template pTemplate="footer">
-
-    </ng-template>
-  </p-card>
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <p-card header="Login" subheader="Insira e-mail e senha para acessar." [style]="{ maxWidth: '750px' }"
+            class="d-flex justify-content-center align-items-center w-100"
+            styleClass="w-100">
+        <ng-template pTemplate="header">
+        </ng-template>
+        <form #form="ngForm" (ngSubmit)="send()">
+            <div class="d-flex flex-wrap">
+                <div class="col-md-6 col-sm-12 col-12">
+                    <div class="h-100 d-flex align-items-center justify-content-center flex-column">
+                        <div class="row w-100">
+                            <div class="form-group col-12 mb-2 px-0">
+                                <div class="form-floating">
+                                    <input
+                                        class="form-control"
+                                        id="email"
+                                        name="email"
+                                        #email="ngModel"
+                                        [(ngModel)]="login.email"
+                                        required
+                                        placeholder="example@gmail.com"
+                                        [pattern]="emailPattern" />
+                                        <label for="email">E-mail</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="form-group col-12 mb-2 px-0">
+                                <div class="form-floating">
+                                    <input
+                                        class="form-control"
+                                        id="password"
+                                        name="password"
+                                        #password="ngModel"
+                                        [(ngModel)]="login.password"
+                                        placeholder="**"
+                                        required
+                                        minlength="6" />
+                                    <label for="password">Senha</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="form-group col-12 mb-2 px-0">
+                                <p-button type="submit"
+                                    label="Entrar"
+                                    iconPos="right"
+                                    styleClass="w-100"
+                                    (click)="send()"
+                                    [disabled]="form.invalid || loading"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-divider layout="vertical"
+                            class="col-md-1 col-0 d-md-block d-none"
+                           [align]="'center'">
+                    <b>OU</b>
+                </p-divider>
+                <p-divider layout="horizontal"
+                            class="col-12 col-0 d-md-none d-block"
+                           [align]="'center'">
+                    <b>OU</b>
+                </p-divider>
+                <div class="col-md-5 col-sm-12 col-12">
+                    <div class="h-100 d-flex align-items-center justify-content-center flex-column">
+                        <h5 class="mb-3">Ainda não possui uma conta?</h5>
+                        <p-button label="Me cadastrar" icon="pi pi-user-plus" [routerLink]="['..', 'register']"></p-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <ng-template pTemplate="footer"></ng-template>
+    </p-card>

@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { Aluno, AlunoList } from '../models/aluno.model';
-import { environment } from '../../environments/environment.prod';
 import { Response } from '../helpers/request-response.interface';
+import { environment } from '../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
@@ -25,7 +25,7 @@ export class AlunoService {
                     this.list.next(Object.assign([], list));
                     return of(list);
                 },
-                error: res => this.toastr.error('Não foi possível carregar listagem de alunossss.')
+                error: res => this.toastr.error('Não foi possível carregar listagem de alunos.')
 
             }));
     }

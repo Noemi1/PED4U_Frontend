@@ -3,8 +3,8 @@
     <ng-template pTemplate="header">
       <app-breadcrumb></app-breadcrumb>
       <div class="d-flex align-items-center px-4">
-        <p-avatar icon="bi bi-backpack" styleClass="me-2" size="xlarge"></p-avatar>
-        <h3 class="p-card-title my-0">{{title}}</h3>
+        <p-avatar shape="circle" icon="bi bi-backpack" size="large"></p-avatar>
+        <h3 class="p-card-title my-0 ms-2">{{title}}</h3>
       </div>
     </ng-template>
     <ng-template pTemplate="body">
@@ -13,6 +13,7 @@
                [value]="list"
                dataKey="id"
                [rows]="10"
+               styleClass="striped"
                [showCurrentPageReport]="true"
                [rowsPerPageOptions]="[10, 25, 50]"
                currentPageReportTemplate="Mostrando de {first} até {last} do total de {totalRecords} registros"
@@ -64,8 +65,6 @@
 
           ></p-contextMenu>
         </ng-template>
-
-
         <ng-template pTemplate="emptymessage">
           <tr>
             <td colspan="7">Nenhum registro encontrado.</td>
@@ -76,4 +75,3 @@
   </p-card>
 </div>
 <p-contextMenu [model]="menuGlobal" [target]="page" [hidden]="loading"></p-contextMenu>
-<router-outlet></router-outlet>
