@@ -2,7 +2,7 @@ import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.i
 
 export class EducadoresList {
   id: number = 0;
-  nomeEducador: string = '';
+  name: string = '';
   idade: number = 0;
   sexo_Id: string = '';
   dataNascimento: Date = new Date;
@@ -25,7 +25,7 @@ export class Educadores {
 
 export var educadorColumns: Column[] = [
   {
-    field: 'nomeEducador',
+    field: 'name',
     header: ' Nome',
     maskType: MaskType.undefined,
     filterType: FilterType.text,
@@ -35,28 +35,8 @@ export var educadorColumns: Column[] = [
     showOperator: false,
 
   },
-  {
-    field: 'idade',
-    header: 'Idade',
-    maskType: MaskType.undefined,
-    filterType: FilterType.text,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: true,
-    showOperator: false,
 
-  },
-  {
-    field: 'genero',
-    header: 'Gênero',
-    maskType: MaskType.undefined,
-    filterType: FilterType.text,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: true,
-    showOperator: false,
 
-  },
   {
     field: 'email',
     header: 'E-mail',
@@ -68,17 +48,7 @@ export var educadorColumns: Column[] = [
     showOperator: false,
 
   },
-  {
-    field: 'telefone',
-    header: 'Telefone',
-    maskType: MaskType.undefined,
-    filterType: FilterType.text,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: true,
-    showOperator: false,
 
-  },
 
 
 ];

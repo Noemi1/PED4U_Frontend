@@ -32,6 +32,13 @@ export class NavigationComponent implements AfterViewInit {
 
                 },
                 {
+                  label: 'Usuários',
+                  icon: 'bi bi-person-video3',
+                  routerLink: 'usuarios',
+                  padding: 15,
+
+              },
+                {
                     label: 'Apostilas',
                     icon: 'bi bi-book',
                     routerLink: 'apostilas',

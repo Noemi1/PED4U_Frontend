@@ -18,13 +18,15 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { TermosDeUsoComponent } from './termos-de-uso/termos-de-uso.component';
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
     CreateAccountComponent,
     AccountComponent,
     LoginComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    TermosDeUsoComponent
   ],
   imports: [
     CommonModule,

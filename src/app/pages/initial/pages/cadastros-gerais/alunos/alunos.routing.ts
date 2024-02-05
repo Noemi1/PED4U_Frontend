@@ -7,7 +7,7 @@ import { DeleteComponent } from './delete/delete.component';
 const routes: Routes = [
     { path: '', component: ListComponent, children: [
         { path: 'cadastrar', component: FormComponent, title: 'Cadastrar aluno' },
-        { path: 'editar/:id', component: FormComponent, title: 'Cadastrar aluno' },
+        { path: 'editar/:id', component: FormComponent, title: 'Editar aluno' },
         { path: 'excluir/:id', component: DeleteComponent, title: 'Excluir aluno' },
     ] },
 ];

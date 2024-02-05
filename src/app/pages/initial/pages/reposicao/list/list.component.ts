@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { Table } from 'primeng/table';
 import { lastValueFrom } from 'rxjs';
 import { Reposicao, ReposicaoList, reposicaoColumns } from '../../../../../models/reposicao.model';
 import { ReposicaoService } from '../../../../../services/reposicao.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -14,20 +12,26 @@ import { ReposicaoService } from '../../../../../services/reposicao.service';
 export class ListComponent {
   columns = reposicaoColumns;
   title = 'Reposições'
-  list: ReposicaoList[] = [];
+  list: ReposicaoList []= [];
   loading: boolean = true;
+  objeto: Reposicao = new Reposicao;
+  visible = true;
+  subscription: Subscription[] = [];
 
-  constructor(private reposicaoService: ReposicaoService) {
-    this.reposicaoService.getList().subscribe(res => {
-      this.list = Object.assign([], res);
-      console.log(this.list)
-    });
+  constructor(private reposicaoService: ReposicaoService,
+  ) {
+    var list = this.reposicaoService.list.subscribe(res => this.list = Object.assign([], res));
+    this.subscription.push(list);
+    lastValueFrom(this.reposicaoService.getList(true));
+
+    }
+
+
+
+
+
   }
 
-  ngOnInit() {
 
 
-  }
 
-
-}

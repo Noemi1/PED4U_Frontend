@@ -1,9 +1,9 @@
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
-
+import { FilterMatchMode } from "primeng/api";
 export class AulaList {
   id: number = 0;
   descricao: string = '';
-  data: Date = new Date;
+  data:string = '';
   realizada: boolean = false;
   educadorNome: string = '';
   horario: string = '';
@@ -16,7 +16,7 @@ export class Aula {
   id: number = 0;
   descricao: string = '';
   turma_Id: number = '' as unknown as number;
-  data: Date = new Date;
+  data: string = '';
   realizada: boolean = false;
   educador_Id: number = '' as unknown as number
 
@@ -48,12 +48,14 @@ export var aulaColumns: Column[] = [
   {
     field: 'data',
     header: 'Data',
-    maskType: MaskType.dateTime,
-    filterType: FilterType.text,
+    mask: '00/00/0000',
+    maskType: MaskType.date,
+    filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,
     showAddButton: false,
-    showMatchMode: false,
+    showMatchMode: true,
     showOperator: false,
+    filterMatchMode: FilterMatchMode.DATE_IS,
 
   },
   {

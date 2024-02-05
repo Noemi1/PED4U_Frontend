@@ -8,6 +8,7 @@ import { FormComponent } from './form/form.component';
 import {  NgxMaskModule } from 'ngx-mask';
 import { DeleteComponent } from './delete/delete.component';
 import { TurmasRoutingModule } from './turmas.routing';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TurmasRoutingModule } from './turmas.routing';
     FormsModule,
     PrimengModule,
     SharedModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    CalendarModule
 
   ]
 })

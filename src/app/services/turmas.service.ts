@@ -47,7 +47,7 @@ export class TurmasService {
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/Turma/${id}`);
+        return this.http.delete<Response>(`${this.url}/Turma/${id}`);
     }
 
 }

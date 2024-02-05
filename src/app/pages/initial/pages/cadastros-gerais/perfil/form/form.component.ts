@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Perfil } from '../../../../../../models/perfil.model';
-
-
+import { PerfilService } from '../../../../../../services/perfil.service';
+import { lastValueFrom } from 'rxjs';
+import { insertOrReplace } from '../../../../../../helpers/service-list';
 @Component({
     selector: 'app-form',
     templateUrl: './form.component.html',
     styleUrl: './form.component.scss'
 })
 export class FormComponent {
+  erro: string = ''
     visible = true;
     loading = false;
     objeto: Perfil = new Perfil;
@@ -37,6 +39,7 @@ export class FormComponent {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
+        private perfilService: PerfilService
     ) {
 
     }
@@ -53,4 +56,34 @@ export class FormComponent {
         console.log(this.objeto)
 
     }
+
+    send() {
+      console.log('oi')
+      this.visible = false;
+      return lastValueFrom(this.perfilService.post(this.objeto))
+        .then(res => {
+          if (res.sucesso != false) {
+            if (res.objeto) {
+              insertOrReplace(this.perfilService, res.objeto)
+            } else {
+              lastValueFrom(this.perfilService.getList());
+            }
+            this.voltar();
+          } else {
+            this.erro = res.mensagem;
+            this.voltar();
+          }
+          this.loading = false;
+          // setTimeout(() => {
+          //   this.router.navigate(['..'], { relativeTo: this.route })
+          // }, 300);
+          console.log(this.objeto)
+        })
+        .catch(res => {
+          console.error(res)
+
+        })
+
+    }
+
 }

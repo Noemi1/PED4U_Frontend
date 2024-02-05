@@ -2,22 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
-import { Aula, AulaList } from '../models/aula.model';
 import { environment } from '../../environments/environment.prod';
+import { Aula, AulaList } from '../models/aula.model';
 import { Response } from '../helpers/request-response.interface';
-
 @Injectable({
     providedIn: 'root'
 })
 export class AulaService {
     url = environment.url;
+
     list = new BehaviorSubject<AulaList[]>([]);
     loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+    private readonly TOKEN_NAME = 'teste'
     constructor(
         private http: HttpClient,
         private toastr: ToastrService,
-    ) { }
+    ) {
+
+      this.loading.next(!!this.TOKEN_NAME)
+     }
+
+
 
     getList( loading: boolean = false) {
       this.loading.next(loading);
@@ -28,10 +34,9 @@ export class AulaService {
                    this.list.next(Object.assign([], list));
                    return of(list);
                },
-               error: res => this.toastr.error('Não foi possível carregar listagem de beneficiários.')
+               error: res => this.toastr.error('Não foi possível carregar listagem de Aula.')
            }));
    }
-
 
     get(id: number) {
         return this.http.get<Aula>(`${this.url}/Aula/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
@@ -40,7 +45,7 @@ export class AulaService {
         }));
     }
 
-    post(request: Aula) {
+   post(request: Aula) {
         return this.http.post<Response>(`${this.url}/Aula`, request);
     }
 
@@ -49,7 +54,7 @@ export class AulaService {
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/Aula/${id}`);
+        return this.http.delete<Response>(`${this.url}/Aula/${id}`);
     }
 
 }

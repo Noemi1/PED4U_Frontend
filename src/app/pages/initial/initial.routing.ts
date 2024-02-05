@@ -8,7 +8,7 @@ const perfil = () => import('./pages/cadastros-gerais/perfil/perfil.module').the
 const professores = () => import('./pages/cadastros-gerais/professores/professores.module').then(res => res.ProfessoresModule);
 const aulas = () => import('./pages/aulas/aulas.module').then(res => res.AulasModule);
 const unidades = () => import('./pages/unidades/unidades.module').then(res => res.UnidadesModule);
-const usuarios = () => import('./pages/usuarios/usuarios.module').then(res => res.UsuariosModule);
+const usuarios = () => import('./pages/cadastros-gerais/usuarios/usuario.module').then(res => res.UsuarioModule);
 const turmas = () => import('./pages/cadastros-gerais/turmas/turmas.module').then(res => res.TurmasModule);
 const reposicoes = () => import('./pages/reposicao/reposicao.module').then(res => res.ReposicaoModule);
 

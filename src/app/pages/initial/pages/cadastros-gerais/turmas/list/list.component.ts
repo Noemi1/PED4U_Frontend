@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { TurmasService } from '../../../../../../services/turmas.service';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { TurmasList } from '../../../../../../models/turma.model';
 import { turmasColumns } from '../../../../../../models/turma.model';
+import { Crypto } from '../../../../../../../utils/crypto';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Turmas } from '../../../../../../models/turma.model';
 
 @Component({
   selector: 'app-list',
@@ -14,22 +18,21 @@ export class ListComponent {
   title = 'Turmas'
   list: TurmasList[] = [];
   loading: boolean = true;
-
-
+  subscription: Subscription []= []
+  objeto:Turmas= new Turmas;
+  visible = true;
 
   constructor(
-    private turmaService: TurmasService
+    private turmaService: TurmasService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private crypto: Crypto,
   ) {
-    this.turmaService.getList().subscribe(res => {
-      this.list = Object.assign([], res);
-      console.log('teste',this.list)
-  })
+    var list = this.turmaService.list.subscribe(res => this.list = Object.assign([], res));
+    this.subscription.push(list);
+    lastValueFrom(this.turmaService.getList(true));
   }
 
-  ngOnInit() {
-
-
-  }
 
 
 }

@@ -34,7 +34,7 @@
           </div>
       </div>
       <div class="d-flex flex-column mb-2 col-sm-6 col-12"> <!-- Nome -->
-        <label for="qtdePaginas" class="mb-1 ms-1">qtdePaginas: <span class="text-danger">*</span></label>
+        <label for="qtdePaginas" class="mb-1 ms-1">Quantidade de páginas: <span class="text-danger">*</span></label>
         <input type="numer"
                pInputText
                name="qtdePaginas"
@@ -51,7 +51,17 @@
         </div>
     </div>
   </div>
-
+      <label for="realizada" class="mb-1 ms-1 ">Realizada: <span class="text-danger">*</span></label>
+      <p-checkbox [(ngModel)]="objeto.materialExtra"
+                  [binary]="true"
+                  inputId="binary"
+                  name="materialExtra"
+                  id="materialExtra"
+                  name="materialExtra"
+                  #materialExtra="ngModel"
+                  [(ngModel)]="objeto.materialExtra"
+                  placeholder="Material Extra"
+                  pattern="\S(.*\S)?"></p-checkbox>
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">

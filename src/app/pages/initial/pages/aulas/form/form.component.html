@@ -11,7 +11,7 @@
   <ng-template pTemplate="header">
     <div class="d-flex align-items-center justify-content-center gap-2">
       <p-avatar icon="bi bi-backpack" shape="circle" size="large" />
-      <h2 class="font-bold white-space-nowrap">Cadastrar</h2>
+      <h2 class="font-bold white-space-nowrap">{{title}}</h2>
     </div>
   </ng-template>
   <form #form="ngForm">
@@ -35,9 +35,9 @@
     </div>
     </div>
     <div class="row">
-      <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-4"><!-- Perfil -->
-        <label for="turma_Id" class="mb-1 ms-1">Turma: <span class="text-danger">*</span></label>
-        <p-dropdown [options]="turmaList"
+      <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-4">
+        <label for="turma_Id" class="mb-1 ms-1">Turmas: <span class="text-danger">*</span></label>
+        <p-dropdown [options]="turmas"
                     appendTo="body"
                     class="w-100"
                     styleClass="w-100"
@@ -45,7 +45,7 @@
                     name="turma_Id"
                     #turma_Id="ngModel"
                     [(ngModel)]="objeto.turma_Id"
-                    optionLabel="nome"
+                    optionLabel="id"
                     optionValue="id"
                     [showClear]="false"
                     placeholder="Selecione"
@@ -55,8 +55,8 @@
         </div>
     </div>
     <div class="d-flex flex-column mb-3 col-sm-3 col-3"> <!-- Data de Nascimento -->
-      <label for="data" class="mb-1 ms-1">Data de Nascimento: <span class="text-danger">*</span></label>
-      <p-calendar dateFormat="dd/mm/yy"
+      <label for="data" class="mb-1 ms-1">Data: <span class="text-danger">*</span></label>
+      <p-calendar dateFormat="yy/mm/dd"
                   [showIcon]="true"
                   [iconDisplay]="'input'"
                   [showButtonBar]="true"

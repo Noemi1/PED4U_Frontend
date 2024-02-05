@@ -10,7 +10,7 @@ export class AlunoList {
     horarioTurma: string = '';
     diaTurma: number = 0;
     perfilAluno: string = '';
-    dataVigencia: Date = new Date;
+    dataVigencia: string = '';
 
 }
 
@@ -19,10 +19,10 @@ export class Aluno {
     pessoa_Id: string = '';
     turma_Id: number = '' as unknown as number;
     perfil_Id: number = '' as unknown as number;
-    data_Vigencia_Inicial: Date = new Date;
-    data_Vigencia_Final: Date = new Date;
+    data_Vigencia_Inicial: string = '';
+    data_Vigencia_Final: string = '';
     nome: string = '';
-    dataNascimento: Date = new Date;
+    dataNascimento: string = '';
     celular: string = '';
     sexo_Id:  number = '' as unknown as number;
 }

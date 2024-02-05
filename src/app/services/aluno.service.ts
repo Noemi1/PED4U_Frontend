@@ -1,10 +1,13 @@
+import { AlunoList } from './../models/aluno.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
-import { Aluno, AlunoList } from '../models/aluno.model';
-import { environment } from '../../environments/environment.prod';
 import { Response } from '../helpers/request-response.interface';
+import { environment } from '../../environments/environment.prod';
+
+import { Aluno } from './../models/aluno.model';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -18,22 +21,26 @@ export class AlunoService {
         private toastr: ToastrService,
     ) { }
 
-    getList(loading: boolean = false) {
-        return this.http.get<AlunoList[]>(`${this.url}/Aluno`)
-            .pipe(tap({
-                next: list => {
-                    this.list.next(Object.assign([], list));
-                    return of(list);
-                },
-                error: res => this.toastr.error('Não foi possível carregar listagem de alunossss.')
+    getList(/* empresaId?: number, */ loading: boolean = false) {
+      this.loading.next(loading);
 
-            }));
-    }
+       // empresaId = empresaId ?? this.empresaService.empresaSelected.value.id ?? '' as unknown as number ;
+       return this.http.get<AlunoList[]>(`${this.url}/Aluno` /*/list/${empresaId} */)
+           .pipe(tap({
+               next: list => {
+                   this.loading.next(false);
+                   this.list.next(Object.assign([], list));
+                   return of(list);
+               },
+               error: res => this.toastr.error('Não foi possível carregar listagem de Alunos.')
+
+           }));
+   }
 
     get(id: number) {
         return this.http.get<Aluno>(`${this.url}/Aluno/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
         .pipe(tap({
-            error: res => this.toastr.error('Não foi possível carregar aluno.')
+            error: res => this.toastr.error('Não foi possível carregar Alunos.')
         }));
     }
 
@@ -46,7 +53,7 @@ export class AlunoService {
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/Aluno/${id}`);
+        return this.http.delete<Response>(`${this.url}/Aluno/${id}`);
     }
 
 }

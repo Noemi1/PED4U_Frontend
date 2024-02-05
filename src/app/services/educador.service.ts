@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { Educadores, EducadoresList } from '../models/educadores.model';
 import { environment } from '../../environments/environment.prod';
+import { Response } from '../helpers/request-response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ export class EducadorService {
     ) { }
 
     getList(loading: boolean = false) {
-        return this.http.get<EducadoresList[]>(`${this.url}/Educadores`)
+        return this.http.get<EducadoresList[]>(`${this.url}/Usuario/educador-list`)
             .pipe(tap({
                 next: list => {
                     this.list.next(Object.assign([], list));
@@ -31,22 +32,22 @@ export class EducadorService {
     }
 
     get(id: number) {
-        return this.http.get<Educadores>(`${this.url}/Educadores/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
-        .pipe(tap({
-            error: res => this.toastr.error('Não foi possível carregar Educador.')
-        }));
-    }
+      return this.http.get<Educadores>(`${this.url}/Usuario/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
+      .pipe(tap({
+          error: res => this.toastr.error('Não foi possível carregar Turmas.')
+      }));
+  }
 
-    create(request: Educadores) {
-        return this.http.post(`${this.url}/Educadores`, request);
+    post(request: Educadores) {
+        return this.http.post<Response>(`${this.url}/Usuario`, request);
     }
 
     edit(request: Educadores) {
-        return this.http.put(`${this.url}/Educadores`, request);
+        return this.http.put(`${this.url}/Usuario`, request);
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/Educadores/${id}`);
+        return this.http.delete<Response>(`${this.url}/Usuario/${id}`);
     }
 
 }

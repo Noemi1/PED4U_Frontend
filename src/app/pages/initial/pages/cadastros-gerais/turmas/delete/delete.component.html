@@ -20,7 +20,7 @@
     <ng-template pTemplate="footer">
         <div class="d-flex align-items-center justify-content-between">
             <p-button severity="secondary" (click)="voltar()" label="Voltar" ></p-button>
-            <p-button severity="primary" icon="pi pi-trash" (click)="voltar()" label="Excluir" [loading]="loading" [disabled]="loading" pAutoFocus [autofocus]="true"></p-button>
+            <p-button severity="primary" icon="pi pi-trash" (click)="send($event)" label="Excluir" [loading]="loading" [disabled]="loading" pAutoFocus [autofocus]="true"></p-button>
         </div>
     </ng-template>
 </p-dialog>

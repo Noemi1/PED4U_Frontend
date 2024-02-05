@@ -14,6 +14,7 @@ import { getError } from '../../../utils/error';
 })
 export class LoginComponent {
     login = new Login;
+    erro: string = ''
     loading: boolean = false;
     rememberMe: boolean = false;
     showHide: boolean = false;

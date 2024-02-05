@@ -11,10 +11,10 @@
     <ng-template pTemplate="header">
         <div class="d-flex align-items-center justify-content-center gap-2">
             <p-avatar icon="bi bi-backpack" shape="circle" size="large" />
-            <h2 class="font-bold white-space-nowrap">Cadastrar</h2>
+            <h2 class="font-bold white-space-nowrap">{{title}}</h2>
         </div>
     </ng-template>
-    <form #form="ngForm" (ngSubmit)="send(form)">
+    <form #form="ngForm">
         <div class="row">
             <div class="d-flex flex-column mb-2 col-sm-6 col-12"> <!-- Nome -->
                 <label for="nome" class="mb-1 ms-1">Nome: <span class="text-danger">*</span></label>
@@ -38,17 +38,18 @@
                 <label for="celular" class="mb-1 ms-1">Celular: <span class="text-danger">*</span></label>
                 <input pInputText
                        [mask]="'+00 (00) 0.0000-0000 || +00 (00) 0000-0000 || (00) 0.0000-0000 || (00) 0000-0000 || 0.0000-0000 || 0000-0000'"
-                       [showMaskTyped]="true"
                        name="celular"
                        id="celular"
                        #celular="ngModel"
+                       [placeholder]="'0000-00000'"
                        [(ngModel)]="objeto.celular"
                        pattern="\S(.*\S)?"
                        (change)="objeto.celular = celular.value.trim(); "
-                       [required]="true">
+                       [required]="true"
+                       >
                 <div *ngIf="celular.touched && celular.errors">
                     <p class="text-danger my-0 ms-1" *ngIf="celular.errors['required']">Este campo é obrigatório.</p>
-                    <p class="text-danger my-0 ms-1" *ngIf="celular.errors['mask']">Celular inválidoS.</p>
+                    <p class="text-danger my-0 ms-1" *ngIf="celular.errors['mask']">Celular inválido.</p>
                 </div>
             </div>
             <div class="d-flex flex-column mb-2 col-sm-3 col-6"> <!-- Data de Nascimento -->
@@ -70,28 +71,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="d-flex flex-column mb-2 col-md-4 col-sm-12 col-12"> <!-- Data de Vigência -->
-                <label for="dataVigencia" class="mb-1 ms-1">Data de Vigência: <span class="text-danger">*</span></label>
-                <p-calendar dateFormat="dd/mm/yy"
-                            [showIcon]="true"
-                            [iconDisplay]="'input'"
-                            [showButtonBar]="true"
-                            appendTo="body"
-                            selectionMode="range"
-                            name="dataVigencia"
-                            id="dataVigencia"
-                            class="w-100"
-                            styleClass="w-100"
-                            #_dataVigencia="ngModel"
-                            [readonlyInput]="true"
-                            [(ngModel)]="dataVigencia"
-                            (onSelect)="change($event)"
-                            (onClear)="change($event)"
-                            [required]="true"></p-calendar>
-                <div *ngIf="_dataVigencia.touched && _dataVigencia.errors">
-                    <p class="text-danger my-0 ms-1" *ngIf="_dataVigencia.errors['required']">Este campo é obrigatório.</p>
-                </div>
+          <div class="d-flex flex-column mb-2 col-md-4 col-sm-12 col-12"> <!-- Data de Vigência -->
+            <label for="dataVigencia" class="mb-1 ms-1">Data de Vigência: <span class="text-danger">*</span></label>
+            <p-calendar dateFormat="dd/mm/yy"
+                        [showIcon]="true"
+                        [iconDisplay]="'input'"
+                        [showButtonBar]="true"
+                        appendTo="body"
+                        selectionMode="range"
+                        name="dataVigencia"
+                        id="dataVigencia"
+                        class="w-100"
+                        styleClass="w-100"
+                        #_dataVigencia="ngModel"
+                        [readonlyInput]="true"
+                        [(ngModel)]="dataVigencia"
+                        (onSelect)="change($event)"
+                        (onClear)="change($event)"
+                        [required]="true"></p-calendar>
+            <div *ngIf="_dataVigencia.touched && _dataVigencia.errors">
+                <p class="text-danger my-0 ms-1" *ngIf="_dataVigencia.errors['required']">Este campo é obrigatório.</p>
             </div>
+        </div>
+
             <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Perfil -->
                 <label for="perfil_Id" class="mb-1 ms-1">Perfil: <span class="text-danger">*</span></label>
                 <p-dropdown [options]="perfiList"
@@ -111,6 +113,25 @@
                     <p class="text-danger my-0 ms-1" *ngIf="perfil_Id.errors['required']">Este campo é obrigatório.</p>
                 </div>
             </div>
+            <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Perfil -->
+              <label for="pessoa_Id" class="mb-1 ms-1">Perfil: <span class="text-danger">*</span></label>
+              <p-dropdown [options]="perfiList"
+                          appendTo="body"
+                          class="w-100"
+                          styleClass="w-100"
+                          inputId="pessoa_Id"
+                          name="pessoa_Id"
+                          #pessoa_Id="ngModel"
+                          [(ngModel)]="objeto.pessoa_Id"
+                          optionLabel="nome"
+                          optionValue="id"
+                          [showClear]="false"
+                          placeholder="Selecione o perfil do aluno"
+                          [required]="true"></p-dropdown>
+              <div *ngIf="pessoa_Id.touched && pessoa_Id.errors">
+                  <p class="text-danger my-0 ms-1" *ngIf="pessoa_Id.errors['required']">Este campo é obrigatório.</p>
+              </div>
+          </div>
             <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Turma -->
                 <label for="turma_Id" class="mb-1 ms-1">Turma: <span class="text-danger">*</span></label>
                 <p-dropdown [options]="turmaList"
@@ -170,7 +191,7 @@
     <ng-template pTemplate="footer">
         <div class="d-flex align-items-center justify-content-between">
             <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
-            <p-button icon="pi pi-check" (click)="voltar()" label="Salvar" [loading]="loading" [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
+            <p-button icon="pi pi-check" (click)="send()" label="Salvar" [loading]="loading" [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
         </div>
     </ng-template>
 </p-dialog>

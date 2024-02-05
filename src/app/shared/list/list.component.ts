@@ -1,3 +1,4 @@
+
 import { Crypto } from './../../../utils/crypto';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -23,17 +24,20 @@ export class ListSharedComponent {
 
   openContextMenu(event: Event, menu: ContextMenu, item: any) {
     event.preventDefault();
-
-    this.idClicado = item.id;
-
+    if (item.id){
+      this.idClicado = item.id;
+    }
+    else if (item.alunoId){
+      this.idClicado = item.alunoId;
+    }
     console.log(this.idClicado)
     // Fecha todos os menus antes de abrir o menu associado ao item clicado
     this.closeAllContextMenus();
 
-    // Abre o menu associado ao item clicado
     menu.toggle(event);
 
   }
+
 
   closeAllContextMenus() {
     // Fecha todos os menus
@@ -73,10 +77,14 @@ export class ListSharedComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
+
   ) {
 
 
   }
+
+
+
 
   navigateToEditar() {
     if (this.idClicado !== undefined) {
