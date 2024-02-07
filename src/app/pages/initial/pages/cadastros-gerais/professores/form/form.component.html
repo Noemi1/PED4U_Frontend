@@ -8,93 +8,95 @@
           [maximizable]="true"
           [closable]="true"
           [closeOnEscape]="true">
-    <ng-template pTemplate="header">
-        <div class="d-flex align-items-center justify-content-center gap-2">
-            <p-avatar icon="bi bi-backpack" shape="circle" size="large" />
-            <h2 class="font-bold white-space-nowrap">{{title}}</h2>
-        </div>
-    </ng-template>
-    <form #form="ngForm">
-        <div class="row">
-          <div class="d-flex flex-column mb-4 col-sm-4 col-4"> <!-- Nome do Educador  -->
-            <label for="nomeEducador" class="mb-1 ms-1"> Nome do Educador : <span class="text-danger">*</span></label>
-            <input type="text"
-                   pInputText
-                   name="nomeEducador"
-                   id="nomeEducador"
-                   name="nomeEducador"
-                   #nomeEducador="ngModel"
-                   [(ngModel)]="objeto.nomeEducador"
-                   pattern="\S(.*\S)?"
-                   (change)="objeto.nomeEducador = nomeEducador.value.trim(); "
-                   required />
-            <div *ngIf="nomeEducador.touched && nomeEducador.errors">
-              <p class="text-danger my-0 ms-1" *ngIf="nomeEducador.errors['required']">Este campo é obrigatório.</p>
-            </div>
+  <ng-template pTemplate="header">
+    <div class="d-flex align-items-center justify-content-center gap-2">
+      <p-avatar icon="bi bi-backpack" shape="circle" size="large" />
+      <h2 class="font-bold white-space-nowrap">{{title}}</h2>
+    </div>
+  </ng-template>
+  <form #form="ngForm">
+    <div class="row">
+      <div class="d-flex flex-column mb-2 col-sm-6 col-12"> <!-- Nome -->
+          <label for="name" class="mb-1 ms-1">Nome: <span class="text-danger">*</span></label>
+          <input type="text"
+                 pInputText
+                 name="name"
+                 id="name"
+                 name="name"
+                 #name="ngModel"
+                 [(ngModel)]="objeto.name"
+                 placeholder="name"
+                 pattern="\S(.*\S)?"
+                 (change)="objeto.name = name.value.trim(); "
+                 required />
+          <div *ngIf="name.touched && name.errors">
+              <p class="text-danger my-0 ms-1" *ngIf="name.errors['required']">Este campo é obrigatório.</p>
           </div>
-          <div class="d-flex flex-column mb-4 col-sm-3 col-3"> <!-- Data de Nascimento -->
-            <label for="dataNascimento" class="mb-1 ms-1">Data de Nascimento: <span class="text-danger">*</span></label>
-            <p-calendar dateFormat="dd/mm/yy"
-                        [showIcon]="true"
-                        [iconDisplay]="'input'"
-                        [showButtonBar]="true"
-                        appendTo="body"
-                        name="dataNascimento"
-                        id="dataNascimento"
-                        #dataNascimento="ngModel"
-                        [placeholder]="'dd/mm/yyyy'"
-                        [(ngModel)]="objeto.dataNascimento"
-                        [required]="true"></p-calendar>
-            <div *ngIf="dataNascimento.touched && dataNascimento.errors">
-                <p class="text-danger my-0 ms-1" *ngIf="dataNascimento.errors['required']">Este campo é obrigatório.</p>
-            </div>
+      </div>
+      <div class="d-flex flex-column mb-2 col-sm-3 col-6"> <!-- Celular -->
+        <label for="telefoneCelular" class="mb-1 ms-1">Telefone/Celular: <span class="text-danger">*</span></label>
+        <input pInputText
+               [mask]="'+00 (00) 0.0000-0000 || +00 (00) 0000-0000 || (00) 0.0000-0000 || (00) 0000-0000 || 0.0000-0000 || 0000-0000'"
+               name="telefoneCelular"
+               id="telefoneCelular"
+               #telefoneCelular="ngModel"
+               [placeholder]="'0000-00000'"
+               [(ngModel)]="objeto.telefoneCelular"
+               pattern="\S(.*\S)?"
+               (change)="objeto.telefoneCelular = telefoneCelular.value.trim(); "
+               [required]="true"
+               >
+        <div *ngIf="telefoneCelular.touched && telefoneCelular.errors">
+            <p class="text-danger my-0 ms-1" *ngIf="telefoneCelular.errors['required']">Este campo é obrigatório.</p>
+            <p class="text-danger my-0 ms-1" *ngIf="telefoneCelular.errors['mask']">Celular inválido.</p>
         </div>
-
-        </div>
-        <div class="row">
-          <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- E-mail  -->
-            <label for="email" class="mb-1 ms-1"> E-mail : <span class="text-danger">*</span></label>
-            <input type="email"
-                   pInputText
-                   name="email"
-                   id="email"
-                   name="email"
-                   #email="ngModel"
-                   [(ngModel)]="objeto.email"
-                   placeholder="exemplo@gmail.com"
-                   pattern="\S(.*\S)?"
-                   (change)="objeto.email = email.value.trim(); "
-                   required />
-            <div *ngIf="email.touched && email.errors">
-              <p class="text-danger my-0 ms-1" *ngIf="email.errors['required']">Este campo é obrigatório.</p>
-            </div>
-          </div>
-          <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- Telefone -->
-            <label for="telefone" class="mb-1 ms-1">Telefone: <span class="text-danger">*</span></label>
-            <input pInputText
-                   [mask]="'+00 (00) 0.0000-0000 || +00 (00) 0000-0000 || (00) 0.0000-0000 || (00) 0000-0000 || 0.0000-0000 || 0000-0000'"
-                   [showMaskTyped]="true"
-                   name="telefone"
-                   id="telefone"
-                   #telefone="ngModel"
-                   [(ngModel)]="objeto.telefone"
-                   pattern="\S(.*\S)?"
-                   (change)="objeto.telefone = telefone.value.trim(); "
-                   [required]="true">
-            <div *ngIf="telefone.touched && telefone.errors">
-                <p class="text-danger my-0 ms-1" *ngIf="telefone.errors['required']">Este campo é obrigatório.</p>
-                <p class="text-danger my-0 ms-1" *ngIf="telefone.errors['mask']">Telefone inválidoS.</p>
-            </div>
-        </div>
-
-
-        </div>
-
-    </form>
-    <ng-template pTemplate="footer">
-        <div class="d-flex align-items-center justify-content-between">
-            <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
-            <p-button icon="pi pi-check" (click)="voltar()" label="Salvar" [loading]="loading" [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
-        </div>
-    </ng-template>
+    </div>
+  </div>
+  <div class="row">
+    <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- E-mail  -->
+      <label for="email" class="mb-1 ms-1"> E-mail : <span class="text-danger">*</span></label>
+      <input type="email"
+             pInputText
+             name="email"
+             id="email"
+             name="email"
+             #email="ngModel"
+             [(ngModel)]="objeto.email"
+             placeholder="exemplo@gmail.com"
+             pattern="\S(.*\S)?"
+             (change)="objeto.email = email.value.trim(); "
+             required />
+      <div *ngIf="email.touched && email.errors">
+        <p class="text-danger my-0 ms-1" *ngIf="email.errors['required']">Este campo é obrigatório.</p>
+      </div>
+    </div>
+    <!-- Turma -->
+    <!-- <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
+      <label for="perfilAcesso_Id" class="mb-1 ms-1">Turma: <span class="text-danger">*</span></label>
+      <p-dropdown [options]="perfiList"
+                  appendTo="body"
+                  class="w-100"
+                  styleClass="w-100"
+                  inputId="perfilAcesso_Id"
+                  name="perfilAcesso_Id"
+                  #perfilAcesso_Id="ngModel"
+                  [(ngModel)]="objeto.perfilAcesso_Id"
+                  optionLabel="nome"
+                  optionValue="id"
+                  [showClear]="false"
+                  placeholder="Selecione a turma"
+                  [required]="true"></p-dropdown>
+      <div *ngIf="perfilAcesso_Id.touched && perfilAcesso_Id.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="perfilAcesso_Id.errors['required']">Este campo é obrigatório.</p>
+      </div>
+  </div> -->
+</div>
+  </form>
+  <ng-template pTemplate="footer">
+    <div class="d-flex align-items-center justify-content-between">
+      <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
+      <p-button icon="pi pi-check" (click)="send()" label="Salvar" [loading]="loading"
+                [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
+    </div>
+  </ng-template>
 </p-dialog>

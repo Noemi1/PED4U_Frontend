@@ -7,11 +7,7 @@ export class UsuarioList {
   name: string = '';
   telefoneCelular: number = 0;
   email: string = '';
-  created: string = '';
-  updated: string | null = null;
-  isVerified: boolean = false;
-  dataDesativado: string | null = null;
-  perfilAcesso: string = '';
+
 }
 
 export class Usuario {
@@ -20,11 +16,7 @@ export class Usuario {
   name: string = '';
   telefoneCelular: number = '' as unknown as number;
   email: string = '';
-  created: string = '';
-  updated: string | null = null;
-  isVerified: boolean = false;
-  dataDesativado: string | null = null;
-  perfilAcesso: string = '';
+
 }
 
 
@@ -41,7 +33,7 @@ export var usuarioColumns: Column[] = [
     filterMatchMode: FilterMatchMode.EQUALS,
   },
   {
-    field: 'nome',
+    field: 'name',
     header: ' nome',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
@@ -52,8 +44,8 @@ export var usuarioColumns: Column[] = [
     filterMatchMode: FilterMatchMode.DATE_IS,
   },
   {
-    field: 'qtdePaginas',
-    header: 'Quantidade de Páginas',
+    field: 'telefoneCelular',
+    header: 'Telefone/Celular',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,
@@ -63,8 +55,8 @@ export var usuarioColumns: Column[] = [
     filterMatchMode: FilterMatchMode.DATE_IS,
   },
   {
-    field: 'materialExtra',
-    header: 'Material Extra',
+    field: 'email',
+    header: 'E-mail',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { Response } from '../helpers/request-response.interface';
 import { environment } from '../../environments/environment.prod';
+import { EducadoresList } from '../models/educadores.model';
 
 
 
@@ -14,12 +15,50 @@ import { environment } from '../../environments/environment.prod';
 export class UsuarioService {
     url = environment.url;
     list = new BehaviorSubject<UsuarioList[]>([]);
+    educadores = new BehaviorSubject<UsuarioList[]>([]);
     loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         private http: HttpClient,
         private toastr: ToastrService,
     ) { }
+
+
+
+
+    getEducador( loading: boolean = false) {
+      this.loading.next(loading);
+
+
+       return this.http.get<UsuarioList[]>(`${this.url}/Usuario/educador-list` )
+           .pipe(tap({
+               next: list => {
+                   this.loading.next(false);
+                   this.educadores.next(Object.assign([], list));
+                   console.log('listt', list)
+                   return of(list);
+
+               },
+               error: res => this.toastr.error('Não foi possível carregar listagem de educadores.')
+
+           }));
+   }
+
+
+
+
+
+    getPerfil() {
+      return this.http.get<any>(`${this.url}/Usuario/perfil-list`)
+        .pipe(
+          tap({
+            next: list => {
+             console.log(list)
+            },
+            error: res => this.toastr.error('Não foi possível carregar listagem de perfil.')
+          })
+        );
+    }
 
     getList( loading: boolean = false) {
       this.loading.next(loading);
@@ -47,6 +86,10 @@ export class UsuarioService {
     post(request: Usuario) {
         return this.http.post<Response>(`${this.url}/Usuario`, request);
     }
+
+    put(request: Usuario) {
+      return this.http.put<Response>(`${this.url}/Usuario`, request);
+  }
 
     edit(request: Usuario) {
         return this.http.put(`${this.url}/Usuario`, request);

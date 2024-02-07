@@ -40,31 +40,35 @@ export class DeleteComponent {
   send(event: any) {
     this.loading = true;
     this.erro = '';
-    console.log('id', this.id)
+    console.log('id', this.id);
     lastValueFrom(this.usuarioService.delete(this.id))
-        .then(res => {
-            this.loading = false;
-            if (res.sucesso || res.sucesso==undefined ) {
-                if (res.objeto) {
-                    remove(this.usuarioService, res.objeto)
-                    this.voltar();
-                } else {
-                    lastValueFrom(this.usuarioService.getList());
-                    this.voltar();
-                }
-            } else {
-                this.erro = res.mensagem;
-                console.log('Erro no sucesso:', this.erro);
-            }
-        })
-        .catch(res => {
-            this.loading = false;
-            this.erro = getError(res);
-            console.error('Erro no catch:', this.erro);
-            // Adicione um console.log para o status HTTP, se disponível
-            console.error('Status HTTP:', res?.response?.status);
-        })
-}
+      .then(res => {
+        this.loading = false;
+        if (res && (res.sucesso != false || res.sucesso === undefined)) {
+          if (res.objeto) {
+            remove(this.usuarioService, res.objeto, 'usuario');
+            this.voltar();
+          } else {
+            console.log('oooi');
+            lastValueFrom(this.usuarioService.getList());
+            this.voltar();
+          }
+        } else {
+          this.erro = res ? res.mensagem : 'Erro desconhecido';
+          console.log('Erro no sucesso:', this.erro);
+          lastValueFrom(this.usuarioService.getList());
+          this.voltar();
+        }
+      })
+      .catch(res => {
+        this.loading = false;
+        this.voltar();
+        this.erro = getError(res);
+        lastValueFrom(this.usuarioService.getEducador());
+        console.error('Erro no catch:', this.erro);
+        console.error('Status HTTP:', res?.response?.status);
+      });
+  }
 
 
   voltar() {

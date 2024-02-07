@@ -4,13 +4,14 @@ import { Educadores } from '../../../../../../models/educadores.model';
 import { lastValueFrom } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { EducadorService } from '../../../../../../services/educador.service';
 import { insertOrReplace } from '../../../../../../helpers/service-list';
 import { TemplateRef, ViewChild } from '@angular/core';
 import { EducadoresList } from '../../../../../../models/educadores.model';
 import { enc, SHA256 } from 'crypto-js';
 import { Crypto } from '../../../../../../../utils/crypto';
 import { Subscription } from 'rxjs';
+import { UsuarioService } from '../../../../../../services/usuario.service';
+import { Usuario } from '../../../../../../models/usuarios.model';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -22,7 +23,7 @@ export class FormComponent {
   qtde = 1
   subscription: Subscription[] = [];
   checked: boolean = false;
-  objeto: Educadores = new Educadores;
+  objeto: Usuario = new Usuario;
   dataVigencia: [Date, Date] = [new Date(2023, 1, 2), new Date(2023, 28, 2)];
   erro: string = '';
   list: EducadoresList[] = [];
@@ -31,15 +32,18 @@ export class FormComponent {
   @ViewChild('icon') icon!: TemplateRef<any>;
 
   title = 'Cadastrar'
-
+  perfiList = [
+    { id: 1, nome: 'educador' },
+    { id: 2, nome: 'usuario' },
+  ];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private educadorService: EducadorService,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
+    private usuarioService: UsuarioService
 
 
   ) {
@@ -53,17 +57,18 @@ export class FormComponent {
     if (this.title == 'Editar') {
       console.log('edit')
       setTimeout(() => {
-        this.router.navigate(['../'], { relativeTo: this.route })
+        this.router.navigate(['../..'], { relativeTo: this.route })
       }, 300);
     }
     else {
       console.log('editte')
       setTimeout(() => {
-        this.router.navigate(['../'], { relativeTo: this.route })
+        this.router.navigate(['..'], { relativeTo: this.route })
       }, 300);
     }
 
   }
+
 
   change(e: any) {
     console.log(e)
@@ -72,36 +77,75 @@ export class FormComponent {
 
   }
   ngOnInit() {
+    // lastValueFrom(this.usuarioService.getPerfil())
     this.route.params.subscribe(params => {
-    console.log(this.objeto.id)
       const id = params['id'];
-      console.log(id)
-      const idDecrypt = this.crypto.decrypt(id);
-      lastValueFrom(this.educadorService.get(idDecrypt))
-        .then(res => {
-          this.objeto = res;
-          if (idDecrypt != undefined) {
-            this.title = 'Editar'
-          }
-        })
-        .catch(res => {
-          this.voltar();
-        })
+      console.log('id:', id)
+      if (id != undefined) {
+        const idDecrypt = this.crypto.decrypt(id);
+        console.log('oine', idDecrypt)
+        lastValueFrom(this.usuarioService.get(idDecrypt))
+          .then(res => {
+            this.objeto = res;
+            if (idDecrypt != undefined) {
+              this.title = 'Editar'
+            }
+          })
+          .catch(res => {
+            this.voltar();
+          })
+      }
+
+
+
     });
   }
 
 
 
+
+  // send() {
+  //   console.log('oi')
+  //   console.log(this.objeto)
+  //   this.visible = false;
+  //   this.objeto.perfilAcesso_Id = 3; // Professor
+  //   this.request()
+  //     .then(res => {
+  //       if (res.sucesso) {
+  //         if (res.objeto) {
+  //           insertOrReplace(this.usuarioService, res.objeto, 'educadores')
+  //         } else {
+  //           lastValueFrom(this.usuarioService.getEducador());
+  //         }
+  //         this.voltar();
+  //       } else {
+  //         this.erro = res.mensagem;
+  //         this.voltar();
+  //       }
+  //       this.loading = false;
+  //       console.log(this.objeto)
+  //     })
+  //     .catch(res => {
+  //       console.error(res)
+  //       this.voltar();
+  //     })
+
+  // }
+
+
   send() {
     console.log('oi')
+    console.log(this.objeto)
     this.visible = false;
-    return lastValueFrom(this.educadorService.post(this.objeto))
+    this.objeto.perfilAcesso_Id = 3; // Professor
+    this.request()
       .then(res => {
-        if (res.sucesso != false) {
+        if (res.sucesso != false ) {
           if (res.objeto) {
-            insertOrReplace(this.educadorService, res.objeto)
+            insertOrReplace(this.usuarioService, res.objeto, 'educador')
           } else {
-            lastValueFrom(this.educadorService.getList());
+            lastValueFrom(this.usuarioService.getEducador());
+            console.log('oinw')
           }
           this.voltar();
         } else {
@@ -115,9 +159,27 @@ export class FormComponent {
       .catch(res => {
 
         console.error(res)
-
+        this.voltar();
       })
 
   }
+
+
+  request() {
+    if (this.objeto.id == 0){
+      return lastValueFrom(this.usuarioService.post(this.objeto));
+    }
+    else{
+console.log(  'oiiopyjh')
+    return lastValueFrom(this.usuarioService.put(this.objeto));
+    }
+
+
+
+  }
+
+
+
+
 
 }

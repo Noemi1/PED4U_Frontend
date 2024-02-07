@@ -7,6 +7,7 @@ import { Crypto } from '../../../../../../../utils/crypto';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UsuarioService } from '../../../../../../services/usuario.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -22,12 +23,14 @@ export class ListComponent {
     visible = true;
 
   constructor(
-    private educadorService: EducadorService,
+    private usuarioService: UsuarioService,
 
   ) {
-    var list = this.educadorService.list.subscribe(res => this.list = Object.assign([], res));
+
+    var list = this.usuarioService.educadores.subscribe(res => this.list = Object.assign([], res));
     this.subscription.push(list);
-    lastValueFrom(this.educadorService.getList(true));
+    lastValueFrom(this.usuarioService.getEducador(true));
+    console.log('list',list)
   }
 
 

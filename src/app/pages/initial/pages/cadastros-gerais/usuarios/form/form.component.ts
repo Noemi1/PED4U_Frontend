@@ -32,6 +32,10 @@ export class FormComponent {
 
   title = 'Cadastrar'
 
+  perfiList = [
+    { id: 1, nome: 'educador' },
+    { id: 2, nome: 'usuario' },
+  ];
 
   constructor(
     private router: Router,
@@ -51,20 +55,17 @@ export class FormComponent {
   voltar() {
     this.visible = false;
     if (this.title == 'Editar') {
-      console.log('edit')
       setTimeout(() => {
         this.router.navigate(['../..'], { relativeTo: this.route })
       }, 300);
     }
     else {
-      console.log('editte')
       setTimeout(() => {
         this.router.navigate(['..'], { relativeTo: this.route })
       }, 300);
     }
 
   }
-
   change(e: any) {
     console.log(e)
     console.log(this.dataVigencia)
@@ -74,24 +75,33 @@ export class FormComponent {
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      const idDecrypt = this.crypto.decrypt(id);
-      lastValueFrom(this.usuarioService.get(idDecrypt))
-        .then(res => {
-          this.objeto = res;
-          if (idDecrypt  != undefined) {
-            this.title = 'Editar'
-          }
-        })
-        .catch(res => {
-          this.voltar();
-        })
+      console.log('id:', id)
+      if (id != undefined) {
+        const idDecrypt = this.crypto.decrypt(id);
+        lastValueFrom(this.usuarioService.get(idDecrypt))
+          .then(res => {
+            this.objeto = res;
+            if (idDecrypt != undefined) {
+              this.title = 'Editar'
+            }
+          })
+          .catch(res => {
+            this.voltar();
+          })
+      }
+
+
+
     });
   }
 
 
+
   send() {
+    console.log('oi')
+    console.log(this.objeto)
     this.visible = false;
-    return lastValueFrom(this.usuarioService.post(this.objeto))
+    this.request()
       .then(res => {
         if (res.sucesso != false) {
           if (res.objeto) {
@@ -101,6 +111,7 @@ export class FormComponent {
           }
           this.voltar();
         } else {
+          console.log('eita')
           this.erro = res.mensagem;
           this.voltar();
         }
@@ -108,10 +119,19 @@ export class FormComponent {
         console.log(this.objeto)
       })
       .catch(res => {
-        console.error(res)
 
+        console.error(res)
+        this.voltar();
       })
 
   }
 
+
+  request() {
+    if (this.objeto.id == 0)
+      return lastValueFrom(this.usuarioService.post(this.objeto));
+
+    return lastValueFrom(this.usuarioService.put(this.objeto));
+
+  }
 }

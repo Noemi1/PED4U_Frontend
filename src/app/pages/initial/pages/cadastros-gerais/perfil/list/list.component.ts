@@ -29,8 +29,9 @@ export class ListComponent {
   ) {
 
     var list = this.perfilService.list.subscribe(res => this.list = Object.assign([], res));
-    this.subscription.push(list);
+    console.log(this.subscription.push(list));
     lastValueFrom(this.perfilService.getList(true));
+
   }
 
 

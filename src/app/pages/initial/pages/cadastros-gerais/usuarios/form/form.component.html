@@ -17,7 +17,7 @@
   <form #form="ngForm">
     <div class="row">
       <div class="d-flex flex-column mb-2 col-sm-6 col-12"> <!-- Nome -->
-          <label for="name" class="mb-1 ms-1">name: <span class="text-danger">*</span></label>
+          <label for="name" class="mb-1 ms-1">Nome: <span class="text-danger">*</span></label>
           <input type="text"
                  pInputText
                  name="name"
@@ -33,9 +33,63 @@
               <p class="text-danger my-0 ms-1" *ngIf="name.errors['required']">Este campo é obrigatório.</p>
           </div>
       </div>
-
+      <div class="d-flex flex-column mb-2 col-sm-3 col-6"> <!-- Celular -->
+        <label for="telefoneCelular" class="mb-1 ms-1">Telefone/Celular: <span class="text-danger">*</span></label>
+        <input pInputText
+               [mask]="'+00 (00) 0.0000-0000 || +00 (00) 0000-0000 || (00) 0.0000-0000 || (00) 0000-0000 || 0.0000-0000 || 0000-0000'"
+               name="telefoneCelular"
+               id="telefoneCelular"
+               #telefoneCelular="ngModel"
+               [placeholder]="'0000-00000'"
+               [(ngModel)]="objeto.telefoneCelular"
+               pattern="\S(.*\S)?"
+               (change)="objeto.telefoneCelular = telefoneCelular.value.trim(); "
+               [required]="true"
+               >
+        <div *ngIf="telefoneCelular.touched && telefoneCelular.errors">
+            <p class="text-danger my-0 ms-1" *ngIf="telefoneCelular.errors['required']">Este campo é obrigatório.</p>
+            <p class="text-danger my-0 ms-1" *ngIf="telefoneCelular.errors['mask']">Celular inválido.</p>
+        </div>
+    </div>
   </div>
-
+  <div class="row">
+    <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- E-mail  -->
+      <label for="email" class="mb-1 ms-1"> E-mail : <span class="text-danger">*</span></label>
+      <input type="email"
+             pInputText
+             name="email"
+             id="email"
+             name="email"
+             #email="ngModel"
+             [(ngModel)]="objeto.email"
+             placeholder="exemplo@gmail.com"
+             pattern="\S(.*\S)?"
+             (change)="objeto.email = email.value.trim(); "
+             required />
+      <div *ngIf="email.touched && email.errors">
+        <p class="text-danger my-0 ms-1" *ngIf="email.errors['required']">Este campo é obrigatório.</p>
+      </div>
+    </div>
+    <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Turma -->
+      <label for="perfilAcesso_Id" class="mb-1 ms-1">Turma: <span class="text-danger">*</span></label>
+      <p-dropdown [options]="perfiList"
+                  appendTo="body"
+                  class="w-100"
+                  styleClass="w-100"
+                  inputId="perfilAcesso_Id"
+                  name="perfilAcesso_Id"
+                  #perfilAcesso_Id="ngModel"
+                  [(ngModel)]="objeto.perfilAcesso_Id"
+                  optionLabel="nome"
+                  optionValue="id"
+                  [showClear]="false"
+                  placeholder="Selecione a turma"
+                  [required]="true"></p-dropdown>
+      <div *ngIf="perfilAcesso_Id.touched && perfilAcesso_Id.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="perfilAcesso_Id.errors['required']">Este campo é obrigatório.</p>
+      </div>
+  </div>
+</div>
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">

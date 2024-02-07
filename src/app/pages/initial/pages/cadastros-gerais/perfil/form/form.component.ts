@@ -74,9 +74,6 @@ export class FormComponent {
             this.voltar();
           }
           this.loading = false;
-          // setTimeout(() => {
-          //   this.router.navigate(['..'], { relativeTo: this.route })
-          // }, 300);
           console.log(this.objeto)
         })
         .catch(res => {

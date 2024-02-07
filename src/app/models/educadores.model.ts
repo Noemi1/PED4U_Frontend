@@ -1,54 +1,72 @@
+import { FilterMatchMode } from "primeng/api";
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
 
 export class EducadoresList {
   id: number = 0;
+  perfilAcesso_Id: number = 0;
   name: string = '';
-  idade: number = 0;
-  sexo_Id: string = '';
-  dataNascimento: Date = new Date;
-  horarioTurma: string = '';
+  telefoneCelular: number = 0;
   email: string = '';
-  telefone: string = '';
+  entidade: string ='educador'
 
 }
 
 export class Educadores {
   id: number = 0;
-  nomeEducador: string = '';
-  idade: number = '' as unknown as number;
-  sexo_Id: string = '';
-  dataNascimento: Date = new Date;
-  horarioTurma: string = '';
+  perfilAcesso_Id: number = '' as unknown as number;
+  name: string = '';
+  telefoneCelular: number = '' as unknown as number;
   email: string = '';
-  telefone: string = '';
+  entidade: string ='educador'
+
 }
+
 
 export var educadorColumns: Column[] = [
   {
-    field: 'name',
-    header: ' Nome',
+    field: 'id',
+    header: 'Id',
     maskType: MaskType.undefined,
     filterType: FilterType.text,
     filterDisplay: FilterDisplay.menu,
     showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
+    filterMatchMode: FilterMatchMode.EQUALS,
+  },
+  {
+    field: 'name',
+    header: ' nome',
+    maskType: MaskType.dateTime,
+    filterType: FilterType.date,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
     showMatchMode: true,
     showOperator: false,
-
+    filterMatchMode: FilterMatchMode.DATE_IS,
   },
-
-
+  {
+    field: 'telefoneCelular',
+    header: 'Telefone/Celular',
+    maskType: MaskType.dateTime,
+    filterType: FilterType.date,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: true,
+    showOperator: false,
+    filterMatchMode: FilterMatchMode.DATE_IS,
+  },
   {
     field: 'email',
     header: 'E-mail',
-    maskType: MaskType.undefined,
-    filterType: FilterType.text,
+    maskType: MaskType.dateTime,
+    filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,
     showAddButton: false,
     showMatchMode: true,
     showOperator: false,
-
+    filterMatchMode: FilterMatchMode.DATE_IS,
   },
-
-
-
 ];
+
+
