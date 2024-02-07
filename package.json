@@ -33,6 +33,7 @@
     "jwt-decode": "^3.1.2",
     "ngx-mask": "^14.3.3",
     "ngx-toastr": "^18.0.0",
+    "ped": "^1.0.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.3.1",
     "rxjs": "~7.8.0",
