@@ -72,6 +72,7 @@ export class FormComponent {
         lastValueFrom(this.usuarioService.get(idDecrypt))
           .then(res => {
             this.objeto = res;
+            console.log(this.objeto)
             if (idDecrypt != undefined) {
               this.title = 'Editar'
             }
@@ -91,7 +92,7 @@ export class FormComponent {
     this.objeto.perfilAcesso_Id = 3; // Professor
     this.request()
       .then(res => {
-        if (res.sucesso != false ) {
+        if (res.success != false ) {
           if (res.objeto) {
             insertOrReplace(this.usuarioService, res.objeto, 'educador')
           } else {
@@ -99,7 +100,7 @@ export class FormComponent {
           }
           this.voltar();
         } else {
-          this.erro = res.mensagem;
+          this.erro = res.message
           this.voltar();
         }
         this.loading = false;

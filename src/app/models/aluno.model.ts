@@ -19,7 +19,7 @@ export class Aluno {
     pessoa_Id: string = '';
     turma_Id: number = '' as unknown as number;
     perfil_Id: number = '' as unknown as number;
-    data_Vigencia_Inicial: string = '';
+    data_Vigencia_Inicial:string = '';
     data_Vigencia_Final: string = '';
     nome: string = '';
     dataNascimento: string = '';

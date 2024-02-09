@@ -7,6 +7,7 @@ import { ListSharedComponent } from './list/list.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgxMaskModule } from 'ngx-mask';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgxMaskModule } from 'ngx-mask';
     FormsModule,
     PrimengModule,
     InputNumberModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    PaginatorModule
 
   ],
   exports: [

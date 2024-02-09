@@ -44,7 +44,7 @@ export class DeleteComponent {
     lastValueFrom(this.turmaService.delete(this.id))
         .then(res => {
             this.loading = false;
-            if (res.sucesso || res.sucesso==undefined ) {
+            if (res.success) {
                 if (res.objeto) {
                     remove(this.turmaService, res.objeto)
                     this.voltar();
@@ -53,8 +53,12 @@ export class DeleteComponent {
                     this.voltar();
                 }
             } else {
-                this.erro = res.mensagem;
+              this.erro = res.message
+                console.log(res.message, res.success)
                 console.log('Erro no sucesso:', this.erro);
+                this.voltar();
+
+
             }
         })
         .catch(res => {

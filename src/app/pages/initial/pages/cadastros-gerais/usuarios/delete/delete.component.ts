@@ -44,7 +44,7 @@ export class DeleteComponent {
     lastValueFrom(this.usuarioService.delete(this.id))
       .then(res => {
         this.loading = false;
-        if (res && (res.sucesso != false || res.sucesso === undefined)) {
+        if (res && (res.success != false || res.success === undefined)) {
           if (res.objeto) {
             remove(this.usuarioService, res.objeto, 'usuario');
             this.voltar();
@@ -54,7 +54,7 @@ export class DeleteComponent {
             this.voltar();
           }
         } else {
-          this.erro = res ? res.mensagem : 'Erro desconhecido';
+          this.erro = res ? res.message : 'Erro desconhecido';
           console.log('Erro no sucesso:', this.erro);
           lastValueFrom(this.usuarioService.getList());
           this.voltar();

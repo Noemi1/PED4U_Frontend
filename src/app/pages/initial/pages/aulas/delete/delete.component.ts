@@ -39,6 +39,13 @@ export class DeleteComponent {
 
   }
 
+  voltar() {
+    this.visible = false;
+    console.log('veio')
+    this.router.navigate(['../..'], { relativeTo: this.route })
+
+  }
+
 
   send(event: any) {
     this.loading = true;
@@ -47,7 +54,7 @@ export class DeleteComponent {
     lastValueFrom(this.aulaService.delete(this.id))
         .then(res => {
             this.loading = false;
-            if (res.sucesso || res.sucesso==undefined ) {
+            if (res.success || res.success==undefined ) {
                 if (res.objeto) {
                     remove(this.aulaService, res.objeto)
                     this.voltar();
@@ -56,8 +63,8 @@ export class DeleteComponent {
                     this.voltar();
                 }
             } else {
-                this.erro = res.mensagem;
-                console.log('Erro no sucesso:', this.erro);
+                this.erro = res.message
+                this.voltar();
             }
         })
         .catch(res => {
@@ -69,11 +76,5 @@ export class DeleteComponent {
         })
 }
 
-
-  voltar() {
-    this.visible = false;
-    this.router.navigate(['../..'], { relativeTo: this.route })
-
-  }
 
 }

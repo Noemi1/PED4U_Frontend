@@ -14,17 +14,8 @@ import { getError } from '../utils/error';
 export class RequestInterceptor implements HttpInterceptor {
 
     excludeUrlsToastr = [
-        'pessoa/consulta-pessoa',
-        'accounts/register',
-        'accounts/verify-email',
-        'accounts/authenticate',
-        'accounts/revoke-token',
-        'accounts/refresh-token',
-        'accounts/reset-password',
-        'accounts/forgot-password',
-        'accounts/verify-email',
-        'accounts/change-password',
-        'accounts/update-account',
+        'turmas/excluir',
+
     ];
 
     excludeUrlsLoading = [
@@ -64,7 +55,7 @@ export class RequestInterceptor implements HttpInterceptor {
                     else
                     if (data instanceof HttpResponse) {
                         if ([200, 204, 201].includes(data.status)) {
-                            if (data.body && (data.body.sucesso == false || data.body == false)) {
+                            if (data.body && (data.body.success == false || data.body == false)) {
                                 if (notToastr.length == 0) {
                                     if (data.body.mensagem)
                                         this.toastr.error(data.body.mensagem)
@@ -79,8 +70,19 @@ export class RequestInterceptor implements HttpInterceptor {
                                             this.toastr.error('Não foi possível concluir essa operação');
                                         }
                                         else if (request.method == 'DELETE') {
+                                          if(data.body.message== 'Essa turma tem uma ou mais aulas cadastradas, e portanto não pode ser excluída'  ){
+                                            this.toastr.error('Essa turma tem uma ou mais aulas cadastradas, e portanto não pode ser excluída')
+                                          }
+                                          else if(data.body.message== 'Esse perfil tem uma ou mais turmas cadastradas, e portanto não pode ser excluído' ){
+                                            this.toastr.error('Esse perfil tem uma ou mais turmas cadastradas, e portanto não pode ser excluído')
+                                          }
+
+                                          else{
                                             this.toastr.error('Não foi possível excluir esse registro')
-                                        }
+                                            }
+                                          }
+
+
                                     }
                                 }
                             } else {

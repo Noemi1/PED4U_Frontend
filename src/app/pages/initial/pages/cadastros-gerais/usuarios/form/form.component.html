@@ -71,9 +71,8 @@
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">
-      <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
-      <p-button icon="pi pi-check" (click)="send()" label="Salvar" [loading]="loading"
-                [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
+        <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
+        <p-button icon="pi pi-check" (click)="send()" label="Salvar" [loading]="loading" [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
     </div>
-  </ng-template>
+</ng-template>
 </p-dialog>

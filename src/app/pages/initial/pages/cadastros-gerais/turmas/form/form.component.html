@@ -31,7 +31,9 @@
                     [showClear]="false"
                     placeholder="Selecione o dia da semana"
                     [required]="true"></p-dropdown>
-        <div *ngIf="diaSemana.touched && diaSemana.errors">
+
+
+                    <div *ngIf="diaSemana.touched && diaSemana.errors">
           <p class="text-danger my-0 ms-1" *ngIf="diaSemana.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
@@ -42,7 +44,7 @@
 
         <input
                type="time" id="horario" name="horario" [(ngModel)]="objeto.horario" required
-               pattern="^\d{2}:\d{2}:\d{2}\.\d{5}$"
+               pattern="^\d{2}:\d{2}:\d{2}\.\d{4}$"
                pInputText
                [value]="'time'"
                #horario="ngModel"
@@ -74,40 +76,48 @@
       </div>
     </div>
     <div class="row">
-      <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"> <!-- Educador -->
-        <label for="unidade_Id" class="mb-1 ms-1">Perfil: <span class="text-danger">*</span></label>
-        <p-dropdown [options]="turmaList"
+      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
+        <label for="unidade_Id" class="mb-1 ms-1">Unidade: <span class="text-danger">*</span></label>
+        <p-dropdown [options]="diaList"
                     appendTo="body"
                     class="w-100"
                     styleClass="w-100"
                     inputId="unidade_Id"
                     name="unidade_Id"
-                    #unidade_Id="ngModel"
                     [(ngModel)]="objeto.unidade_Id"
-                    optionLabel="nome"
+                    #unidade_Id="ngModel"
+                    id="unidade_Id"
+                    optionLabel="id"
                     optionValue="id"
-                    [showClear]="false"
-                    placeholder="Selecione o perfil da Turma"
-                    [required]="true"></p-dropdown>
+                    [showClear]="true"
+                    [disabled]="loadingEducador"
+                    [placeholder]="'Selecione o perfil do aluno'"
+                    [required]="true"
+                ></p-dropdown>
         <div *ngIf="unidade_Id.touched && unidade_Id.errors">
           <p class="text-danger my-0 ms-1" *ngIf="unidade_Id.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
-      <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"> <!-- Perfil -->
+
+
+      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
         <label for="educador_Id" class="mb-1 ms-1">Educador: <span class="text-danger">*</span></label>
-        <p-dropdown [options]="educadorList"
+        <p-dropdown [options]="educadores"
                     appendTo="body"
                     class="w-100"
                     styleClass="w-100"
                     inputId="educador_Id"
                     name="educador_Id"
-                    #educador_Id="ngModel"
                     [(ngModel)]="objeto.educador_Id"
-                    optionLabel="nome"
+                    #educador_Id="ngModel"
+                    id="educador_Id"
+                    optionLabel="name"
                     optionValue="id"
-                    [showClear]="false"
-                    placeholder="Selecione o educador"
-                    [required]="true"></p-dropdown>
+                    [showClear]="true"
+                    [disabled]="loadingEducador"
+                    [placeholder]="'Selecione o educador do aluno'"
+                    [required]="true"
+                ></p-dropdown>
         <div *ngIf="educador_Id.touched && educador_Id.errors">
           <p class="text-danger my-0 ms-1" *ngIf="educador_Id.errors['required']">Este campo é obrigatório.</p>
         </div>

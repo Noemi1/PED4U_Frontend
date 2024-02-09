@@ -91,7 +91,7 @@ export class FormComponent {
     this.visible = false;
     return lastValueFrom(this.reposicaoService.post(this.objeto))
       .then(res => {
-        if (res.sucesso != false) {
+        if (res.success != false) {
           if (res.objeto) {
             insertOrReplace(this.reposicaoService, res.objeto)
           } else {
@@ -99,7 +99,7 @@ export class FormComponent {
           }
           this.voltar();
         } else {
-          this.erro = res.mensagem;
+          this.erro = res.message
         }
         this.loading = false;
         console.log(this.objeto)

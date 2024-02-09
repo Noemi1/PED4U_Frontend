@@ -17,6 +17,7 @@ export class Turmas {
   qtdeMaxAlunos: number = '' as unknown as number;
   educador_Id: number = '' as unknown as number;
   unidade_Id: number = '' as unknown as number;
+  perfil_Id: number = '' as unknown as number;
 }
 
 export var turmasColumns: Column[] = [

@@ -1,79 +1,15 @@
-<!-- <div class="d-flex justify-content-center align-items-center">
-  <p-card header="Login" subheader="Insira e-mail e senha para acessar." [style]="{ width: '700px'}"
-          class="d-flex justify-content-center align-items-center ">
-    <ng-template pTemplate="header">
-      <img alt="Card" [style]="{ height: '300px', 'object-fit':'cover'}"
-           src="../../../../assets/img/62d46e72269561.5be1c86ef152a.png" />
-    </ng-template>
-    <form #form="ngForm" (ngSubmit)="send()">
-      <div class="d-flex justify-content-center" [style]="{ width: '100%' }">
-        <div [style]="{ width: '50%' }">
-          <div class="row my-4">
-            <span class="p-float-label">
-              <input class="col-12 form-control"
-                     pInputText
-                     id="email"
-                     name="email"
-                     #email="ngModel"
-                     [(ngModel)]="login.email"
-                     placeholder="example@gmail.com"
-                     required
-                     [pattern]="emailPattern" />
-              <label for="email">E-mail</label>
-            </span>
-          </div>
-
-          <div class="row my-4">
-            <span class="p-float-label ">
-              <input class=" col-12 form-control"
-                     pInputText
-                     id="password"
-                     name="password"
-                     #password="ngModel"
-                     [(ngModel)]="login.password"
-                     placeholder="**"
-                     required
-                     minlength="6" />
-              <label for="password">Senha</label>
-            </span>
-            <div class=" text-right col-lg-6 col-md-6 col-sm-6 col-12 mt-2">
-              <a class="link" [routerLink]="['..', 'forgot-password']">Esqueci minha senha</a>
-          </div>
-          </div>
-          <button pButton class="col-12 d-flex justify-content-center" label="Entrar"  [style]="{ 'background-color': '#f2b418' }" ></button>
-        </div>
-        <p-divider layout="vertical" styleClass="flex md:hidden" [align]="'center'"><b>OU</b></p-divider>
-        <div [style]="{ width: '50%' }" class="d-flex flex-column justify-content-center align-items-center my-5">
-          <h4 class="my-2">Ainda não possui uma conta?</h4>
-          <p-button label="Me cadastrar" icon="pi pi-user-plus" styleClass="p-button-success w-10rem"
-                    [routerLink]="['..', 'register']"></p-button>
-        </div>
-      </div>
-      <div class="row">
-        <p class="text-danger text-center col-12" *ngIf="erro">{{erro}}</p>
-        <p class="text-center col-12 mb-3 mt-4">Ao clicar em "cadastrar" você concorda com os <a class="link" routerLink="./termos-de-uso">termos de uso</a> do zentech.</p>
-
-    </div>
-    </form>
-
-
-
-    <ng-template pTemplate="footer">
-
-    </ng-template>
-  </p-card> -->
 
 <div class="d-flex justify-content-center"
      [style]="{ width: '100%', 'max-height':'100vh', 'min-height':'100vh', 'margin': '0'}">
   <div
-       [style]="{ width: '50%','background-image': 'url(../../../../assets/img/back.png)' , 'background-size': 'cover', 'background-position':'center' }">
+       [style]="{ width: '40%','background-image': 'url(../../../../assets/img/back.png)' , 'background-size': 'cover', 'background-position':'center' }">
 
 
 
 
   </div>
   <!-- <p-divider layout="vertical" styleClass="flex md:hidden" [align]="'center'"><b>OU</b></p-divider> -->
-  <div [style]="{ width: '60%' }" class="d-flex  justify-content-center lex-column">
+  <div [style]="{ width: '60%' }" class="d-flex  justify-content-center align-items-center">
     <div>
       <div class="mt-5">
         <p-image src="../../../../assets/img/logo.png" alt="Image" width="100" ></p-image>

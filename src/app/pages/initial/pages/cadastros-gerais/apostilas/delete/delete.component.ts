@@ -44,7 +44,7 @@ export class DeleteComponent {
     lastValueFrom(this.apostilaService.delete(this.id))
         .then(res => {
             this.loading = false;
-            if (res.sucesso || res.sucesso==undefined ) {
+            if (res.success || res.success==undefined ) {
                 if (res.objeto) {
                     remove(this.apostilaService, res.objeto)
                     this.voltar();
@@ -53,7 +53,7 @@ export class DeleteComponent {
                     this.voltar();
                 }
             } else {
-                this.erro = res.mensagem;
+                this.erro = res.message
                 console.log('Erro no sucesso:', this.erro);
             }
         })

@@ -35,6 +35,7 @@ export class ListComponent {
         this.list = Object.assign([], res)
         this.formatarCelularNaLista();
         this.formatarDataNaLista();
+
       }
       );
       this.subscription.push(list);

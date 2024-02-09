@@ -28,7 +28,10 @@ export class ListComponent {
     private route: ActivatedRoute,
     private crypto: Crypto,
   ) {
-    var list = this.turmaService.list.subscribe(res => this.list = Object.assign([], res));
+    var list = this.turmaService.list.subscribe(res => this.list = Object.assign([], res
+
+      ));
+
     this.subscription.push(list);
     lastValueFrom(this.turmaService.getList(true));
   }

@@ -98,12 +98,11 @@ export class FormComponent {
 
 
   send() {
-    console.log('oi')
-    console.log(this.objeto)
+    this.objeto.perfilAcesso_Id = 2;
     this.visible = false;
     this.request()
       .then(res => {
-        if (res.sucesso != false) {
+        if (res.success != false) {
           if (res.objeto) {
             insertOrReplace(this.usuarioService, res.objeto)
           } else {
@@ -112,7 +111,7 @@ export class FormComponent {
           this.voltar();
         } else {
           console.log('eita')
-          this.erro = res.mensagem;
+          this.erro = res.message
           this.voltar();
         }
         this.loading = false;

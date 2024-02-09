@@ -47,7 +47,12 @@ export class TurmasService {
     }
 
     delete(id: number) {
-        return this.http.delete<Response>(`${this.url}/Turma/${id}`);
+        return this.http.delete<Response>(`${this.url}/Turma/${id}`).pipe(
+          tap({
+            error: res => this.toastr.error('oi')
+          })
+        );
+
     }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import * as $ from 'jquery';
 import { Crypto } from "./crypto";
-import { Table } from "./table";
+import { Table } from "primeng/table";
 
 @Injectable({
     providedIn: 'root'
@@ -47,11 +47,11 @@ export class Header {
         //     classe.closeMenuMinhaConta();
         //     classe.setMenuAside(false);
         // });
-        
+
         // $('.navigation-toggle-content').on('click', function (e) {
         //     classe.setMenuAside(true);
         // });
-        
+
         // $('.navigation-content*').each((i, el) => {
         //     $(el).on('click', function (e) {
         //         e.stopPropagation();
