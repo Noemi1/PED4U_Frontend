@@ -28,17 +28,7 @@ export class Aluno {
 }
 
 export var alunoColumns: Column[] = [
-  {
-      field: 'id',
-      header: 'Id',
-      maskType: MaskType.undefined,
-      filterType: FilterType.text,
-      filterDisplay: FilterDisplay.menu,
-      showAddButton: false,
-      showMatchMode: false,
-      showOperator: false,
 
-  },
   {
       field: 'nome',
       header: ' Nome',
@@ -73,7 +63,7 @@ export var alunoColumns: Column[] = [
 
 },
 {
-  field: 'genero',
+  field: 'sexo',
   header: 'Gênero',
   maskType: MaskType.undefined,
   filterType: FilterType.text,
@@ -95,7 +85,7 @@ export var alunoColumns: Column[] = [
 
 },
 {
-  field: 'diaSemana',
+  field: 'diaTurma',
   header: 'Dia da Semana',
   maskType: MaskType.undefined,
   filterType: FilterType.text,
@@ -106,7 +96,7 @@ export var alunoColumns: Column[] = [
 
 },
 {
-  field: 'perfil',
+  field: 'perfilAluno',
   header: 'Perfil',
   maskType: MaskType.undefined,
   filterType: FilterType.text,
@@ -117,7 +107,7 @@ export var alunoColumns: Column[] = [
 
 },
 {
-  field: 'vigencia',
+  field: 'dataVigencia',
   header: 'Vigência',
   maskType: MaskType.undefined,
   filterType: FilterType.text,

@@ -1,3 +1,4 @@
+import { TurmasService } from './../../../../../../services/turmas.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from '../../../../../../models/aluno.model';
@@ -8,6 +9,11 @@ import { lastValueFrom } from 'rxjs';
 import { insertOrReplace } from '../../../../../../helpers/service-list';
 import { formatDate } from '@angular/common';
 import { format } from 'date-fns';
+import { Crypto } from '../../../../../../../utils/crypto';
+import { TurmasList } from '../../../../../../models/turma.model';
+import { Subscription } from 'rxjs';
+import { PerfilService } from '../../../../../../services/perfil.service';
+import { PerfilList } from '../../../../../../models/perfil.model';
 
 @Component({
     selector: 'app-form',
@@ -37,13 +43,59 @@ export class FormComponent {
         { id: 2, nome: 'Turma 2' },
         { id: 3, nome: 'Turma 3' },
     ];
+
+    turmas: TurmasList[] = [];
+    loadingTurmas = true;
+    subscription: Subscription[] = [];
+
+    perfis: PerfilList[] = [];
+    loadingperfis = true;
+
+
+
+
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private toastr: ToastrService,
-        private alunoService: AlunoService
+        private alunoService: AlunoService,
+        private crypto: Crypto,
+        private turmasService: TurmasService,
+        private perfilService: PerfilService
     ) {
+      lastValueFrom(this.turmasService.getList())
+      .then(res => {
+        this.loadingTurmas = false;
+        this.turmas = res
+      });
+    var turmas = this.turmasService.list.subscribe(res => this.turmas = res);
+    this.subscription.push(turmas);
 
+    lastValueFrom(this.perfilService.getList())
+    .then(res => {
+      this.loadingperfis = false;
+      this.perfis = res
+    });
+  var perfis = this.perfilService.list.subscribe(res => this.perfis = res);
+  this.subscription.push(perfis);
+    }
+
+    ngOnInit() {
+      this.route.params.subscribe(params => {
+        const id = params['id'];
+        const idDecrypt = this.crypto.decrypt(id);
+        lastValueFrom(this.alunoService.get(idDecrypt))
+          .then(res => {
+            this.objeto = res;
+            if (idDecrypt != undefined) {
+              this.title = 'Editar'
+            }
+          })
+          .catch(res => {
+            this.voltar();
+          })
+      });
     }
 
 

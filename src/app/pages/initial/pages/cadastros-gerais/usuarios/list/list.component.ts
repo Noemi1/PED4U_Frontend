@@ -9,6 +9,7 @@ import { Crypto } from '../../../../../../../utils/crypto';
 import { Apostila } from '../../../../../../models/apostilas.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { parse } from 'date-fns';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -17,20 +18,38 @@ import { ActivatedRoute } from '@angular/router';
 export class ListComponent {
   columns = usuarioColumns;
   title = 'Usuários'
-  list:UsuarioList[] = [];
+  list: UsuarioList[] = [];
   loading: boolean = true;
   subscription: Subscription[] = [];
-  objeto:Usuario= new Usuario;
+  objeto: Usuario = new Usuario;
   visible = true;
 
   constructor(private usuarioService: UsuarioService,
     private router: Router,
     private route: ActivatedRoute,
     private crypto: Crypto,) {
-      var list = this.usuarioService.list.subscribe(res => this.list = Object.assign([], res));
-    this.subscription.push(list);
-    lastValueFrom(this.usuarioService.getList(true));
+      var list = this.usuarioService.list.subscribe(res =>{
+
+        this.list = Object.assign([], res)
+
+      }
+      );
+      this.subscription.push(list);
+      lastValueFrom(this.usuarioService.getList(true));
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

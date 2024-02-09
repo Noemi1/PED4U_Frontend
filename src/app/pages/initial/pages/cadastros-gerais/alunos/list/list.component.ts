@@ -19,7 +19,6 @@ export class ListComponent {
   list: AlunoList[] = [];
   loading: boolean = true;
   subscription: Subscription[] = [];
-
   objeto: Aluno = new Aluno;
   visible = true;
 
@@ -35,6 +34,7 @@ export class ListComponent {
 
         this.list = Object.assign([], res)
         this.formatarCelularNaLista();
+        this.formatarDataNaLista();
       }
       );
       this.subscription.push(list);
@@ -70,11 +70,11 @@ export class ListComponent {
 
   formatarCelularNaLista() {
     this.list.forEach(aula => {
-      aula.celular = this.aplicarMascara(aula.celular);
+      aula.celular = this.aplicarMascaraCelular(aula.celular);
     });
   }
 
-  aplicarMascara(valor: string): string {
+  aplicarMascaraCelular(valor: string): string {
     if (!valor) return '';
 
     if (valor.length === 13) {
@@ -95,6 +95,27 @@ export class ListComponent {
       return valor;
     }
   }
+
+
+  formatarDataNaLista() {
+    this.list.forEach(aluno => {
+      aluno.dataVigencia = this.aplicarMascaraData(aluno.dataVigencia);
+    });
+  }
+  aplicarMascaraData(valor: string): string {
+    if (!valor) return '';
+
+    // Remover parte do tempo (HH:MM:SS)
+    const dataSemTempo = valor.split('T')[0];
+
+    // Aplicar máscara se a data tiver o formato YYYY-MM-DD
+    if (dataSemTempo.length === 10) {
+      return dataSemTempo.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1');
+    } else {
+      return valor;
+    }
+  }
+
 
   }
 

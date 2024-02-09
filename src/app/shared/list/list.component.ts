@@ -9,8 +9,8 @@ import { TurmasService } from '../../services/turmas.service';
 import { ContextMenu } from 'primeng/contextmenu';
 import {  ViewChild } from '@angular/core';
 import {  QueryList, ViewChildren } from '@angular/core';
-
-
+import { ColumnFilter } from 'primeng/table';
+import { SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-list-shared',
   templateUrl: './list.component.html',
@@ -70,16 +70,21 @@ export class ListSharedComponent {
   statuses!: any[];
   loading: boolean = true;
   activityValues: number[] = [0, 100];
-
+  filters: string[] = [];
   itemMenuAtivo: number | null = null;
+  // @Input() filterTable = true;
 
+  @Input() filterTable: boolean = false;
+  filterValue: string = ''; // Valor do filtro
+
+  formatedList: any = [];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
 
   ) {
-
+console.log('oi')
 
   }
 
@@ -161,4 +166,6 @@ export class ListSharedComponent {
         return undefined;
     }
   }
+
+
 }

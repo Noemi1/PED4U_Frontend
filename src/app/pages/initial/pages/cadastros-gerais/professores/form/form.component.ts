@@ -11,6 +11,7 @@ import { enc, SHA256 } from 'crypto-js';
 import { Crypto } from '../../../../../../../utils/crypto';
 import { Subscription } from 'rxjs';
 import { UsuarioService } from '../../../../../../services/usuario.service';
+import { EducadorList } from '../../../../../../models/usuarios.model';
 import { Usuario } from '../../../../../../models/usuarios.model';
 @Component({
   selector: 'app-form',
@@ -20,32 +21,21 @@ import { Usuario } from '../../../../../../models/usuarios.model';
 export class FormComponent {
   visible = true;
   loading = false;
-  qtde = 1
   subscription: Subscription[] = [];
-  checked: boolean = false;
   objeto: Usuario = new Usuario;
   dataVigencia: [Date, Date] = [new Date(2023, 1, 2), new Date(2023, 28, 2)];
   erro: string = '';
-  list: EducadoresList[] = [];
+  list: EducadorList[] = [];
   isEditPage = true;
   @ViewChild('template') template!: TemplateRef<any>;
   @ViewChild('icon') icon!: TemplateRef<any>;
-
   title = 'Cadastrar'
-  perfiList = [
-    { id: 1, nome: 'educador' },
-    { id: 2, nome: 'usuario' },
-  ];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
     private usuarioService: UsuarioService
-
-
   ) {
 
   }
@@ -55,13 +45,11 @@ export class FormComponent {
   voltar() {
     this.visible = false;
     if (this.title == 'Editar') {
-      console.log('edit')
       setTimeout(() => {
         this.router.navigate(['../..'], { relativeTo: this.route })
       }, 300);
     }
     else {
-      console.log('editte')
       setTimeout(() => {
         this.router.navigate(['..'], { relativeTo: this.route })
       }, 300);
@@ -77,13 +65,10 @@ export class FormComponent {
 
   }
   ngOnInit() {
-    // lastValueFrom(this.usuarioService.getPerfil())
     this.route.params.subscribe(params => {
       const id = params['id'];
-      console.log('id:', id)
       if (id != undefined) {
         const idDecrypt = this.crypto.decrypt(id);
-        console.log('oine', idDecrypt)
         lastValueFrom(this.usuarioService.get(idDecrypt))
           .then(res => {
             this.objeto = res;
@@ -95,47 +80,13 @@ export class FormComponent {
             this.voltar();
           })
       }
-
-
-
     });
   }
 
 
 
 
-  // send() {
-  //   console.log('oi')
-  //   console.log(this.objeto)
-  //   this.visible = false;
-  //   this.objeto.perfilAcesso_Id = 3; // Professor
-  //   this.request()
-  //     .then(res => {
-  //       if (res.sucesso) {
-  //         if (res.objeto) {
-  //           insertOrReplace(this.usuarioService, res.objeto, 'educadores')
-  //         } else {
-  //           lastValueFrom(this.usuarioService.getEducador());
-  //         }
-  //         this.voltar();
-  //       } else {
-  //         this.erro = res.mensagem;
-  //         this.voltar();
-  //       }
-  //       this.loading = false;
-  //       console.log(this.objeto)
-  //     })
-  //     .catch(res => {
-  //       console.error(res)
-  //       this.voltar();
-  //     })
-
-  // }
-
-
   send() {
-    console.log('oi')
-    console.log(this.objeto)
     this.visible = false;
     this.objeto.perfilAcesso_Id = 3; // Professor
     this.request()
@@ -145,11 +96,9 @@ export class FormComponent {
             insertOrReplace(this.usuarioService, res.objeto, 'educador')
           } else {
             lastValueFrom(this.usuarioService.getEducador());
-            console.log('oinw')
           }
           this.voltar();
         } else {
-          console.log('eita')
           this.erro = res.mensagem;
           this.voltar();
         }
@@ -157,8 +106,6 @@ export class FormComponent {
         console.log(this.objeto)
       })
       .catch(res => {
-
-        console.error(res)
         this.voltar();
       })
 
@@ -170,16 +117,8 @@ export class FormComponent {
       return lastValueFrom(this.usuarioService.post(this.objeto));
     }
     else{
-console.log(  'oiiopyjh')
     return lastValueFrom(this.usuarioService.put(this.objeto));
     }
-
-
-
   }
-
-
-
-
 
 }

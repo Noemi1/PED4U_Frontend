@@ -16,7 +16,9 @@
                [showCurrentPageReport]="true"
                [rowsPerPageOptions]="[10, 25, 50]"
                currentPageReportTemplate="Mostrando de {first} até {last} do total de {totalRecords} registros"
-               [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+               [globalFilterFields]="filters"
+
+               >
         <ng-template pTemplate="caption">
           <div class="d-flex justify-content-end ms-auto ">
             <div class="me-2">
@@ -32,8 +34,13 @@
             </div>
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
-              <input name="filter" pInputText type="text" (input)="dt1.filterGlobal($event, 'contains')"
-                     placeholder="Pesquisar" />
+              <input pInputText
+                               type="text"
+                               class="form-control "
+                               #filter
+                               (input)="dt1 && dt1.filterGlobal('B', 'contains')"
+                               placeholder="Pesquisar"
+                           />
             </span>
           </div>
         </ng-template>

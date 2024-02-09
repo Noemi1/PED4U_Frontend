@@ -16,7 +16,7 @@
   </ng-template>
   <form #form="ngForm">
     <div class="row">
-      <div class="d-flex flex-column mb-2 col-sm-6 col-12"> <!-- Nome -->
+      <div class="d-flex flex-column mb-8 col-sm-8 col-8"> <!-- Nome -->
         <label for="descricao" class="mb-1 ms-1">Descrição: <span class="text-danger">*</span></label>
         <input type="numer"
                pInputText
@@ -33,46 +33,32 @@
             <p class="text-danger my-0 ms-1" *ngIf="descricao.errors['required']">Este campo é obrigatório.</p>
         </div>
     </div>
-    </div>
-    <div class="row">
-      <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-4">
-        <label for="turma_Id" class="mb-1 ms-1">Turmas: <span class="text-danger">*</span></label>
-        <p-dropdown [options]="turmas"
-                    appendTo="body"
-                    class="w-100"
-                    styleClass="w-100"
-                    inputId="turma_Id"
-                    name="turma_Id"
-                    #turma_Id="ngModel"
-                    [(ngModel)]="objeto.turma_Id"
-                    optionLabel="id"
-                    optionValue="id"
-                    [showClear]="false"
-                    placeholder="Selecione"
-                    [required]="true"></p-dropdown>
-        <div *ngIf="turma_Id.touched && turma_Id.errors">
-            <p class="text-danger my-0 ms-1" *ngIf="turma_Id.errors['required']">Este campo é obrigatório.</p>
-        </div>
-    </div>
-    <div class="d-flex flex-column mb-3 col-sm-3 col-3"> <!-- Data de Nascimento -->
-      <label for="data" class="mb-1 ms-1">Data: <span class="text-danger">*</span></label>
-      <p-calendar dateFormat="yy/mm/dd"
-                  [showIcon]="true"
-                  [iconDisplay]="'input'"
-                  [showButtonBar]="true"
+    <div class="d-flex flex-column mb-4 col-md-4 col-sm-4 col-4">
+      <label for="turma_Id" class="mb-1 ms-1">Turmas: <span class="text-danger">*</span></label>
+      <p-dropdown [options]="turmas"
                   appendTo="body"
-                  name="data"
-                  id="data"
-                  #data="ngModel"
-                  [placeholder]="'dd/mm/yyyy'"
-                  [(ngModel)]="objeto.data"
-                  [required]="true"></p-calendar>
-      <div *ngIf="data.touched && data.errors">
-          <p class="text-danger my-0 ms-1" *ngIf="data.errors['required']">Este campo é obrigatório.</p>
+                  class="w-100"
+                  styleClass="w-100"
+                  inputId="turma_Id"
+                  name="turma_Id"
+                  #turma_Id="ngModel"
+                  [(ngModel)]="objeto.turma_Id"
+                  optionLabel="id"
+                  optionValue="id"
+                  [showClear]="false"
+                  placeholder="Selecione uma turma"
+                  [required]="true"></p-dropdown>
+      <div *ngIf="turma_Id.touched && turma_Id.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="turma_Id.errors['required']">Este campo é obrigatório.</p>
       </div>
   </div>
 
-  <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-4"><!-- Perfil -->
+  </div>
+    <div class="row">
+
+
+
+  <div class="d-flex flex-column mb-4 col-md-4 col-sm-4 col-4">
     <label for="educador_Id" class="mb-1 ms-1">Educador: <span class="text-danger">*</span></label>
     <p-dropdown [options]="educadorList"
                 appendTo="body"
@@ -85,27 +71,43 @@
                 optionLabel="nome"
                 optionValue="id"
                 [showClear]="false"
-                placeholder="Selecione"
+                placeholder="Selecione um educador"
                 [required]="true"></p-dropdown>
     <div *ngIf="educador_Id.touched && educador_Id.errors">
         <p class="text-danger my-0 ms-1" *ngIf="educador_Id.errors['required']">Este campo é obrigatório.</p>
     </div>
 </div>
+<div class="d-flex flex-column mb-3 col-sm-3 col-3">
+  <label for="data" class="mb-1 ms-1">Data: <span class="text-danger">*</span></label>
+  <p-calendar dateFormat="yy/mm/dd"
+              [showIcon]="true"
+              [iconDisplay]="'input'"
+              [showButtonBar]="true"
+              appendTo="body"
+              name="data"
+              id="data"
+              #data="ngModel"
+              [placeholder]="'dd/mm/yyyy'"
+              [(ngModel)]="objeto.data"
+              [required]="true"></p-calendar>
+  <div *ngIf="data.touched && data.errors">
+      <p class="text-danger my-0 ms-1" *ngIf="data.errors['required']">Este campo é obrigatório.</p>
+  </div>
 </div>
-<div class="row">
-  <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-12">
-  <div class="p-field-checbox d-flex align-items-center ">
-    <label for="realizada" class="mb-1 ms-1 ">Realizada: <span class="text-danger">*</span></label>
-    <p-checkbox [(ngModel)]="objeto.realizada"
-                [binary]="true"
-                inputId="binary"
-                name="realizada"
-                id="realizada"
-                name="realizada"
-                #realizada="ngModel"
-                [(ngModel)]="objeto.realizada"
-                placeholder="Material Extra"
-                pattern="\S(.*\S)?"></p-checkbox>
+<div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3">
+  <label for="realizada" class="mb-1 ms-1 ">Realizada:</label>
+  <p-checkbox [(ngModel)]="objeto.realizada"
+              [binary]="true"
+              inputId="binary"
+              name="realizada"
+              id="realizada"
+              name="realizada"
+              #realizada="ngModel"
+              [(ngModel)]="objeto.realizada"
+              placeholder="Material Extra"
+              pattern="\S(.*\S)?"></p-checkbox>
+  <div *ngIf="realizada.touched && realizada.errors">
+      <p class="text-danger my-0 ms-1" *ngIf="realizada.errors['required']">Este campo é obrigatório.</p>
   </div>
 </div>
 </div>

@@ -25,7 +25,7 @@
                        name="nome"
                        #nome="ngModel"
                        [(ngModel)]="objeto.nome"
-                       placeholder="Nome"
+                       placeholder="Insira o nome do aluno"
                        pattern="\S(.*\S)?"
                        (change)="objeto.nome = nome.value.trim(); "
                        required />
@@ -41,7 +41,7 @@
                        name="celular"
                        id="celular"
                        #celular="ngModel"
-                       [placeholder]="'0000-00000'"
+                       [placeholder]="'0.0000-0000'"
                        [(ngModel)]="objeto.celular"
                        pattern="\S(.*\S)?"
                        (change)="objeto.celular = celular.value.trim(); "
@@ -96,7 +96,7 @@
 
             <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Perfil -->
                 <label for="perfil_Id" class="mb-1 ms-1">Perfil: <span class="text-danger">*</span></label>
-                <p-dropdown [options]="perfiList"
+                <p-dropdown [options]="perfis"
                             appendTo="body"
                             class="w-100"
                             styleClass="w-100"
@@ -104,7 +104,7 @@
                             name="perfil_Id"
                             #perfil_Id="ngModel"
                             [(ngModel)]="objeto.perfil_Id"
-                            optionLabel="nome"
+                            optionLabel="Insira o nome do usuário"
                             optionValue="id"
                             [showClear]="false"
                             placeholder="Selecione o perfil do aluno"
@@ -113,28 +113,9 @@
                     <p class="text-danger my-0 ms-1" *ngIf="perfil_Id.errors['required']">Este campo é obrigatório.</p>
                 </div>
             </div>
-            <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Perfil -->
-              <label for="pessoa_Id" class="mb-1 ms-1">Perfil: <span class="text-danger">*</span></label>
-              <p-dropdown [options]="perfiList"
-                          appendTo="body"
-                          class="w-100"
-                          styleClass="w-100"
-                          inputId="pessoa_Id"
-                          name="pessoa_Id"
-                          #pessoa_Id="ngModel"
-                          [(ngModel)]="objeto.pessoa_Id"
-                          optionLabel="nome"
-                          optionValue="id"
-                          [showClear]="false"
-                          placeholder="Selecione o perfil do aluno"
-                          [required]="true"></p-dropdown>
-              <div *ngIf="pessoa_Id.touched && pessoa_Id.errors">
-                  <p class="text-danger my-0 ms-1" *ngIf="pessoa_Id.errors['required']">Este campo é obrigatório.</p>
-              </div>
-          </div>
             <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Turma -->
                 <label for="turma_Id" class="mb-1 ms-1">Turma: <span class="text-danger">*</span></label>
-                <p-dropdown [options]="turmaList"
+                <p-dropdown [options]="turmas"
                             appendTo="body"
                             class="w-100"
                             styleClass="w-100"
@@ -142,7 +123,7 @@
                             name="turma_Id"
                             #turma_Id="ngModel"
                             [(ngModel)]="objeto.turma_Id"
-                            optionLabel="nome"
+                            optionLabel="id"
                             optionValue="id"
                             [showClear]="false"
                             placeholder="Selecione a turma"
@@ -167,25 +148,6 @@
                     <p class="text-danger my-0 ms-1" *ngIf="sexo_Id.errors['required']">Este campo é obrigatório.</p>
                 </div>
             </div>
-            <!-- <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6">
-              <label for="status_Id" class="mb-1 ms-1">Status Matrícula: <span class="text-danger">*</span></label>
-              <p-dropdown
-                          appendTo="body"
-                          class="w-100"
-                          styleClass="w-100"
-                          inputId="status_Id"
-                          name="status_Id"
-                          #status_Id="ngModel"
-                          [(ngModel)]="objeto.status_Id"
-                          optionLabel="nome"
-                          optionValue="id"
-                          [showClear]="false"
-                          placeholder="Selecione"
-                          [required]="true"></p-dropdown>
-              <div *ngIf="status_Id.touched && status_Id.errors">
-                  <p class="text-danger my-0 ms-1" *ngIf="status_Id.errors['required']">Este campo é obrigatório.</p>
-              </div>
-          </div> -->
           </div>
     </form>
     <ng-template pTemplate="footer">

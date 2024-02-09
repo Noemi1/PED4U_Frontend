@@ -39,7 +39,6 @@ export class DeleteComponent {
 
 
     voltar() {
-      console.log('oi')
         this.visible = false;
         setTimeout(() => {
             this.router.navigate(['../../'], { relativeTo: this.route })
@@ -49,7 +48,6 @@ export class DeleteComponent {
     send(event: any) {
       this.loading = true;
       this.erro = '';
-      console.log('id', this.id);
       lastValueFrom(this.usuarioService.delete(this.id))
         .then(res => {
           this.loading = false;
@@ -58,7 +56,6 @@ export class DeleteComponent {
               remove(this.usuarioService, res.objeto, 'educador');
               this.voltar();
             } else {
-              console.log('oooi');
               lastValueFrom(this.usuarioService.getEducador());
               this.voltar();
             }

@@ -24,19 +24,8 @@ export class Educadores {
 
 export var educadorColumns: Column[] = [
   {
-    field: 'id',
-    header: 'Id',
-    maskType: MaskType.undefined,
-    filterType: FilterType.text,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: false,
-    showOperator: false,
-    filterMatchMode: FilterMatchMode.EQUALS,
-  },
-  {
     field: 'name',
-    header: ' nome',
+    header: 'Nome',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,
@@ -45,17 +34,16 @@ export var educadorColumns: Column[] = [
     showOperator: false,
     filterMatchMode: FilterMatchMode.DATE_IS,
   },
-  {
-    field: 'telefoneCelular',
-    header: 'Telefone/Celular',
-    maskType: MaskType.dateTime,
-    filterType: FilterType.date,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: true,
-    showOperator: false,
-    filterMatchMode: FilterMatchMode.DATE_IS,
-  },
+  // {
+  //   field: 'telefoneCelular',
+  //   header: 'Telefone/Celular',
+  //   maskType: MaskType.undefined,
+  //   filterType: FilterType.text,
+  //   filterDisplay: FilterDisplay.menu,
+  //   showAddButton: false,
+  //   showMatchMode: true,
+  //   showOperator: false,
+  // },
   {
     field: 'email',
     header: 'E-mail',

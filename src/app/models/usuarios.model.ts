@@ -10,6 +10,16 @@ export class UsuarioList {
 
 }
 
+export class EducadorList {
+  id: number = 0;
+  perfilAcesso_Id: number = 0;
+  name: string = '';
+  telefoneCelular: number = 0;
+  email: string = '';
+
+}
+
+
 export class Usuario {
   id: number = 0;
   perfilAcesso_Id: number = '' as unknown as number;
@@ -35,17 +45,6 @@ export var usuarioColumns: Column[] = [
   {
     field: 'name',
     header: ' nome',
-    maskType: MaskType.dateTime,
-    filterType: FilterType.date,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: true,
-    showOperator: false,
-    filterMatchMode: FilterMatchMode.DATE_IS,
-  },
-  {
-    field: 'telefoneCelular',
-    header: 'Telefone/Celular',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,

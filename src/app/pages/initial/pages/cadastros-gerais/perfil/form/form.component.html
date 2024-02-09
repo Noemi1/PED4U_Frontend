@@ -1,7 +1,7 @@
 <p-dialog header="Header"
           [(visible)]="visible"
           (visibleChange)="voltar()"
-          [style]="{width: '900px'}"
+          [style]="{width: '500px'}"
           [modal]="true"
           [draggable]="true"
           [resizable]="false"
@@ -16,8 +16,8 @@
     </ng-template>
     <form #form="ngForm">
         <div class="row">
-          <div class="d-flex flex-column mb-4 col-sm-4 col-4"> <!-- Perfil  -->
-            <label for="nome" class="mb-1 ms-1"> nome: <span class="text-danger">*</span></label>
+          <div class="d-flex flex-column mb-12 col-sm-12 col-12">
+            <label for="nome" class="mb-1 ms-1"> Nome: <span class="text-danger">*</span></label>
             <input type="text"
                    pInputText
                    name="nome"

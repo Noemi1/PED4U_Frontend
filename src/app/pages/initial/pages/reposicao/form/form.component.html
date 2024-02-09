@@ -1,7 +1,7 @@
 <p-dialog header="Header"
           [(visible)]="visible"
           (visibleChange)="voltar()"
-          [style]="{width: '900px'}"
+          [style]="{width: '600px'}"
           [modal]="true"
           [draggable]="true"
           [resizable]="false"
@@ -16,7 +16,7 @@
   </ng-template>
   <form #form="ngForm">
     <div class="row">
-      <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-4"><!-- Aula Faltada -->
+      <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"><!-- Aula Faltada -->
         <label for="falta_Aula_Id" class="mb-1 ms-1">Aula Faltada: <span class="text-danger">*</span></label>
         <p-dropdown [options]="aulas"
                     appendTo="body"
@@ -29,13 +29,13 @@
                     optionLabel="apostilaNome"
                     optionValue="id"
                     [showClear]="false"
-                    placeholder="Selecione"
+                    placeholder="Selecione a aula falta"
                     [required]="true"></p-dropdown>
         <div *ngIf="falta_Aula_Id.touched && falta_Aula_Id.errors">
             <p class="text-danger my-0 ms-1" *ngIf="falta_Aula_Id.errors['required']">Este campo é obrigatório.</p>
         </div>
     </div>
-    <div class="d-flex flex-column mb-2 col-md-4 col-sm-4 col-4"><!-- Aula Faltada -->
+    <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"><!-- Aula Faltada -->
       <label for="reposicao_Aula_Id" class="mb-1 ms-1">Aula Reposta: <span class="text-danger">*</span></label>
       <p-dropdown [options]="aulas"
                   appendTo="body"
@@ -48,7 +48,7 @@
                   optionLabel="apostilaNome"
                   optionValue="id"
                   [showClear]="false"
-                  placeholder="Selecione"
+                  placeholder="Selecione a aula que será reposta"
                   [required]="true"></p-dropdown>
       <div *ngIf="reposicao_Aula_Id.touched && reposicao_Aula_Id.errors">
           <p class="text-danger my-0 ms-1" *ngIf="reposicao_Aula_Id.errors['required']">Este campo é obrigatório.</p>

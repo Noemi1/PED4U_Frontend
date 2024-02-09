@@ -19,6 +19,7 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { TermosDeUsoComponent } from './termos-de-uso/termos-de-uso.component';
+import { ImageModule } from 'primeng/image';
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
@@ -39,7 +40,8 @@ import { TermosDeUsoComponent } from './termos-de-uso/termos-de-uso.component';
     ButtonModule,
     CardModule,
     InputTextModule,
-    PasswordModule
+    PasswordModule,
+    ImageModule
 
   ],
   bootstrap: [AccountComponent],
