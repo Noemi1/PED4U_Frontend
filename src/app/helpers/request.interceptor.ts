@@ -70,15 +70,11 @@ export class RequestInterceptor implements HttpInterceptor {
                                             this.toastr.error('Não foi possível concluir essa operação');
                                         }
                                         else if (request.method == 'DELETE') {
-                                          if(data.body.message== 'Essa turma tem uma ou mais aulas cadastradas, e portanto não pode ser excluída'  ){
-                                            this.toastr.error('Essa turma tem uma ou mais aulas cadastradas, e portanto não pode ser excluída')
-                                          }
-                                          else if(data.body.message== 'Esse perfil tem uma ou mais turmas cadastradas, e portanto não pode ser excluído' ){
-                                            this.toastr.error('Esse perfil tem uma ou mais turmas cadastradas, e portanto não pode ser excluído')
-                                          }
-
-                                          else{
-                                            this.toastr.error('Não foi possível excluir esse registro')
+                                            if(data.body.message){
+                                                this.toastr.error(data.body.message);
+                                            }
+                                            else{
+                                                this.toastr.error('Não foi possível excluir esse registro.')
                                             }
                                           }
 
@@ -88,7 +84,14 @@ export class RequestInterceptor implements HttpInterceptor {
                             } else {
                                 if (notToastr.length == 0) {
                                     if (request.method == 'POST') {
-                                        this.toastr.success('Operação concluída com sucesso');
+                                        if(data.body.message){
+                                            this.toastr.success(data.body.message);
+                                        }
+                                        else{
+                                            this.toastr.success('Operação realizada com sucesso')
+                                        }
+
+
                                     }
                                     else if (request.method == 'PUT') {
                                         this.toastr.success('Registro atualizado com sucesso');

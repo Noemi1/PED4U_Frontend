@@ -69,6 +69,17 @@ export class ListComponent {
     }, 300);
   }
 
+  get() {
+    lastValueFrom(this.alunoService.getList(true));
+  }
+
+  update(): void {
+    this.loading = true
+    this.get
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  }
   formatarCelularNaLista() {
     this.list.forEach(aula => {
       aula.celular = this.aplicarMascaraCelular(aula.celular);

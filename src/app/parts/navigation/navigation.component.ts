@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Sidebar } from 'primeng/sidebar';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-navigation',
@@ -78,9 +79,19 @@ export class NavigationComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         console.log(this.sidebarRef)
     }
+    constructor(
+      private accountService: AccountService
+    ){
+
+    }
 
     closeCallback(e: any): void {
         this.sidebarRef.close(e);
     }
+
+    sair() {
+      this.accountService.logout();
+
+  }
 
 }

@@ -47,7 +47,6 @@ export class FormComponent {
   }
 
 
-
   voltar() {
     this.visible = false;
     if (this.title == 'Editar') {

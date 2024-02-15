@@ -9,7 +9,8 @@ import { aulaColumns } from '../../../../../models/aula.model';
 import { Subscription } from 'rxjs';
 import { Crypto } from '../../../../../../utils/crypto';
 import { Aula } from '../../../../../models/aula.model';
-
+import { of } from 'rxjs';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -26,13 +27,13 @@ export class ListComponent {
   teste: Aula[] = [];
   visible = true;
   datasFormatadas: string[] = [];
+  aaulaService: AulaService[] = [];
 
   constructor(private aulaService: AulaService) {
     var list = this.aulaService.list.subscribe(res => {
       this.list = Object.assign([], res)
-      console.log('list', this.list)
-      if (this.list  && this.list.length > 0) {
-        this. formatarDataNaLista()
+      if (this.list && this.list.length > 0) {
+        this.formatarDataNaLista()
       }
     });
 
@@ -41,8 +42,21 @@ export class ListComponent {
     lastValueFrom(this.aulaService.getList(true));
 
   }
+  get() {
+    lastValueFrom(this.aulaService.getList(true));
+  }
 
+  update(): void {
+    this.loading = true
+    this.get
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  }
+  getServiceObservable(): Observable<AulaService | null> {
+    return this.aaulaService.length > 0 ? of(this.aaulaService[0]) : of(null);
 
+  }
 
   formatarDataNaLista() {
     this.list.forEach(aula => {

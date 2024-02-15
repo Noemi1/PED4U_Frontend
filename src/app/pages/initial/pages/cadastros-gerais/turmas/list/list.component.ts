@@ -37,5 +37,16 @@ export class ListComponent {
   }
 
 
+  get() {
+    lastValueFrom(this.turmaService.getList(true));
+  }
+
+  update(): void {
+    this.loading = true
+    this.get
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  }
 
 }

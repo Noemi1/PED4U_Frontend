@@ -33,6 +33,17 @@ export class ListComponent {
     console.log('list',list)
   }
 
+  get() {
+    lastValueFrom(this.usuarioService.getList(true));
+  }
+
+  update(): void {
+    this.loading = true
+    this.get
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  }
 
 
 }

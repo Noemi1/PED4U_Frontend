@@ -35,6 +35,16 @@ export class ListComponent {
     this.subscription.push(list);
     lastValueFrom(this.apostilaService.getList(true));
   }
+  get() {
+    lastValueFrom(this.apostilaService.getList(true));
+  }
 
+  update(): void {
+    this.loading = true
+    this.get
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  }
 
 }

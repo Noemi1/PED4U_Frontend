@@ -11,51 +11,23 @@ import {  ViewChild } from '@angular/core';
 import {  QueryList, ViewChildren } from '@angular/core';
 import { ColumnFilter } from 'primeng/table';
 import { SimpleChanges } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-list-shared',
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListSharedComponent {
-
   idClicado: number | undefined;
 
   @ViewChildren('menuItem') contextMenus!: QueryList<ContextMenu>;
-
-  openContextMenu(event: Event, menu: ContextMenu, item: any) {
-    event.preventDefault();
-    if (item.id){
-      this.idClicado = item.id;
-    }
-    else if (item.alunoId){
-      this.idClicado = item.alunoId;
-    }
-    console.log(this.idClicado)
-    // Fecha todos os menus antes de abrir o menu associado ao item clicado
-    this.closeAllContextMenus();
-
-    menu.toggle(event);
-
-  }
-
-
-  closeAllContextMenus() {
-    // Fecha todos os menus
-    if (this.contextMenus) {
-      this.contextMenus.forEach(menu => menu.hide());
-    }
-  }
-
-
-
-
   @Input() columns: Column[] = [];
   @Input() list: any[] = [];
   @Input() title: string = '';
 
   public selectedItem: any;
   public conteudo = {}
-
   menu: MenuItem[] = [
     { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar()  },
     { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir()  }
@@ -64,33 +36,61 @@ export class ListSharedComponent {
     { label: 'Atualizar lista', icon: 'pi  pi-spinner' },
     { label: 'Cadastrar' + this.title, icon: 'pi pi-plus' }
   ];
-
-
   representatives!: any[];
   statuses!: any[];
-  loading: boolean = true;
+  loading: boolean = false;
   activityValues: number[] = [0, 100];
   filters: string[] = [];
   itemMenuAtivo: number | null = null;
-  // @Input() filterTable = true;
-
   @Input() filterTable: boolean = false;
-  filterValue: string = ''; // Valor do filtro
-
+  filterValue: string = '';
   formatedList: any = [];
+  @Input() service: any
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
 
   ) {
-console.log('oi')
+  }
+
+
+  openContextMenu(event: Event, menu: ContextMenu, item: any) {
+    event.preventDefault();
+
+    if (item.id){
+      this.idClicado = item.id;
+    }
+    else if (item.alunoId){
+      this.idClicado = item.alunoId;
+    }
+    console.log(this.idClicado)
+    this.closeAllContextMenus();
+    menu.toggle(event);
 
   }
 
 
+  closeAllContextMenus() {
+    if (this.contextMenus) {
+      this.contextMenus.forEach(menu => menu.hide());
+    }
+  }
 
 
+  checkContextMenu(event: MouseEvent,menu: ContextMenu, item: any) {
+    event.preventDefault();
+    this.openContextMenu(event, menu, item )
+
+  }
+
+
+  onClick(): void {
+    if (typeof this.service === 'function') {
+      this.service();
+    }
+  }
   navigateToEditar() {
     if (this.idClicado !== undefined) {
       const Encrypt = this.crypto.encrypt(this.idClicado);
