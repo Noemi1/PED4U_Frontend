@@ -20,12 +20,12 @@ import { Observable } from 'rxjs';
 })
 export class ListSharedComponent {
   idClicado: number | undefined;
-
+  @Input() paginator: boolean = true;
   @ViewChildren('menuItem') contextMenus!: QueryList<ContextMenu>;
   @Input() columns: Column[] = [];
   @Input() list: any[] = [];
   @Input() title: string = '';
-
+  @Input() icone: string = '';
   public selectedItem: any;
   public conteudo = {}
   menu: MenuItem[] = [

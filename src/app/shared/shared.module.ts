@@ -20,7 +20,7 @@ import { PaginatorModule } from 'primeng/paginator';
     PrimengModule,
     InputNumberModule,
     NgxMaskModule.forRoot(),
-    PaginatorModule
+
 
   ],
   exports: [

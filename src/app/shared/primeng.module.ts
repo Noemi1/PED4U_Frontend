@@ -24,6 +24,7 @@ import { RippleModule } from 'primeng/ripple';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
     imports: [
@@ -50,7 +51,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
         RippleModule,
         InputMaskModule,
         CalendarModule,
-        SelectButtonModule
+        SelectButtonModule,
+        PaginatorModule
     ],
     exports: [
         CommonModule,
@@ -76,7 +78,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
         RippleModule,
         InputMaskModule,
         CalendarModule,
-        SelectButtonModule
+        SelectButtonModule,
+        PaginatorModule
     ]
 })
 export class PrimengModule { }

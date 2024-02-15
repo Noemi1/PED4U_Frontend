@@ -10,6 +10,7 @@ import { AccountService } from '../../services/account.service';
 })
 export class NavigationComponent implements AfterViewInit {
     sidebarVisible = false;
+
     @ViewChild('sidebarRef') sidebarRef!: Sidebar;
     items: MenuItem[] = [
         {
@@ -34,7 +35,7 @@ export class NavigationComponent implements AfterViewInit {
                 },
                 {
                   label: 'Usuários',
-                  icon: 'bi bi-person-video3',
+                  icon: 'pi pi-users',
                   routerLink: 'usuarios',
                   padding: 15,
 
@@ -55,7 +56,7 @@ export class NavigationComponent implements AfterViewInit {
                 },
                 {
                   label: 'Turmas',
-                  icon: 'bi bi-person-badge',
+                  icon: 'bi bi-mortarboard-fill',
                   routerLink: 'turmas',
                   padding: 15,
 
@@ -70,7 +71,7 @@ export class NavigationComponent implements AfterViewInit {
         },
         {
             label: 'Gerenciar Reposições',
-            icon: 'fa fa-clock-rotate-back',
+            icon: 'bi bi-table',
             routerLink: 'reposicoes',
             padding: 0,
         },
@@ -82,7 +83,6 @@ export class NavigationComponent implements AfterViewInit {
     constructor(
       private accountService: AccountService
     ){
-
     }
 
     closeCallback(e: any): void {

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InitialComponent } from './initial.component';
+import { HeaderComponent } from '../../parts/header/header.component';
+
 
 const alunos = () => import('./pages/cadastros-gerais/alunos/alunos.module').then(res => res.AlunosModule);
 const apostilas = () => import('./pages/cadastros-gerais/apostilas/apostilas.module').then(res => res.ApostilasModule);
@@ -14,7 +16,9 @@ const reposicoes = () => import('./pages/reposicao/reposicao.module').then(res =
 
 
 const routes: Routes = [
+
     { path: '', component: InitialComponent, children: [
+      { path: '', component: HeaderComponent,  },
         { path: 'alunos', loadChildren: alunos, title: 'Alunos' },
         { path: 'apostilas', loadChildren: apostilas, title: 'Apostilas' },
         { path: 'perfis', loadChildren: perfil, title: 'Perfil' },

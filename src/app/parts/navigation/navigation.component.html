@@ -1,118 +1,111 @@
-
 <p-toolbar [styleClass]="''">
-    <ng-template pTemplate="start">
-        <img src="assets/img/logo.png" alt="" class="logo">
-    </ng-template>
-    <ng-template pTemplate="center">
-    </ng-template>
-    <ng-template pTemplate="end">
-        <p-button (click)="sidebarVisible = true" icon="pi pi-bars"></p-button>
-    </ng-template>
+  <ng-template pTemplate="start">
+    <img src="assets/img/logo.png" alt="" class="logo">
+  </ng-template>
+  <ng-template pTemplate="center">
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-button (click)="sidebarVisible = true" icon="pi pi-bars"></p-button>
+  </ng-template>
 </p-toolbar>
 <div class="d-flex">
-    <p-sidebar [(visible)]="sidebarVisible"
-               [showCloseIcon]="true"
-               [styleClass]="'p-0'"
-               [style]="{
+  <p-sidebar [(visible)]="sidebarVisible"
+             [showCloseIcon]="true"
+             [styleClass]="'p-0'"
+             [style]="{
                     padding: 0,
                     width: '300px'
                 }">
-        <ng-template pTemplate="header">
-            <img src="assets/img/logo.png" alt="" class="logo">
-        </ng-template>
-        <ng-template pTemplate="content">
-            <!-- <div *ngFor="let item of items">
-                <ng-container
-                              [ngTemplateOutlet]="menuItem"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-            </div> -->
-            <p-panelMenu [model]="items"
-                         [multiple]="true"
-                         [style]="{
+    <ng-template pTemplate="header">
+      <img src="assets/img/logo.png" alt="" class="logo">
+    </ng-template>
+    <ng-template pTemplate="content">
+      <p-panelMenu [model]="items"
+                   [multiple]="true"
+                   [style]="{
                                 padding: 0,
                                 width: '100%'
                                 }"
-                         #sidebarRef>
-                <ng-template let-menus pTemplate="menus">
-                    <a class="p-menuitem-link" [routerLink]="menus.routerLink"
-                       [style]="{
+                   #sidebarRef>
+        <ng-template let-menus pTemplate="menus">
+          <a class="p-menuitem-link" [routerLink]="menus.routerLink"
+             [style]="{
                                 paddingLeft: menus.padding + 'px'
                             }">
-                        <span class="p-menuitem-icon {{menus.icon}}"></span>
-                        <span class="p-menuitem-text">{{menus.label}}</span>
-                    </a>
-                </ng-template>
-            </p-panelMenu>
+            <span class="p-menuitem-icon {{menus.icon}}"></span>
+            <span class="p-menuitem-text">{{menus.label}}</span>
+          </a>
         </ng-template>
-        <ng-template pTemplate="footer">
-            <p-divider [classList]="'mt-auto'"></p-divider>
-            <div class="d-flex align-items-center">
-                <p-button icon="pi pi-user"
-                        styleClass="me-2 text-white"
-                        [style]="{ 'pointer-events': 'none' }"
-                          severity="secondary"
-                          size="small"
-                          [raised]="true"
-                          [rounded]="true"></p-button>
+      </p-panelMenu>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-divider [classList]="'mt-auto'"></p-divider>
+      <div class="d-flex align-items-center">
+        <p-button icon="pi pi-user"
+                  styleClass="me-2 text-white"
+                  [style]="{ 'pointer-events': 'none' }"
+                  severity="secondary"
+                  size="small"
+                  [raised]="true"
+                  [rounded]="true"></p-button>
 
-                <span>Noemi C. Almeida</span>
-                <div class="ms-auto">
-                    <p-button icon="bi bi-gear-fill"
-                              severity="primary"
-                              size="small"
-                              [raised]="true"
-                              [rounded]="true"></p-button>
-                    <p-button icon="bi bi-box-arrow-left"
-                        styleClass="ms-2"
-           (click)="sair()"
-                              severity="primary"
-                              size="small"
-                              [raised]="true"
-                              [rounded]="true"></p-button>
-                </div>
-            </div>
-        </ng-template>
-    </p-sidebar>
+        <span>Noemi C. Almeida</span>
+        <div class="ms-auto">
+          <p-button icon="bi bi-gear-fill"
+                    severity="primary"
+                    size="small"
+                    [raised]="true"
+                    [rounded]="true"></p-button>
+          <p-button icon="bi bi-box-arrow-left"
+                    styleClass="ms-2"
+                    (click)="sair()"
+                    severity="primary"
+                    size="small"
+                    [raised]="true"
+                    [rounded]="true"></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-sidebar>
 </div>
 <ng-template #menuItem let-item="item">
-    <p-panel
-             [toggleable]="item.items"
-             [collapsed]="true"
-             collapseIcon="pi pi-angle-right"
-             expandIcon="pi pi-angle-down"
-             styleClass="p-0"
-             toggler="header"
-             #item>
-        <ng-template pTemplate="header">
-            <a href="">
-                <ng-container
-                              [ngTemplateOutlet]="header"
-                              [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-            </a>
-        </ng-template>
-        <ng-template pTemplate="content">
-            <div *ngIf="item.items && item.items.length > 0">
-                <div *ngFor="let subitem of item.items">
-                    <ng-container
-                                  [ngTemplateOutlet]="menuItem"
-                                  [ngTemplateOutletContext]="{ item: subitem}">
-                    </ng-container>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="icons">
-            <i class="pi pi-link" *ngIf="item.routerLink"></i>
-        </ng-template>
-    </p-panel>
+  <p-panel
+           [toggleable]="item.items"
+           [collapsed]="true"
+           collapseIcon="pi pi-angle-right"
+           expandIcon="pi pi-angle-down"
+           styleClass="p-0"
+           toggler="header"
+           #item>
+    <ng-template pTemplate="header">
+      <a href="">
+        <ng-container
+                      [ngTemplateOutlet]="header"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+      </a>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div *ngIf="item.items && item.items.length > 0">
+        <div *ngFor="let subitem of item.items">
+          <ng-container
+                        [ngTemplateOutlet]="menuItem"
+                        [ngTemplateOutletContext]="{ item: subitem}">
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="icons">
+      <i class="pi pi-link" *ngIf="item.routerLink"></i>
+    </ng-template>
+  </p-panel>
 </ng-template>
 <ng-template #header let-item="item">
-    <div [style]="{
+  <div [style]="{
         paddingLeft: item.padding + 'px'
 
     }">
-        <i [classList]="item.icon + ' me-2'"></i>
-        <span class="p-panel-title">{{item.label}}</span>
-    </div>
+    <i [classList]="item.icon + ' me-2'"></i>
+    <span class="p-panel-title">{{item.label}}</span>
+  </div>
 </ng-template>

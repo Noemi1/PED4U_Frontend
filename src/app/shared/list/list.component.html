@@ -3,7 +3,7 @@
     <ng-template pTemplate="header">
       <app-breadcrumb></app-breadcrumb>
       <div class="d-flex align-items-center px-4">
-        <p-avatar icon="bi bi-backpack" styleClass="me-2" size="xlarge"></p-avatar>
+        <p-avatar icon={{icone}} styleClass="me-2" size="xlarge"></p-avatar>
         <h3 class="p-card-title my-0">{{title}}</h3>
       </div>
     </ng-template>
@@ -13,6 +13,7 @@
                [value]="list"
                dataKey="id"
                [rows]="10"
+               [paginator]="paginator"
                [showCurrentPageReport]="true"
                [rowsPerPageOptions]="[10, 25, 50]"
                currentPageReportTemplate="Mostrando de {first} até {last} do total de {totalRecords} registros"

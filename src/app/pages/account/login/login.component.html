@@ -1,14 +1,8 @@
-
 <div class="d-flex justify-content-center"
      [style]="{ width: '100%', 'max-height':'100vh', 'min-height':'100vh', 'margin': '0'}">
   <div
        [style]="{ width: '40%','background-image': 'url(../../../../assets/img/back.png)' , 'background-size': 'cover', 'background-position':'center' }">
-
-
-
-
   </div>
-  <!-- <p-divider layout="vertical" styleClass="flex md:hidden" [align]="'center'"><b>OU</b></p-divider> -->
   <div [style]="{ width: '60%' }" class="d-flex  justify-content-center align-items-center">
     <div>
       <div class="mt-5">
@@ -37,6 +31,27 @@
 
         </div>
         <div class="row my-4">
+          <div class="form-group col-12">
+            <span class="p-float-label">
+              <input class="col-12 form-control p-3"
+                     pInputText
+                     id="password"
+                     name="password"
+                     #password="ngModel"
+                     [(ngModel)]="login.password"
+                     placeholder="example@gmail.com"
+                     placeholder="**"
+                     required
+                     minlength="6"
+                     />
+              <label for="password">Senha</label>
+            </span>
+          </div>
+          <div class=" text-right col-lg-6 col-md-6 col-sm-6 col-12 mt-2">
+            <a class="link" [routerLink]="['..', 'forgot-password']">Esqueci minha senha</a>
+          </div>
+        </div>
+        <!-- <div class="row my-4">
           <span class="p-float-label ">
             <input class=" col-12 form-control p-3"
                    pInputText
@@ -52,31 +67,22 @@
           <div class=" text-right col-lg-6 col-md-6 col-sm-6 col-12 mt-2">
             <a class="link" [routerLink]="['..', 'forgot-password']">Esqueci minha senha</a>
           </div>
-        </div>
+        </div> -->
         <button pButton class="col-12 d-flex justify-content-center p-3" label="Entrar"
                 [style]="{ 'background-color': '#feae01', 'border':'none' }"></button>
-
-
-
         <div class="row">
           <p class="text-danger text-center col-12" *ngIf="erro">{{erro}}</p>
           <p class="text-center col-12 mb-3 mt-4">Ao clicar em "cadastrar" você concorda com os <a class="link"
                routerLink="./termos-de-uso">termos de uso</a> do zentech.</p>
-
         </div>
-
         <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"><b>OU</b></p-divider>
         <div class="d-flex flex-column  justify-content-center align-items-center ">
-
           <h4 class="my-2">Ainda não possui uma conta?</h4>
           <p-button label="Me cadastrar" icon="pi pi-user-plus" styleClass="p-button-success w-10em"
           [style]="{ 'background-color': '#f27334', 'border': 'none' }"
           [routerLink]="['..', 'register']"></p-button>
         </div>
-
       </form>
     </div>
-
-
   </div>
 </div>
