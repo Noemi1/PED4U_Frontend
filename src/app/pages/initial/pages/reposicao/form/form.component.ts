@@ -17,7 +17,7 @@ import { AlunoAulaRelService } from '../../../../../services/alunoAulaRel.model'
 })
 export class FormComponent {
   erro: string = ''
-  visible = true;
+  visible = false;
   loading = false;
   qtde = 1
   title = 'Cadastrar'
@@ -26,7 +26,8 @@ export class FormComponent {
   aulas: AlunoAulaRelList[] = [];
   loadingAulas = true;
   subscription: Subscription[] = [];
-
+  dialogAlreadyOpen: boolean = false;
+  loc = false
 
   constructor(
     private router: Router,
@@ -35,20 +36,38 @@ export class FormComponent {
     private crypto: Crypto,
     private alunoAulaRelService: AlunoAulaRelService,
   ) {
+
     lastValueFrom(this.alunoAulaRelService.getList())
       .then(res => {
         this.loadingAulas = false;
         this.aulas = res
       });
-    var aulas = this.alunoAulaRelService.list.subscribe(res => this.aulas = res);
-    this.subscription.push(aulas);
+
+      var aulas = this.alunoAulaRelService.list.subscribe(res => this.aulas = res);
+      this.subscription.push(aulas);
   }
 
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    // const visivel = localStorage.getItem('loc');
+    // const acaoRealizada = visivel === 'true';
+    // console.log(acaoRealizada)
+    // if (acaoRealizada) {
+    //   // Realizar a ação
+    //   this.visible = true
+    //   console.log('oi')
+    //   // Marcar a ação como realizada no armazenamento local
+    //   localStorage.setItem('loc', 'true');
+    // }
+this.visible = true
+    console.log('visible',this.visible)
+
+
+
     this.route.params.subscribe(params => {
       const id = params['id'];
       const idDecrypt = this.crypto.decrypt(id);
+      console.log('id', idDecrypt)
       lastValueFrom(this.reposicaoService.get(idDecrypt))
         .then(res => {
           this.objeto = res;
@@ -60,12 +79,11 @@ export class FormComponent {
           this.voltar();
         })
     });
-
-
-
-
   }
+
+
   voltar() {
+    console.log('voltar')
     this.visible = false;
     if (this.title == 'Editar') {
       setTimeout(() => {
@@ -88,7 +106,7 @@ export class FormComponent {
 
 
   send() {
-    this.visible = false;
+    this.loading = true;
     return lastValueFrom(this.reposicaoService.post(this.objeto))
       .then(res => {
         if (res.success != false) {
@@ -97,12 +115,11 @@ export class FormComponent {
           } else {
             lastValueFrom(this.reposicaoService.getList());
           }
-          this.voltar();
         } else {
           this.erro = res.message
         }
         this.loading = false;
-        console.log(this.objeto)
+        this.voltar();
       })
       .catch(res => {
         console.error(res)

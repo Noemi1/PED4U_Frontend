@@ -18,8 +18,8 @@ export class ListComponent {
   title = 'Turmas'
   list: TurmasList[] = [];
   loading: boolean = true;
-  subscription: Subscription []= []
-  objeto:Turmas= new Turmas;
+  subscription: Subscription[] = []
+  objeto: Turmas = new Turmas;
   visible = true;
 
   constructor(
@@ -28,15 +28,41 @@ export class ListComponent {
     private route: ActivatedRoute,
     private crypto: Crypto,
   ) {
-    var list = this.turmaService.list.subscribe(res => this.list = Object.assign([], res
+    var list = this.turmaService.list.subscribe(res => {
 
-      ));
-
+      this.list = Object.assign([], res)
+      this.formatarDia()
+    });
     this.subscription.push(list);
     lastValueFrom(this.turmaService.getList(true));
   }
 
 
+  formatarDia(){
+    this.list.forEach(turma => {
+      if(turma.diaSemana == 1){
+        turma.diaSemana = 'Segunda-feira' as any
+
+      }
+      else if(turma.diaSemana == 2){
+        turma.diaSemana = 'Terça-feira' as any
+
+      }
+      else if(turma.diaSemana == 3){
+        turma.diaSemana = 'Quarta-feira' as any
+
+      }
+      else if(turma.diaSemana == 4){
+        turma.diaSemana = 'Quinta-feira' as any
+
+      }
+      else if(turma.diaSemana == 5){
+        turma.diaSemana = 'Sexta-feira' as any
+
+      }
+
+    });
+  }
   get() {
     lastValueFrom(this.turmaService.getList(true));
   }

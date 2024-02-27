@@ -35,9 +35,11 @@ export class ListComponent {
         this.list = Object.assign([], res)
         this.formatarCelularNaLista();
         this.formatarDataNaLista();
+        this.formatarDia()
 
       }
       );
+
       this.subscription.push(list);
       lastValueFrom(this.alunoService.getList(true));
 
@@ -67,6 +69,32 @@ export class ListComponent {
     setTimeout(() => {
       this.router.navigate(['../'], { relativeTo: this.route })
     }, 300);
+  }
+
+  formatarDia(){
+    this.list.forEach(aluno => {
+      if(aluno.diaTurma == 1){
+        aluno.diaTurma = 'Segunda-feira' as any
+
+      }
+      else if(aluno.diaTurma == 2){
+        aluno.diaTurma = 'Terça-feira' as any
+
+      }
+      else if(aluno.diaTurma == 3){
+        aluno.diaTurma = 'Quarta-feira' as any
+
+      }
+      else if(aluno.diaTurma == 4){
+        aluno.diaTurma = 'Quinta-feira' as any
+
+      }
+      else if(aluno.diaTurma == 5){
+        aluno.diaTurma = 'Sexta-feira' as any
+
+      }
+
+    });
   }
 
   get() {

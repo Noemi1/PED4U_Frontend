@@ -108,6 +108,8 @@
                     [disabled]="loadingperfis"
                     [placeholder]="'Selecione o perfil do aluno'"
                     [required]="true"
+                    [filter]="true"
+                    [filterFields]="['nome']"
                 ></p-dropdown>
         <div *ngIf="perfil_Id.touched && perfil_Id.errors">
           <p class="text-danger my-0 ms-1" *ngIf="perfil_Id.errors['required']">Este campo é obrigatório.</p>
@@ -130,6 +132,8 @@
                     [disabled]="loadingTurmas"
                     [placeholder]="'Selecione a turma'"
                     [required]="true"
+                    [filter]="true"
+                    [filterFields]="['id']"
                 ></p-dropdown>
         <div *ngIf="turma_Id.touched && turma_Id.errors">
           <p class="text-danger my-0 ms-1" *ngIf="turma_Id.errors['required']">Este campo é obrigatório.</p>

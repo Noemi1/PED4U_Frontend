@@ -2,7 +2,7 @@
           [(visible)]="visible"
           (visibleChange)="voltar()"
           [style]="{width: '600px'}"
-          [modal]="true"
+          [modal]="false"
           [draggable]="true"
           [resizable]="false"
           [maximizable]="true"
@@ -30,31 +30,35 @@
                     optionValue="id"
                     [showClear]="false"
                     placeholder="Selecione a aula falta"
-                    [required]="true"></p-dropdown>
+                    [required]="true"
+                    [filter]="true"
+                    [filterFields]="['name']"></p-dropdown>
         <div *ngIf="falta_Aula_Id.touched && falta_Aula_Id.errors">
-            <p class="text-danger my-0 ms-1" *ngIf="falta_Aula_Id.errors['required']">Este campo é obrigatório.</p>
+          <p class="text-danger my-0 ms-1" *ngIf="falta_Aula_Id.errors['required']">Este campo é obrigatório.</p>
         </div>
-    </div>
-    <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"><!-- Aula Faltada -->
-      <label for="reposicao_Aula_Id" class="mb-1 ms-1">Aula Reposta: <span class="text-danger">*</span></label>
-      <p-dropdown [options]="aulas"
-                  appendTo="body"
-                  class="w-100"
-                  styleClass="w-100"
-                  inputId="reposicao_Aula_Id"
-                  name="reposicao_Aula_Id"
-                  #reposicao_Aula_Id="ngModel"
-                  [(ngModel)]="objeto.reposicao_Aula_Id"
-                  optionLabel="apostilaNome"
-                  optionValue="id"
-                  [showClear]="false"
-                  placeholder="Selecione a aula que será reposta"
-                  [required]="true"></p-dropdown>
-      <div *ngIf="reposicao_Aula_Id.touched && reposicao_Aula_Id.errors">
-          <p class="text-danger my-0 ms-1" *ngIf="reposicao_Aula_Id.errors['required']">Este campo é obrigatório.</p>
       </div>
-  </div>
-</div>
+      <div class="d-flex flex-column mb-2 col-md-6 col-sm-6 col-6"><!-- Aula Faltada -->
+        <label for="reposicao_Aula_Id" class="mb-1 ms-1">Aula Reposta: <span class="text-danger">*</span></label>
+        <p-dropdown [options]="aulas"
+                    appendTo="body"
+                    class="w-100"
+                    styleClass="w-100"
+                    inputId="reposicao_Aula_Id"
+                    name="reposicao_Aula_Id"
+                    #reposicao_Aula_Id="ngModel"
+                    [(ngModel)]="objeto.reposicao_Aula_Id"
+                    optionLabel="apostilaNome"
+                    optionValue="id"
+                    [showClear]="false"
+                    placeholder="Selecione a aula que será reposta"
+                    [required]="true"
+                    [filter]="true"
+                    [filterFields]="['name']"></p-dropdown>
+        <div *ngIf="reposicao_Aula_Id.touched && reposicao_Aula_Id.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="reposicao_Aula_Id.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+    </div>
 
   </form>
   <ng-template pTemplate="footer">
@@ -65,3 +69,4 @@
     </div>
   </ng-template>
 </p-dialog>
+

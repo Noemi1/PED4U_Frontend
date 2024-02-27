@@ -111,7 +111,7 @@ export class FormComponent {
   }
 
   send() {
-    this.visible = false;
+    this.loading = true
     return lastValueFrom(this.aulaService.post(this.objeto))
       .then(res => {
         if (res.success != false) {
@@ -120,11 +120,11 @@ export class FormComponent {
           } else {
             lastValueFrom(this.aulaService.getList());
           }
-          this.voltar();
         } else {
           this.erro = res.message
         }
         this.loading = false;
+        this.voltar();
         console.log(this.objeto)
       })
       .catch(res => {
@@ -140,13 +140,11 @@ export class FormComponent {
   voltar() {
     this.visible = false;
     if (this.title == 'Editar') {
-      console.log('edit')
       setTimeout(() => {
         this.router.navigate(['../..'], { relativeTo: this.route })
       }, 300);
     }
     else {
-      console.log('editte')
       setTimeout(() => {
         this.router.navigate(['..'], { relativeTo: this.route })
       }, 300);

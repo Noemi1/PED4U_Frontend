@@ -29,9 +29,9 @@ export class FormComponent {
   dataVigencia: [Date, Date] = [new Date(2023, 1, 2), new Date(2023, 28, 2)];
 
   sexoList = [
-    { id: 1, nome: 'Feminino' },
-    { id: 2, nome: 'Masculino' },
-    { id: 3, nome: 'Outro' },
+    { id: 1, nome: 'Masculino' },
+    { id: 2, nome: 'Feminino' },
+
   ]
 
   turmas: TurmasList[] = [];
@@ -68,6 +68,7 @@ export class FormComponent {
   }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       const id = params['id'];
 
@@ -80,7 +81,7 @@ export class FormComponent {
             this.title = 'Editar';
             const dataNascimentoFormatada = formatDate(this.objeto.dataNascimento, 'dd/MM/yyyy', 'en-US');
             this.objeto.dataNascimento = dataNascimentoFormatada;
-            const dataVI = new Date(this.objeto.data_Vigencia_Inicial  + 'T00:00:00')
+            const dataVI = new Date(this.objeto.data_Vigencia_Inicial + 'T00:00:00')
             const dataVF = new Date(this.objeto.data_Vigencia_Final + 'T00:00:00')
             this.dataVigencia = [dataVI, dataVF]
 
@@ -134,9 +135,8 @@ export class FormComponent {
     this.objeto.dataNascimento = dataNascimentoFormatada;
 
 
-console.log(this.objeto.dataNascimento)
-    this.visible = false;
-
+    console.log(this.objeto.dataNascimento)
+    this.loading = true;
     return lastValueFrom(this.alunoService.post(this.objeto))
       .then(res => {
         if (res.success != false) {
@@ -145,12 +145,13 @@ console.log(this.objeto.dataNascimento)
           } else {
             lastValueFrom(this.alunoService.getList());
           }
-          this.voltar();
+
         } else {
           this.erro = res.message;
           this.voltar();
         }
         this.loading = false;
+        this.voltar();
       })
       .catch(error => {
         console.error(error);

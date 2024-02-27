@@ -12,10 +12,11 @@ import { environment } from '../../environments/environment';
 })
 export class AccountService {
     url = environment.url;
+    public login2: string = ''
     list = new BehaviorSubject<Register[]>([]);
     accountSubject: BehaviorSubject<Account | undefined>;
     public account: Observable<Account | undefined>;
-
+    private email: string = '';
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -51,7 +52,9 @@ export class AccountService {
                 const returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
                 this.router.navigateByUrl(returnUrl);
                 this.startRefreshTokenTimer();
+                this.login2 = model.email
                 return of(account);
+
             }),
             catchError((err => {
                 this.setAccount(undefined);
@@ -59,6 +62,18 @@ export class AccountService {
                 return throwError(err);
             }))
         );
+    }
+
+    getEmailFromModel(model: Login): string {
+      return model.email;
+    }
+
+    setEmail(email: string) {
+      this.email = email;
+    }
+
+    getEmail(): string {
+      return this.email;
     }
 
 

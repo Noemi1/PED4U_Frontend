@@ -1,7 +1,10 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { UsuarioService } from './../../services/usuario.service';
+import { AfterViewInit, Component, ViewChild, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Sidebar } from 'primeng/sidebar';
 import { AccountService } from '../../services/account.service';
+import { Login } from '../../models/account.model';
+import { Account } from '../../models/account.model';
 
 @Component({
   selector: 'app-navigation',
@@ -10,7 +13,9 @@ import { AccountService } from '../../services/account.service';
 })
 export class NavigationComponent implements AfterViewInit {
     sidebarVisible = false;
-
+    login = new Login;
+    userLogado?: Account;
+    @Input() nome: string = '';
     @ViewChild('sidebarRef') sidebarRef!: Sidebar;
     items: MenuItem[] = [
         {
@@ -81,8 +86,10 @@ export class NavigationComponent implements AfterViewInit {
         console.log(this.sidebarRef)
     }
     constructor(
-      private accountService: AccountService
+      private accountService: AccountService,
+      private usuarioService: UsuarioService
     ){
+      this.userLogado = this.accountService.accountValue;
     }
 
     closeCallback(e: any): void {

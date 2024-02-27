@@ -29,7 +29,7 @@ export var apostilaColumns: Column[] = [
   },
   {
       field: 'nome',
-      header: ' nome',
+      header: ' Nome',
       maskType: MaskType.dateTime,
       filterType: FilterType.date,
       filterDisplay: FilterDisplay.menu,

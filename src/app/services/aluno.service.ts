@@ -30,6 +30,7 @@ export class AlunoService {
                next: list => {
                    this.loading.next(false);
                    this.list.next(Object.assign([], list));
+                   console.log('listt', list)
                    return of(list);
                },
                error: res => this.toastr.error('Não foi possível carregar listagem de Alunos.')

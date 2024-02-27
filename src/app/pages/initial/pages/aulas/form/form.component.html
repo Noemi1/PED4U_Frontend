@@ -47,7 +47,10 @@
                   optionValue="id"
                   [showClear]="false"
                   placeholder="Selecione uma turma"
-                  [required]="true"></p-dropdown>
+                  [required]="true"
+                  [filter]="true"
+                  [filterFields]="['id']"
+                  ></p-dropdown>
       <div *ngIf="turma_Id.touched && turma_Id.errors">
           <p class="text-danger my-0 ms-1" *ngIf="turma_Id.errors['required']">Este campo é obrigatório.</p>
       </div>
@@ -72,7 +75,10 @@
                 optionValue="id"
                 [showClear]="false"
                 placeholder="Selecione um educador"
-                [required]="true"></p-dropdown>
+                [required]="true"
+                [filter]="true"
+                [filterFields]="['name']"
+                ></p-dropdown>
     <div *ngIf="educador_Id.touched && educador_Id.errors">
         <p class="text-danger my-0 ms-1" *ngIf="educador_Id.errors['required']">Este campo é obrigatório.</p>
     </div>

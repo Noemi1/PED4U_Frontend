@@ -60,6 +60,7 @@ export class FormComponent {
       }, 300);
     }
     else {
+      console.log('as')
       setTimeout(() => {
         this.router.navigate(['..'], { relativeTo: this.route })
       }, 300);
@@ -98,24 +99,23 @@ export class FormComponent {
 
 
   send() {
+    this.loading = true
     this.objeto.perfilAcesso_Id = 2;
-    this.visible = false;
     this.request()
       .then(res => {
         if (res.success != false) {
           if (res.objeto) {
             insertOrReplace(this.usuarioService, res.objeto)
+
           } else {
             lastValueFrom(this.usuarioService.getList());
           }
-          this.voltar();
         } else {
-          console.log('eita')
           this.erro = res.message
           this.voltar();
         }
         this.loading = false;
-        console.log(this.objeto)
+        this.voltar();
       })
       .catch(res => {
 

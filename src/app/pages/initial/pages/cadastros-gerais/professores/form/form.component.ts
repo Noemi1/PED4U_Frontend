@@ -87,8 +87,8 @@ export class FormComponent {
 
 
 
-  send() {
-    this.visible = false;
+  send()
+  { this.loading = true;
     this.objeto.perfilAcesso_Id = 3; // Professor
     this.request()
       .then(res => {

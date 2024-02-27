@@ -1,5 +1,4 @@
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
-
 export class AlunoList {
     alunoId: number = 0;
     turma_Id: number = 0;
@@ -11,7 +10,6 @@ export class AlunoList {
     diaTurma: number = 0;
     perfilAluno: string = '';
     dataVigencia: string = '';
-
 }
 
 export class Aluno {
@@ -28,7 +26,6 @@ export class Aluno {
 }
 
 export var alunoColumns: Column[] = [
-
   {
       field: 'nome',
       header: ' Nome',
@@ -38,7 +35,6 @@ export var alunoColumns: Column[] = [
       showAddButton: false,
       showMatchMode: true,
       showOperator: false,
-
   },
   {
     field: 'celular',
@@ -49,7 +45,6 @@ export var alunoColumns: Column[] = [
     showAddButton: false,
     showMatchMode: true,
     showOperator: false,
-
 },
   {
     field: 'idade',
@@ -60,7 +55,6 @@ export var alunoColumns: Column[] = [
     showAddButton: false,
     showMatchMode: true,
     showOperator: false,
-
 },
 {
   field: 'sexo',
@@ -71,7 +65,6 @@ export var alunoColumns: Column[] = [
   showAddButton: false,
   showMatchMode: true,
   showOperator: false,
-
 },
 {
   field: 'horarioTurma',
@@ -82,7 +75,6 @@ export var alunoColumns: Column[] = [
   showAddButton: false,
   showMatchMode: true,
   showOperator: false,
-
 },
 {
   field: 'diaTurma',
@@ -93,7 +85,6 @@ export var alunoColumns: Column[] = [
   showAddButton: false,
   showMatchMode: true,
   showOperator: false,
-
 },
 {
   field: 'perfilAluno',
@@ -104,7 +95,6 @@ export var alunoColumns: Column[] = [
   showAddButton: false,
   showMatchMode: true,
   showOperator: false,
-
 },
 {
   field: 'dataVigencia',
@@ -116,6 +106,5 @@ export var alunoColumns: Column[] = [
   showMatchMode: true,
   showOperator: false,
 
-},
-
+}
 ];

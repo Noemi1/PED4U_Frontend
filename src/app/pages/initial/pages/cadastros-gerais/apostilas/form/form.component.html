@@ -35,40 +35,50 @@
       </div>
       <div class="d-flex flex-column mb-2 col-sm-3 col-3"> <!-- Nome -->
         <label for="qtdePaginas" class="mb-1 ms-1">Quantidade de páginas: <span class="text-danger">*</span></label>
-        <input type="numer"
-               pInputText
-               name="qtdePaginas"
-               id="qtdePaginas"
-               name="qtdePaginas"
-               #qtdePaginas="ngModel"
-               [(ngModel)]="objeto.qtdePaginas"
-               placeholder="qtdePaginas"
-               pattern="\S(.*\S)?"
-               (change)="objeto.qtdePaginas = qtdePaginas.value.trim(); "
-               required />
+        <p-inputNumber [(ngModel)]="objeto.qtdePaginas"
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        inputId="horizontal"
+        spinnerMode="horizontal"
+        [step]="1"
+        decrementButtonClass="p-button-danger"
+        incrementButtonClass="p-button-success"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+        name="qtdePaginas"
+        id="qtdePaginas"
+        name="qtdePaginas"
+        #qtdePaginas="ngModel"
+        [(ngModel)]="objeto.qtdePaginas"
+        placeholder="ex: 12"
+        pattern="\S(.*\S)?"
+        [required]="true"
+        (change)="objeto.qtdePaginas = qtdePaginas.value.trim(); "></p-inputNumber>
         <div *ngIf="qtdePaginas.touched && qtdePaginas.errors">
             <p class="text-danger my-0 ms-1" *ngIf="qtdePaginas.errors['required']">Este campo é obrigatório.</p>
         </div>
     </div>
-    <div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3"> <!-- Nome -->
-      <label for="realizada" class="mb-1 ms-1 ">Realizada:</label>
-      <p-checkbox [(ngModel)]="objeto.materialExtra"
-                  [binary]="true"
-                  inputId="binary"
-                  name="materialExtra"
-                  id="materialExtra"
-                  name="materialExtra"
-                  #materialExtra="ngModel"
-                  [(ngModel)]="objeto.materialExtra"
-                  placeholder="Material Extra"
-                  pattern="\S(.*\S)?"></p-checkbox>
-      <div *ngIf="qtdePaginas.touched && qtdePaginas.errors">
-          <p class="text-danger my-0 ms-1" *ngIf="qtdePaginas.errors['required']">Este campo é obrigatório.</p>
-      </div>
-  </div>
+
   </div>
 
-
+<div class="row">
+  <div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3 "> <!-- Nome -->
+    <label for="realizada" class="mb-1 ms-1 ">Realizada:</label>
+    <p-checkbox [(ngModel)]="objeto.materialExtra"
+                [binary]="true"
+                inputId="binary"
+                name="materialExtra"
+                id="materialExtra"
+                name="materialExtra"
+                #materialExtra="ngModel"
+                [(ngModel)]="objeto.materialExtra"
+                placeholder="Material Extra"
+                pattern="\S(.*\S)?"></p-checkbox>
+    <div *ngIf="qtdePaginas.touched && qtdePaginas.errors">
+        <p class="text-danger my-0 ms-1" *ngIf="qtdePaginas.errors['required']">Este campo é obrigatório.</p>
+    </div>
+</div>
+</div>
 
 
   </form>

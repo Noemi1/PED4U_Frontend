@@ -48,14 +48,13 @@
                   size="small"
                   [raised]="true"
                   [rounded]="true"></p-button>
-
-        <span>Noemi C. Almeida</span>
+                  <p>{{userLogado?.name}}</p>
         <div class="ms-auto">
-          <p-button icon="bi bi-gear-fill"
+          <!-- <p-button icon="bi bi-gear-fill"
                     severity="primary"
                     size="small"
                     [raised]="true"
-                    [rounded]="true"></p-button>
+                    [rounded]="true"></p-button> -->
           <p-button icon="bi bi-box-arrow-left"
                     styleClass="ms-2"
                     (click)="sair()"

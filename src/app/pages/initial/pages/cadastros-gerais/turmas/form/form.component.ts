@@ -109,11 +109,12 @@ export class FormComponent {
     console.log(value);
   }
   send() {
-    if (!this.objeto.horario.endsWith(':00:00')) {
+    if (!this.objeto.horario.endsWith(':00')) {
       this.objeto.horario += ':00';
+      console.log('vdd')
 
     }
-    this.visible = false;
+    this.loading = true;
     return lastValueFrom(this.turmaService.post(this.objeto))
       .then(res => {
         if (res.success != false) {
@@ -127,7 +128,7 @@ export class FormComponent {
           this.erro = res.message
         }
         this.loading = false;
-        console.log(this.objeto)
+        this.voltar();
       })
       .catch(res => {
         console.error(res)

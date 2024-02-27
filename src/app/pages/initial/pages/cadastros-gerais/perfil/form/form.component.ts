@@ -66,9 +66,7 @@ export class FormComponent {
     });
   }
   send() {
-    console.log('oi')
-    this.visible = false;
-    console.log(this.objeto)
+    this.loading = true;
     return lastValueFrom(this.perfilService.post(this.objeto))
       .then(res => {
         if (res.success != false) {
@@ -77,13 +75,12 @@ export class FormComponent {
           } else {
             lastValueFrom(this.perfilService.getList());
           }
-          this.voltar();
         } else {
           this.erro = res.message
           this.voltar();
         }
         this.loading = false;
-        console.log(this.objeto)
+        this.voltar();
       })
       .catch(res => {
         console.error(res)

@@ -89,8 +89,7 @@ export class FormComponent {
 
 
   send() {
-    console.log('oi')
-    this.visible = false;
+    this.loading = true;
     return lastValueFrom(this.apostilaService.post(this.objeto))
       .then(res => {
         if (res.success != false) {
@@ -99,16 +98,12 @@ export class FormComponent {
           } else {
             lastValueFrom(this.apostilaService.getList());
           }
-          this.voltar();
         } else {
           this.erro = res.message
           this.voltar();
         }
         this.loading = false;
-        // setTimeout(() => {
-        //   this.router.navigate(['..'], { relativeTo: this.route })
-        // }, 300);
-        console.log(this.objeto)
+        this.voltar();
       })
       .catch(res => {
         console.error(res)

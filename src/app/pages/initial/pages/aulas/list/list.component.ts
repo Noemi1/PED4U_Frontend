@@ -34,6 +34,7 @@ export class ListComponent {
       this.list = Object.assign([], res)
       if (this.list && this.list.length > 0) {
         this.formatarDataNaLista()
+        this.formatarBoleano()
       }
     });
 
@@ -46,6 +47,18 @@ export class ListComponent {
     lastValueFrom(this.aulaService.getList(true));
   }
 
+  formatarBoleano(){
+    this.list.forEach(aula => {
+      if(aula.realizada == true){
+        aula.realizada = 'Sim' as any
+
+      }
+      else{
+        aula.realizada = 'Não' as any
+
+      }
+    });
+  }
   update(): void {
     this.loading = true
     this.get

@@ -5,14 +5,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Column } from '../../helpers/column.interface';
-import { TurmasService } from '../../services/turmas.service';
 import { ContextMenu } from 'primeng/contextmenu';
-import {  ViewChild } from '@angular/core';
 import {  QueryList, ViewChildren } from '@angular/core';
-import { ColumnFilter } from 'primeng/table';
-import { SimpleChanges } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
-import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-list-shared',
   templateUrl: './list.component.html',

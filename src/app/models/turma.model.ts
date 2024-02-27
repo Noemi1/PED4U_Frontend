@@ -67,7 +67,18 @@ export var turmasColumns: Column[] = [
 
   },
   {
-    field: 'perfil',
+    field: 'vagasRestantes',
+    header: ' Vagas Restantes',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: true,
+    showOperator: false,
+
+  },
+  {
+    field: 'perfis',
     header: 'Perfil',
     maskType: MaskType.undefined,
     filterType: FilterType.text,

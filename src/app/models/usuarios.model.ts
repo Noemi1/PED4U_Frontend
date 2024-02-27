@@ -44,7 +44,7 @@ export var usuarioColumns: Column[] = [
   },
   {
     field: 'name',
-    header: ' nome',
+    header: ' Nome',
     maskType: MaskType.dateTime,
     filterType: FilterType.date,
     filterDisplay: FilterDisplay.menu,
