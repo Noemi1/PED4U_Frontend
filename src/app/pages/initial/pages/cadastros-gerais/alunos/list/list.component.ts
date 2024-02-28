@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { apostilaColumns } from '../../../../../../models/apostilas.model';
 import { AlunoList, alunoColumns } from '../../../../../../models/aluno.model';
 import { AlunoService } from '../../../../../../services/aluno.service';
@@ -8,12 +8,13 @@ import { Crypto } from '../../../../../../../utils/crypto';
 import { Aluno } from '../../../../../../models/aluno.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
-export class ListComponent {
+export class ListComponent  {
   columns = alunoColumns;
   title = 'Alunos'
   list: AlunoList[] = [];
@@ -21,7 +22,8 @@ export class ListComponent {
   subscription: Subscription[] = [];
   objeto: Aluno = new Aluno;
   visible = true;
-
+  filters: string[] = [];
+  //
   maskConfig: any= {
     mask: '(00) 00000-0000',
     lazy: false
@@ -44,6 +46,8 @@ export class ListComponent {
       lastValueFrom(this.alunoService.getList(true));
 
   }
+
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];

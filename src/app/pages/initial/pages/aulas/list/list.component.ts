@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 })
 export class ListComponent {
   columns = aulaColumns;
-  title = 'Aulas'
+  title = 'Lançar aulas'
   list: AulaList[] = [];
 
   loading: boolean = true;

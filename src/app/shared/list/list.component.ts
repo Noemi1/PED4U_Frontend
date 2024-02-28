@@ -7,7 +7,10 @@ import { Table } from 'primeng/table';
 import { Column } from '../../helpers/column.interface';
 import { ContextMenu } from 'primeng/contextmenu';
 import {  QueryList, ViewChildren } from '@angular/core';
-
+import { ViewChild, ElementRef } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
+import { ColumnFilter } from 'primeng/table';
+import { SelectItem } from 'primeng/api';
 @Component({
   selector: 'app-list-shared',
   templateUrl: './list.component.html',
@@ -20,6 +23,9 @@ export class ListSharedComponent {
   @Input() columns: Column[] = [];
   @Input() list: any[] = [];
   @Input() title: string = '';
+  @ViewChild('dt1') dt1!: Table;
+  @Input() sortTable = true;
+  @Input() teste1: any;
   @Input() icone: string = '';
   public selectedItem: any;
   public conteudo = {}
@@ -42,15 +48,53 @@ export class ListSharedComponent {
   formatedList: any = [];
   @Input() service: any
 
+  matchModeOptions: SelectItem<any>[] = [
+    { label: 'Começa com', value: 'startsWith' },
+    { label: 'Contém', value: 'contains' },
+    { label: 'Igual a', value: 'equals' },
+    { label: 'Diferente de', value: 'notEquals' },
+    { label: 'Termina com', value: 'endsWith' },
+    { label: 'Dentro de', value: 'in' },
+    { label: 'Menor que', value: 'lt' },
+    { label: 'Menor ou igual a', value: 'lte' },
+    { label: 'Maior que', value: 'gt' },
+    { label: 'Maior ou igual a', value: 'gte' },
+    { label: 'É', value: 'is' },
+    { label: 'Não é', value: 'isNot' },
+    { label: 'Antes', value: 'before' },
+    { label: 'Depois', value: 'after' }
+];
+
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
 
   ) {
+    this.filters = this.columns.map(x=> x.field)
+    console.log(this.filters)
   }
 
 
+
+ngOnChanges(changes: SimpleChanges): void {
+  if (changes['list']) {
+      this.list = changes['list'].currentValue;
+
+  }
+  if (changes['columns']) {
+      this.columns = changes['columns'].currentValue;
+      this.filters = this.columns.map(x => x.field)
+  }
+
+
+
+
+
+
+  if (changes['loading']) this.loading = changes['loading'].currentValue;
+}
   openContextMenu(event: Event, menu: ContextMenu, item: any) {
     event.preventDefault();
 
@@ -138,6 +182,7 @@ export class ListSharedComponent {
 
   clear(table: Table) {
     table.clear();
+    console.log(table)
   }
 
   getSeverity(status: string): "success" | "info" | "warning" | "danger" | undefined {
@@ -162,5 +207,34 @@ export class ListSharedComponent {
     }
   }
 
+  filterColOption(value: any, filter: any) {
+    value = value != undefined && value != null ? value.value : undefined;
+    filter(value);
+}
 
+  filterCol(value: any, filterCallback: any, filterEl: ColumnFilter) {
+    filterCallback(value);
+    $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+    setTimeout(() => {
+        $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+    }, 50);
+
+}
+
+
+  filterDate(value: any, filterCallback: any, filterEl: ColumnFilter) {
+    if (value)
+        filterCallback(value);
+    else
+        filterEl.clearFilter();
+}
+
+  filterNumeric(event: any, filterCallback: any, filterEl: ColumnFilter) {
+    var value = event.target.value.replaceAll('.', '')
+    value = parseFloat(value.replaceAll(',', '.'))
+    if (value)
+        filterCallback(value);
+    else
+        filterEl.clearFilter();
+}
 }

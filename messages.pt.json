@@ -1,0 +1,7 @@
+{
+  "primeNG": {
+    "filter": {
+      "startsWith": "Começa com"
+    }
+  }
+}
