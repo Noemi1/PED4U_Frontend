@@ -5,12 +5,18 @@ import { finalize, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Table } from '../utils/table';
+import { Component } from '@angular/core';
 // import { LoadingService } from '../parts/loading/loading';
 import { getError } from '../utils/error';
 
 @Injectable({
     providedIn: 'root'
+
 })
+
+
+
+
 export class RequestInterceptor implements HttpInterceptor {
 
     excludeUrlsToastr = [
@@ -28,8 +34,17 @@ export class RequestInterceptor implements HttpInterceptor {
         private toastr: ToastrService,
         private table: Table,
         // private loadingUtils: LoadingService,
-    ) { }
+    ) {
 
+
+
+
+    }
+
+    isEnglish(text: string): boolean {
+      const englishChars = /[a-zA-Z]/;
+      return englishChars.test(text);
+    }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         var notLoading = this.excludeUrlsLoading.filter(x => request.url.includes(x));
         var notToastr = this.excludeUrlsToastr.filter(x => request.url.includes(x));
@@ -37,8 +52,6 @@ export class RequestInterceptor implements HttpInterceptor {
         var loadingHeader = request.headers.get('loading');
         if (notLoading.length == 0 && (request.method == 'POST' || request.method == 'PUT' || request.method == 'DELETE' || loadingHeader == 'true')) {
             if (notLoading.length == 0) {
-                // this.loadingUtils.loading.next(true);
-                // this.loadingUtils.addLoadingRequest();
             }
         }
 
@@ -57,8 +70,13 @@ export class RequestInterceptor implements HttpInterceptor {
                         if ([200, 204, 201].includes(data.status)) {
                             if (data.body && (data.body.success == false || data.body == false)) {
                                 if (notToastr.length == 0) {
-                                    if (data.body.mensagem)
-                                        this.toastr.error(data.body.mensagem)
+                                  if (data.body.mensagem) {
+                                    if (this.isEnglish(data.body.mensagem)) {
+                                      this.toastr.error("Ocorreu um erro.");
+                                    } else {
+                                      this.toastr.error(data.body.mensagem);
+                                    }
+                                  }
                                     else {
                                         if (request.method == 'POST') {
                                             this.toastr.error('Não foi possível concluir essa operação.');
@@ -71,7 +89,7 @@ export class RequestInterceptor implements HttpInterceptor {
                                         }
                                         else if (request.method == 'DELETE') {
                                             if(data.body.message){
-                                                this.toastr.error(data.body.message);
+
                                             }
                                             else{
                                                 this.toastr.error('Não foi possível excluir esse registro.')
@@ -85,13 +103,17 @@ export class RequestInterceptor implements HttpInterceptor {
                                 if (notToastr.length == 0) {
                                     if (request.method == 'POST') {
                                         if(data.body.message){
-                                            this.toastr.success(data.body.message);
+                                            this.toastr.success(data.body.message,  'Sucesso:', {
+                                              closeButton: true,
+                                              timeOut:0,
+                                              toastClass: 'larger-toast',
+
+
+                                            });
                                         }
                                         else{
                                             this.toastr.success('Operação realizada com sucesso')
                                         }
-
-
                                     }
                                     else if (request.method == 'PUT') {
                                         this.toastr.success('Registro atualizado com sucesso');
@@ -136,8 +158,12 @@ export class RequestInterceptor implements HttpInterceptor {
                         this.toastr.error('Permissão negada.');
                     }
                     else if (notToastr.length == 0) {
+                      if (this.isEnglish(msg)) {
+                        this.toastr.error("Ocorreu um erro.");
+                      } else {
                         this.toastr.error(msg);
-                    }
+                      }
+                  }
                     this.table.loading.next(false)
                     // this.loadingUtils.loading.next(false);
 

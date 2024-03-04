@@ -115,11 +115,12 @@ this.visible = true
           } else {
             lastValueFrom(this.reposicaoService.getList());
           }
+          this.voltar();
         } else {
           this.erro = res.message
         }
         this.loading = false;
-        this.voltar();
+
       })
       .catch(res => {
         console.error(res)

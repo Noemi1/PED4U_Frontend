@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { Aula, AulaList } from '../models/aula.model';
 import { Response } from '../helpers/request-response.interface';
 @Injectable({
@@ -25,17 +25,24 @@ export class AulaService {
 
 
 
-    getList( loading: boolean = false) {
+    getList( loading: boolean = false, turma_id: number) {
       this.loading.next(loading);
-       return this.http.get<AulaList[]>(`${this.url}/Aula`)
+       return this.http.get<AulaList[]>(`${this.url}/Aula/list/turma/${turma_id}`)
            .pipe(tap({
                next: list => {
                    this.loading.next(false);
                    this.list.next(Object.assign([], list));
+                   console.log('list.',list, turma_id)
                    return of(list);
+
                },
                error: res => this.toastr.error('Não foi possível carregar listagem de Aula.')
            }));
+   }
+
+
+   getListTurma(){
+
    }
 
     get(id: number) {

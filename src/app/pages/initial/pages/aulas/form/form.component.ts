@@ -78,18 +78,18 @@ export class FormComponent {
     this.route.params.subscribe(params => {
       // Faça algo com o ID, como carregar os dados do item
     });
-    this.aulaService.getList().subscribe(res => {
-      this.list = Object.assign([], res);
-    });
+    // this.aulaService.getList().subscribe(res => {
+    //   this.list = Object.assign([], res);
+    // });
 
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
       const idDecrypt = this.crypto.decrypt(id);
-      lastValueFrom(this.aulaService.get(idDecrypt))
+      lastValueFrom(this.aulaService.getList(true, id))
         .then(res => {
-          this.objeto = res;
+
           if (idDecrypt != undefined) {
             console.log(this.objeto.data)
             const dataNascimentoFormatada = formatDate(this.objeto.data, 'dd/MM/yyyy', 'en-US');
@@ -118,13 +118,15 @@ export class FormComponent {
           if (res.objeto) {
             insertOrReplace(this.aulaService, res.objeto)
           } else {
-            lastValueFrom(this.aulaService.getList());
+            // lastValueFrom(this.aulaService.getList());
+
           }
+          this.voltar();
         } else {
           this.erro = res.message
         }
         this.loading = false;
-        this.voltar();
+
         console.log(this.objeto)
       })
       .catch(res => {

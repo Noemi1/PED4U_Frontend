@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { Turmas, TurmasList } from '../models/turma.model';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { Response } from '../helpers/request-response.interface';
 
 @Injectable({

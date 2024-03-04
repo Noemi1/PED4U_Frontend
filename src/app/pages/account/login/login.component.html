@@ -8,9 +8,9 @@
       <div class="mt-5">
         <p-image src="../../../../assets/img/logo.png" alt="Image" width="100" ></p-image>
       </div>
-      <div class="d-flex flex-column " [style]="{  'margin-bottom':'8em' }">
-        <h1 [style]="{'font-size':'3em' }">Login</h1>
-        <p [style]="{'margin-bottom':'-3em' }">Insira e-mail e senha para acessar.</p>
+      <div class="d-flex flex-column " [style]="{  'margin-bottom':'6em' }">
+        <h1 [style]="{'font-size':'3em'}">Login</h1>
+        <p [style]="{'margin':'-2em 0' }">Insira e-mail e senha para acessar.</p>
       </div>
       <form #form="ngForm" (ngSubmit)="send()">
         <div class="row my-4">
@@ -51,23 +51,6 @@
             <a class="link" [routerLink]="['..', 'forgot-password']">Esqueci minha senha</a>
           </div>
         </div>
-        <!-- <div class="row my-4">
-          <span class="p-float-label ">
-            <input class=" col-12 form-control p-3"
-                   pInputText
-                   id="password"
-                   name="password"
-                   #password="ngModel"
-                   [(ngModel)]="login.password"
-                   placeholder="**"
-                   required
-                   minlength="6" />
-            <label for="password">Senha</label>
-          </span>
-          <div class=" text-right col-lg-6 col-md-6 col-sm-6 col-12 mt-2">
-            <a class="link" [routerLink]="['..', 'forgot-password']">Esqueci minha senha</a>
-          </div>
-        </div> -->
         <button pButton class="col-12 d-flex justify-content-center p-3" label="Entrar"
                 [style]="{ 'background-color': '#feae01', 'border':'none' }"></button>
         <div class="row">
@@ -86,3 +69,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

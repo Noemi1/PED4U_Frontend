@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { AlunoAulaRel, AlunoAulaRelList } from '../models/aluno.Aula.Rel.model';
 import { Response } from '../helpers/request-response.interface';
 @Injectable({
@@ -22,7 +22,7 @@ export class AlunoAulaRelService {
 
     getList( loading: boolean = false) {
       this.loading.next(loading);
-       return this.http.get<AlunoAulaRelList[]>(`${this.url}/Aluno_Aula_Rel`)
+       return this.http.get<AlunoAulaRelList[]>(`${this.url}/Aluno_Aula_Rel/Reposicao-List`)
            .pipe(tap({
                next: list => {
                    this.loading.next(false);
@@ -34,7 +34,7 @@ export class AlunoAulaRelService {
    }
 
     get(id: number) {
-        return this.http.get<AlunoAulaRel>(`${this.url}/Aluno_Aula_Rel/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
+        return this.http.get<AlunoAulaRel>(`${this.url}/Aluno_Aula_Rel/Presenca-by-AulaId/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
         .pipe(tap({
             error: res => this.toastr.error('Não foi possível carregar alunos relacionados.')
         }));

@@ -79,7 +79,7 @@ export class AccountService {
 
 
     getList(loading: boolean = false) {
-      return this.http.get<Account[]>(`${this.url}/Aluno`)
+      return this.http.get<Account[]>(`${this.url}/Usuario`)
           .pipe(tap({
               next: list => {
                   this.list.next(Object.assign([], list));

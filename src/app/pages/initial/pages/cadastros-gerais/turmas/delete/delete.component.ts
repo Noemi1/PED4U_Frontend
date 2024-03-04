@@ -56,9 +56,6 @@ export class DeleteComponent {
               this.erro = res.message
                 console.log(res.message, res.success)
                 console.log('Erro no sucesso:', this.erro);
-                this.voltar();
-
-
             }
         })
         .catch(res => {

@@ -17,6 +17,7 @@ export class DeleteComponent {
   loading = false;
   id: number = 0;
   erro: string = '';
+  error = false
   objeto: Aluno = new Aluno;
   constructor(
     private router: Router,
@@ -55,6 +56,7 @@ export class DeleteComponent {
                 }
             } else {
                 this.erro = res.message
+
                 console.log('Erro no sucesso:', this.erro);
             }
         })

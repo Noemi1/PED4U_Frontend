@@ -17,7 +17,7 @@
  </div>
  <div class="d-flex flex-column " [style]="{  'margin-bottom':'8em' }">
    <h1 [style]="{'font-size':'3em' }">Me cadastrar</h1>
-   <p [style]="{'margin-bottom':'-6em' }">Insira e-mail e senha para acessar.</p>
+   <p [style]="{'margin':'-2em 0' }">Insira e-mail e senha para acessar.</p>
  </div>
  <form #form="ngForm" (ngSubmit)="send(form)" >
   <div class=" my-4">
@@ -159,3 +159,4 @@
 </div>
 </div>
 
+<router-outlet></router-outlet>

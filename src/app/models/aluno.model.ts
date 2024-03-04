@@ -25,6 +25,19 @@ export class Aluno {
     sexo_Id:  number = '' as unknown as number;
 }
 
+export class AlunoRequest {
+  id: number = 0;
+  pessoa_Id: string = '';
+  turma_Id: number = '' as unknown as number;
+  perfil_Id: number = '' as unknown as number;
+  data_Vigencia_Inicial:string = '';
+  data_Vigencia_Final: string = '';
+  nome: string = '';
+  dataNascimento: string = '';
+  celular: string = '';
+  sexo_Id:  number = '' as unknown as number;
+}
+
 export var alunoColumns: Column[] = [
   {
       field: 'nome',
@@ -99,8 +112,8 @@ export var alunoColumns: Column[] = [
 {
   field: 'dataVigencia',
   header: 'Vigência',
-  maskType: MaskType.undefined,
-  filterType: FilterType.text,
+  maskType: MaskType.dateTime,
+  filterType: FilterType.date,
   filterDisplay: FilterDisplay.menu,
   showAddButton: false,
   showMatchMode: true,

@@ -7,7 +7,7 @@ import { TermosDeUsoComponent } from '././termos-de-uso/termos-de-uso.component'
 import { AccountComponent } from '././account.component';
 import { CreateAccountComponent } from '././create-account/create-account.component';
 import { LoginComponent } from './login/login.component';
-
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 const routes: Routes = [
     { path: '', component: AccountComponent, children: [
         { path: '', redirectTo: 'login', pathMatch: 'prefix', },
@@ -22,7 +22,7 @@ const routes: Routes = [
             ]
         },
         { path: 'forgot-password', component: ForgotPasswordComponent },
-        // { path: 'reset-password', component: ResetPasswordComponent },
+        { path: 'reset-password', component: ResetPasswordComponent },
         { path: 'verify-email', component: VerifyEmailComponent },
     ]}
 

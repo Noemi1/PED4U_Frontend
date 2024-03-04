@@ -21,6 +21,8 @@ export class ListComponent {
   subscription: Subscription[] = []
   objeto: Turmas = new Turmas;
   visible = true;
+  idClicado: number = 0
+  PerfilAulas = true;
 
   constructor(
     private turmaService: TurmasService,
@@ -37,6 +39,12 @@ export class ListComponent {
     lastValueFrom(this.turmaService.getList(true));
   }
 
+
+  navigateToAulas(objeto: Turmas) {
+      // this.router.navigate(['lançar'], { relativeTo: this.route });
+      console.log(objeto.id)
+
+  }
 
   formatarDia(){
     this.list.forEach(turma => {

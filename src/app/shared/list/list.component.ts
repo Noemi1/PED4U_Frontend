@@ -6,7 +6,7 @@ import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Column } from '../../helpers/column.interface';
 import { ContextMenu } from 'primeng/contextmenu';
-import {  QueryList, ViewChildren } from '@angular/core';
+import { QueryList, ViewChildren } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ColumnFilter } from 'primeng/table';
@@ -29,10 +29,17 @@ export class ListSharedComponent {
   @Input() icone: string = '';
   public selectedItem: any;
   public conteudo = {}
-  menu: MenuItem[] = [
-    { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar()  },
-    { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir()  }
+  @Input() PerfilAulas: boolean = false;
+  @Input() PerfilTurmas: boolean = false;
+
+  @Input() menu: MenuItem[] = [
+
+    { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar() },
+    { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir() },
+    { label: 'Lançar', icon: 'pi pi-fw pi-trash', command: () => this.navigateToAulas(), visible: this.PerfilAulas == true },
   ];
+
+
   menuGlobal: MenuItem[] = [
     { label: 'Atualizar lista', icon: 'pi  pi-spinner' },
     { label: 'Cadastrar' + this.title, icon: 'pi pi-plus' }
@@ -47,7 +54,7 @@ export class ListSharedComponent {
   filterValue: string = '';
   formatedList: any = [];
   @Input() service: any
-
+  cleaned: boolean = false;
   matchModeOptions: SelectItem<any>[] = [
     { label: 'Começa com', value: 'startsWith' },
     { label: 'Contém', value: 'contains' },
@@ -63,7 +70,7 @@ export class ListSharedComponent {
     { label: 'Não é', value: 'isNot' },
     { label: 'Antes', value: 'before' },
     { label: 'Depois', value: 'after' }
-];
+  ];
 
 
   constructor(
@@ -72,36 +79,44 @@ export class ListSharedComponent {
     private crypto: Crypto,
 
   ) {
-    this.filters = this.columns.map(x=> x.field)
+    console.log('oi', this.title, this.list)
+    this.filters = this.columns.map(x => x.field)
     console.log(this.filters)
+
+
   }
 
 
 
-ngOnChanges(changes: SimpleChanges): void {
-  if (changes['list']) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['list']) {
       this.list = changes['list'].currentValue;
 
-  }
-  if (changes['columns']) {
+    }
+    if (changes['columns']) {
       this.columns = changes['columns'].currentValue;
       this.filters = this.columns.map(x => x.field)
+    }
+    this.menu = [
+
+      { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar(), visible: this.PerfilAulas != true },
+      { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir(), visible: this.PerfilAulas != true },
+      { label: 'Lançar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToAulas(), visible: this.PerfilAulas == true },
+    ];
+
+
+
+
+
+    if (changes['loading']) this.loading = changes['loading'].currentValue;
   }
-
-
-
-
-
-
-  if (changes['loading']) this.loading = changes['loading'].currentValue;
-}
   openContextMenu(event: Event, menu: ContextMenu, item: any) {
     event.preventDefault();
 
-    if (item.id){
+    if (item.id) {
       this.idClicado = item.id;
     }
-    else if (item.alunoId){
+    else if (item.alunoId) {
       this.idClicado = item.alunoId;
     }
     console.log(this.idClicado)
@@ -118,9 +133,9 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 
 
-  checkContextMenu(event: MouseEvent,menu: ContextMenu, item: any) {
+  checkContextMenu(event: MouseEvent, menu: ContextMenu, item: any) {
     event.preventDefault();
-    this.openContextMenu(event, menu, item )
+    this.openContextMenu(event, menu, item)
 
   }
 
@@ -129,6 +144,14 @@ ngOnChanges(changes: SimpleChanges): void {
     if (typeof this.service === 'function') {
       this.service();
     }
+  }
+
+  navigateToAulas() {
+    if (this.idClicado !== undefined) {
+      console.log('oi', this.idClicado)
+      this.router.navigate(['lançar', this.idClicado], { relativeTo: this.activatedRoute });
+    }
+
   }
   navigateToEditar() {
     if (this.idClicado !== undefined) {
@@ -147,9 +170,9 @@ ngOnChanges(changes: SimpleChanges): void {
   public editarItem(item: any): void {
 
     console.log(item.id)
-    this.router.navigate(['apostilas' ,'editar', item.id]);
+    this.router.navigate(['apostilas', 'editar', item.id]);
 
-    this.router.navigate([ 'editar', item.id] , {relativeTo:this.activatedRoute});
+    this.router.navigate(['editar', item.id], { relativeTo: this.activatedRoute });
 
   }
 
@@ -180,11 +203,19 @@ ngOnChanges(changes: SimpleChanges): void {
     ];
   }
 
-  clear(table: Table) {
+  clear(table: Table): void {
     table.clear();
-    console.log(table)
+    console.log(this.cleaned)
+    this.cleaned = true
+    console.log(table, this.cleaned)
+
   }
 
+
+  onInputChange(event: any) {
+    console.log('Valor do input mudou:', event.target.value);
+    this.cleaned = false
+  }
   getSeverity(status: string): "success" | "info" | "warning" | "danger" | undefined {
     switch (status.toLowerCase()) {
       case 'unqualified':
@@ -210,31 +241,31 @@ ngOnChanges(changes: SimpleChanges): void {
   filterColOption(value: any, filter: any) {
     value = value != undefined && value != null ? value.value : undefined;
     filter(value);
-}
+  }
 
   filterCol(value: any, filterCallback: any, filterEl: ColumnFilter) {
     filterCallback(value);
     $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
     setTimeout(() => {
-        $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+      $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
     }, 50);
 
-}
+  }
 
 
   filterDate(value: any, filterCallback: any, filterEl: ColumnFilter) {
     if (value)
-        filterCallback(value);
+      filterCallback(value);
     else
-        filterEl.clearFilter();
-}
+      filterEl.clearFilter();
+  }
 
   filterNumeric(event: any, filterCallback: any, filterEl: ColumnFilter) {
     var value = event.target.value.replaceAll('.', '')
     value = parseFloat(value.replaceAll(',', '.'))
     if (value)
-        filterCallback(value);
+      filterCallback(value);
     else
-        filterEl.clearFilter();
-}
+      filterEl.clearFilter();
+  }
 }

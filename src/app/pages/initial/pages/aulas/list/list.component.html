@@ -1,12 +1,29 @@
-<div #page>
-  <app-list-shared
-  [columns]="columns"
-  [title]="title"
-  [list]="list"
-  [service]="update"
-  [icone]="'pi pi-clock'"
-  >
-</app-list-shared>
-</div>
-
-<router-outlet></router-outlet>
+<p-dialog header="Header"
+          [(visible)]="visible"
+          (visibleChange)="voltar()"
+          [style]="{width: '1200px'}"
+          [modal]="true"
+          [draggable]="true"
+          [resizable]="false"
+          [maximizable]="true"
+          [closable]="true"
+          [closeOnEscape]="true">
+  <ng-template pTemplate="header">
+    <div class="d-flex align-items-center justify-content-center gap-2">
+      <p-avatar icon="pi pi-clock" shape="circle" size="large" />
+      <h2 class="font-bold white-space-nowrap">Turmas- Lançamento de aulas</h2>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="body">
+    <div #page>
+      <app-list-shared
+                       [columns]="columns"
+                       [title]="title"
+                       [list]="list"
+                       [service]="update"
+                       [icone]="'pi pi-clock'"
+                       [PerfilTurmas]="PerfilTurmas">
+      </app-list-shared>
+    </div>
+  </ng-template>
+</p-dialog>

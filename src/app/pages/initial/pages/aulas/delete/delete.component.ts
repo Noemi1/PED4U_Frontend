@@ -59,7 +59,7 @@ export class DeleteComponent {
                     remove(this.aulaService, res.objeto)
                     this.voltar();
                 } else {
-                    lastValueFrom(this.aulaService.getList());
+                    // lastValueFrom(this.aulaService.getList());
                     this.voltar();
                 }
             } else {

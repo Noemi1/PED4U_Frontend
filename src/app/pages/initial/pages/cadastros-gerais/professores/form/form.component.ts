@@ -101,7 +101,7 @@ export class FormComponent {
           this.voltar();
         } else {
           this.erro = res.message
-          this.voltar();
+
         }
         this.loading = false;
         console.log(this.objeto)

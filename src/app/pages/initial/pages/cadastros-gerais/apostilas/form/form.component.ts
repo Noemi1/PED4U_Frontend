@@ -97,13 +97,15 @@ export class FormComponent {
             insertOrReplace(this.apostilaService, res.objeto)
           } else {
             lastValueFrom(this.apostilaService.getList());
+
           }
+          this.voltar();
         } else {
           this.erro = res.message
-          this.voltar();
+
         }
         this.loading = false;
-        this.voltar();
+
       })
       .catch(res => {
         console.error(res)

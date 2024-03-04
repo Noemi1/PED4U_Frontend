@@ -74,13 +74,14 @@ export class FormComponent {
             insertOrReplace(this.perfilService, res.objeto)
           } else {
             lastValueFrom(this.perfilService.getList());
+
           }
+          this.voltar();
         } else {
           this.erro = res.message
-          this.voltar();
         }
         this.loading = false;
-        this.voltar();
+
       })
       .catch(res => {
         console.error(res)

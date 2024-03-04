@@ -110,12 +110,13 @@ export class FormComponent {
           } else {
             lastValueFrom(this.usuarioService.getList());
           }
+          this.voltar();
         } else {
           this.erro = res.message
-          this.voltar();
+
         }
         this.loading = false;
-        this.voltar();
+
       })
       .catch(res => {
 

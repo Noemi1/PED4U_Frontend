@@ -9,6 +9,8 @@ import { Crypto } from '../../../../../../../utils/crypto';
 import { Apostila } from '../../../../../../models/apostilas.model';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { Table } from '../../../../../../utils/table';
+import { MenuTableLink } from '../../../../../../helpers/menu-links.interface';
 import { parse } from 'date-fns';
 @Component({
   selector: 'app-list',
@@ -23,11 +25,13 @@ export class ListComponent {
   subscription: Subscription[] = [];
   objeto: Usuario = new Usuario;
   visible = true;
+  tableLinks: MenuTableLink[] = [];
 
   constructor(private usuarioService: UsuarioService,
     private router: Router,
     private route: ActivatedRoute,
-    private crypto: Crypto,) {
+    private crypto: Crypto,
+    private table: Table,) {
       var list = this.usuarioService.list.subscribe(res =>{
 
         this.list = Object.assign([], res)
@@ -37,7 +41,20 @@ export class ListComponent {
       this.subscription.push(list);
       lastValueFrom(this.usuarioService.getList(true));
 
-  }
+
+
+      var selected = this.table.selected.subscribe(res => {
+        if (res) {
+            this.tableLinks = [
+                { label: 'Editar', routePath: ['editar'], paramsFieldName: ['id'] },
+                { label: (res.ativo ? 'Desabilitar' : 'Habilitar'), routePath: [ (res.ativo ? 'desabilitar' : 'habilitar') ], paramsFieldName: ['id'] },
+            ];
+            this.tableLinks = this.table.encryptParams(this.tableLinks);
+        }
+    });
+    this.subscription.push(selected);
+
+    }
 
   get() {
     lastValueFrom(this.usuarioService.getList(true));

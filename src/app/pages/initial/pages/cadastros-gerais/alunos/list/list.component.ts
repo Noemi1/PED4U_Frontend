@@ -48,25 +48,7 @@ export class ListComponent  {
   }
 
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      const idDecrypt = this.crypto.decrypt(id);
-      lastValueFrom(this.alunoService.get(idDecrypt))
-        .then(res => {
-          this.objeto = res;
-          if (idDecrypt != undefined) {
-            // this.title = 'Editar'
-          }
-        })
-        .catch(res => {
-          this.voltar();
-        })
-    });
 
-
-
-  }
 
   voltar() {
     this.visible = false;

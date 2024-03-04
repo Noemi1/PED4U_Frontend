@@ -8,7 +8,7 @@ export class AulaList {
   educadorNome: string = '';
   horario: string = '';
   diaSemana: number = 0;
-  turmaId: number = 0;
+  turma_Id: number = 0;
 
 }
 

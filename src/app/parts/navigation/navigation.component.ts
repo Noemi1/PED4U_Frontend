@@ -68,12 +68,12 @@ export class NavigationComponent implements AfterViewInit {
               },
             ]
         },
-        {
-            label: 'Lançar aula',
-            icon: 'pi pi-clock',
-            routerLink: 'aulas',
-            padding: 0,
-        },
+        // {
+        //     label: 'Lançar aula',
+        //     icon: 'pi pi-clock',
+        //     routerLink: 'aulas',
+        //     padding: 0,
+        // },
         {
             label: 'Gerenciar Reposições',
             icon: 'bi bi-table',

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, of, tap } from 'rxjs';
 import { Response } from '../helpers/request-response.interface';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { ApostilaList, Apostila } from '../models/apostilas.model';
 
 @Injectable({

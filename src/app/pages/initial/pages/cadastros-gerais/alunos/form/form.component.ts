@@ -129,11 +129,9 @@ export class FormComponent {
 
   send() {
     console.log('objeto:', this.objeto)
-
     // Convertendo a data de nascimento para o formato esperado pelo serviço
     const dataNascimentoFormatada = format(new Date(this.objeto.dataNascimento), 'yyyy-MM-dd');
     this.objeto.dataNascimento = dataNascimentoFormatada;
-
 
     console.log(this.objeto.dataNascimento)
     this.loading = true;
@@ -145,13 +143,12 @@ export class FormComponent {
           } else {
             lastValueFrom(this.alunoService.getList());
           }
-
+          this.voltar();
         } else {
           this.erro = res.message;
-          this.voltar();
         }
         this.loading = false;
-        this.voltar();
+
       })
       .catch(error => {
         console.error(error);

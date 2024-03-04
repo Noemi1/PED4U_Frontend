@@ -6,7 +6,7 @@ import { BehaviorSubject, of, tap } from 'rxjs';
 import { Response } from '../helpers/request-response.interface';
 import { environment } from '../../environments/environment.prod';
 
-import { Aluno } from './../models/aluno.model';
+import { Aluno, AlunoRequest } from './../models/aluno.model';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +25,7 @@ export class AlunoService {
       this.loading.next(loading);
 
        // empresaId = empresaId ?? this.empresaService.empresaSelected.value.id ?? '' as unknown as number ;
-       return this.http.get<AlunoList[]>(`${this.url}/Aluno` /*/list/${empresaId} */)
+       return this.http.get<AlunoList[]>(`${this.url}/Aluno` )
            .pipe(tap({
                next: list => {
                    this.loading.next(false);
@@ -39,17 +39,17 @@ export class AlunoService {
    }
 
     get(id: number) {
-        return this.http.get<Aluno>(`${this.url}/Aluno/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
+        return this.http.get<AlunoRequest>(`${this.url}/Aluno/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
         .pipe(tap({
             error: res => this.toastr.error('Não foi possível carregar Alunos.')
         }));
     }
 
-    post(request: Aluno) {
+    post(request: AlunoRequest) {
         return this.http.post<Response>(`${this.url}/Aluno`, request);
     }
 
-    edit(request: Aluno) {
+    edit(request: AlunoRequest) {
         return this.http.put(`${this.url}/Aluno`, request);
     }
 

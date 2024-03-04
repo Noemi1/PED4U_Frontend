@@ -12,11 +12,13 @@ import { DeleteComponent } from './delete/delete.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
 import {  NgxMaskModule } from 'ngx-mask';
+import { DeactivatedComponent } from './deactivated/deactivated.component';
 @NgModule({
   declarations: [
     ListComponent,
     FormComponent,
-    DeleteComponent
+    DeleteComponent,
+    DeactivatedComponent
   ],
   imports: [
     SharedModule,
@@ -27,7 +29,8 @@ import {  NgxMaskModule } from 'ngx-mask';
     PrimengModule,
     CheckboxModule,
     InputNumberModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+
   ]
 })
 export class UsuarioModule { }

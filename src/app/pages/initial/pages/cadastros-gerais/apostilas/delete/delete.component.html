@@ -17,6 +17,9 @@
     <h4>Tem certeza que deseja excluir esse registro?</h4>
     <h4>Ele não poderá ser recuperado!</h4>
     <p>Se estiver relacionado a outro registro não poderá ser excluído.</p>
+    <div *ngIf="erro" class="m-0  mt-1">
+      <p class="text-danger" >{{erro}}</p>
+  </div>
     <ng-template pTemplate="footer">
         <div class="d-flex align-items-center justify-content-between">
             <p-button severity="secondary" (click)="voltar()" label="Voltar" ></p-button>

@@ -20,6 +20,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { TermosDeUsoComponent } from './termos-de-uso/termos-de-uso.component';
 import { ImageModule } from 'primeng/image';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SharedModule } from 'primeng/api';
+import { PrimengModule } from '../../shared/primeng.module';
+import { NgxMaskModule } from 'ngx-mask';
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
@@ -27,7 +31,8 @@ import { ImageModule } from 'primeng/image';
     AccountComponent,
     LoginComponent,
     VerifyEmailComponent,
-    TermosDeUsoComponent
+    TermosDeUsoComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +46,18 @@ import { ImageModule } from 'primeng/image';
     CardModule,
     InputTextModule,
     PasswordModule,
-    ImageModule
+    ImageModule,
+    SharedModule,
+
+
+    CommonModule,
+    FormsModule,
+    PrimengModule,
+
+    SharedModule,
+
+    CheckboxModule,
+    NgxMaskModule.forRoot()
 
   ],
   bootstrap: [AccountComponent],

@@ -20,16 +20,32 @@ export class ListComponent {
   columns = aulaColumns;
   title = 'Lançar aulas'
   list: AulaList[] = [];
-
+  PerfilTurmas =  true
   loading: boolean = true;
   subscription: Subscription[] = []
-  objeto: Aula = new Aula;
+  objeto: AulaList = new AulaList;
   teste: Aula[] = [];
   visible = true;
   datasFormatadas: string[] = [];
   aaulaService: AulaService[] = [];
+  idTurma: number = 0
+  constructor(private aulaService: AulaService,
 
-  constructor(private aulaService: AulaService) {
+    private router: Router,
+    private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      const id = params['turma_id'];
+      this.idTurma = id
+      console.log('turma_id',this.objeto.turma_Id)
+      lastValueFrom(this.aulaService.getList(true, id))
+        .then(res => {
+
+          console.log('turma_id',this.objeto)
+        })
+        .catch(res => {
+          this.voltar();
+        })
+    });
     var list = this.aulaService.list.subscribe(res => {
       this.list = Object.assign([], res)
       if (this.list && this.list.length > 0) {
@@ -40,20 +56,28 @@ export class ListComponent {
 
     this.subscription.push(list);
 
-    lastValueFrom(this.aulaService.getList(true));
+    lastValueFrom(this.aulaService.getList(true, this.idTurma));
+    console.log('id', this.idTurma)
 
   }
+
   get() {
-    lastValueFrom(this.aulaService.getList(true));
+    lastValueFrom(this.aulaService.getList(true, this.idTurma));
   }
 
-  formatarBoleano(){
+  voltar() {
+    this.router.navigate(['../..'], { relativeTo: this.route })
+  }
+
+
+
+  formatarBoleano() {
     this.list.forEach(aula => {
-      if(aula.realizada == true){
+      if (aula.realizada == true) {
         aula.realizada = 'Sim' as any
 
       }
-      else{
+      else {
         aula.realizada = 'Não' as any
 
       }

@@ -36,15 +36,6 @@ export class LoginComponent {
 
 
     this.loadingHelper.loading.subscribe(res => this.loading = res);
-    lastValueFrom(this.accountService.getList())
-      .then(res => {
-        this.loading = false
-      })
-      .catch(res => {
-        this.loading = false
-      })
-    var list = accountService.list.subscribe(res => this.list = res)
-    console.log(list)
   }
 
   send() {
@@ -56,8 +47,8 @@ export class LoginComponent {
         this.err = getError(res)
       });
 
-const email = this.accountService.getEmailFromModel(this.login)
-this.accountService.setEmail(email);
+    const email = this.accountService.getEmailFromModel(this.login)
+    this.accountService.setEmail(email);
 
 
   }
