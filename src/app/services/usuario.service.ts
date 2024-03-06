@@ -18,6 +18,11 @@ export class UsuarioService {
     educadores = new BehaviorSubject<UsuarioList[]>([]);
     loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     objeto = new BehaviorSubject<Usuario | undefined>(undefined);
+    ativo= new BehaviorSubject< UsuarioList['ativo'] |undefined>(undefined);
+
+
+
+    private idClicado: any;
 
     constructor(
         private http: HttpClient,
@@ -25,7 +30,13 @@ export class UsuarioService {
     ) { }
 
 
+    setIdClicado(id: any) {
+      this.idClicado = id;
+    }
 
+    getIdClicado() {
+      return this.idClicado;
+    }
 
     getEducador( loading: boolean = false) {
       this.loading.next(loading);
@@ -38,12 +49,6 @@ export class UsuarioService {
                    this.educadores.next(Object.assign([], list));
                    console.log('listt', list)
                    return of(list);
-
-
-
-
-
-
                },
                error: res => this.toastr.error('Não foi possível carregar listagem de educadores.')
 
@@ -82,6 +87,7 @@ export class UsuarioService {
               });
                    this.loading.next(false);
                    this.list.next(Object.assign([], list));
+                   console.log(list)
                    return of(list);
                },
                error: res => this.toastr.error('Não foi possível carregar listagem de usuários.')

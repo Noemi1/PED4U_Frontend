@@ -11,8 +11,8 @@ const routes: Routes = [
       { path: 'cadastrar', component: FormComponent, title: 'Cadastrar apostila' },
       { path: 'editar/:id', component: FormComponent, title: 'Editar apostila' },
       { path: 'excluir/:id', component: DeleteComponent, title: 'Excluir apostila' },
-      { path: 'habilitar/:id', component: DeactivatedComponent, data: { modalOrder: 1 }, title: 'Habilitar usuário', canActivate: [UsuarioEditableAuth] },
-      { path: 'desabilitar/:id', component: DeactivatedComponent, data: { modalOrder: 1 }, title: 'Desabilitar usuário', canActivate: [UsuarioEditableAuth] },
+      { path: 'habilitar/:usuario_id', component: DeactivatedComponent, data: { modalOrder: 1 }, title: 'Habilitar usuário', canActivate: [UsuarioEditableAuth] },
+      { path: 'desabilitar/:usuario_id',component: DeactivatedComponent, data: { modalOrder: 1 }, title: 'Desabilitar usuário', canActivate: [UsuarioEditableAuth] },
   ] },
 ];
 

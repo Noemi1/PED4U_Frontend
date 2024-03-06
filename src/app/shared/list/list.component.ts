@@ -1,4 +1,5 @@
-
+import { UsuarioService } from './../../services/usuario.service';
+import { EventEmitter, Output } from '@angular/core';
 import { Crypto } from './../../../utils/crypto';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -17,6 +18,8 @@ import { SelectItem } from 'primeng/api';
   styleUrl: './list.component.scss'
 })
 export class ListSharedComponent {
+  @Output() idClicadoChanged: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
+  @Input() ativo: boolean = false;
   idClicado: number | undefined;
   @Input() paginator: boolean = true;
   @ViewChildren('menuItem') contextMenus!: QueryList<ContextMenu>;
@@ -31,6 +34,7 @@ export class ListSharedComponent {
   public conteudo = {}
   @Input() PerfilAulas: boolean = false;
   @Input() PerfilTurmas: boolean = false;
+  @Input() idAtivo: number = 0;
 
   @Input() menu: MenuItem[] = [
 
@@ -46,12 +50,16 @@ export class ListSharedComponent {
   ];
   representatives!: any[];
   statuses!: any[];
+
   loading: boolean = false;
   activityValues: number[] = [0, 100];
   filters: string[] = [];
   itemMenuAtivo: number | null = null;
   @Input() filterTable: boolean = false;
+
+
   filterValue: string = '';
+  @Input() id = 0
   formatedList: any = [];
   @Input() service: any
   cleaned: boolean = false;
@@ -77,6 +85,7 @@ export class ListSharedComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
+    private usuarioService: UsuarioService
 
   ) {
     console.log('oi', this.title, this.list)
@@ -89,6 +98,7 @@ export class ListSharedComponent {
 
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.openContextMenu
     if (changes['list']) {
       this.list = changes['list'].currentValue;
 
@@ -102,6 +112,7 @@ export class ListSharedComponent {
       { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar(), visible: this.PerfilAulas != true },
       { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir(), visible: this.PerfilAulas != true },
       { label: 'Lançar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToAulas(), visible: this.PerfilAulas == true },
+      { label: (this.ativo ? 'Desabilitar' : 'Habilitar'), icon: 'pi pi-fw pi-pencil', command: () => this.navigateToDesabilitar(), visible: this.PerfilAulas !== true },
     ];
 
 
@@ -112,17 +123,22 @@ export class ListSharedComponent {
   }
   openContextMenu(event: Event, menu: ContextMenu, item: any) {
     event.preventDefault();
-
     if (item.id) {
       this.idClicado = item.id;
     }
     else if (item.alunoId) {
       this.idClicado = item.alunoId;
     }
+    if (this.idClicado != undefined) {
+      this.usuarioService.setIdClicado(this.idClicado);
+    }
+
     console.log(this.idClicado)
     this.closeAllContextMenus();
     menu.toggle(event);
 
+
+    this.idClicadoChanged.emit(this.idClicado);
   }
 
 
@@ -149,10 +165,36 @@ export class ListSharedComponent {
   navigateToAulas() {
     if (this.idClicado !== undefined) {
       console.log('oi', this.idClicado)
-      this.router.navigate(['lançar', this.idClicado], { relativeTo: this.activatedRoute });
+      this.router.navigate(['lancar', this.idClicado], { relativeTo: this.activatedRoute });
+    }
+  }
+
+
+  verificaAtivo() {
+
+  }
+
+
+  navigateToDesabilitar() {
+    console.log('oine')
+    if (this.idClicado !== undefined) {
+      this.router.navigate(['desabilitar', this.idClicado], { relativeTo: this.activatedRoute });
     }
 
   }
+
+  navigateToHabilitar() {
+    if (this.idClicado !== undefined) {
+      const Encrypt = this.crypto.encrypt(this.idClicado);
+
+      this.router.navigate(['habilitar', Encrypt], { relativeTo: this.activatedRoute });
+
+    }
+
+  }
+
+
+
   navigateToEditar() {
     if (this.idClicado !== undefined) {
       const Encrypt = this.crypto.encrypt(this.idClicado);

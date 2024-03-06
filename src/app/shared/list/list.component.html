@@ -1,6 +1,7 @@
 <div #page>
   <p-card>
-    <ng-template pTemplate="header">
+
+    <ng-template pTemplate="header" *ngIf="!PerfilTurmas">
       <app-breadcrumb></app-breadcrumb>
       <div class="d-flex align-items-center px-4">
         <p-avatar icon={{icone}} styleClass="me-2" size="xlarge"></p-avatar>

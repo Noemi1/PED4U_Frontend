@@ -16,30 +16,32 @@
   </ng-template>
   <form #form="ngForm">
     <div class="row">
-      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12"><!-- Dia da Semana -->
-        <label for="diaSemana" class="mb-1 ms-1">Dia da Semana: <span class="text-danger">*</span></label>
-        <p-dropdown [options]="diaList"
+      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
+        <label for="diaSemana" class="mb-1 ms-1">Dia da semana: <span class="text-danger">*</span></label>
+        <p-dropdown
+
+        [options]="diaList"
                     appendTo="body"
                     class="w-100"
                     styleClass="w-100"
                     inputId="diaSemana"
                     name="diaSemana"
-                    #diaSemana="ngModel"
                     [(ngModel)]="objeto.diaSemana"
-                    optionLabel="nome"
+                    #diaSemana="ngModel"
+                    id="diaSemana"
+                    optionLabel="id"
                     optionValue="id"
-                    [showClear]="false"
-                    placeholder="Selecione o dia da semana"
+                    [showClear]="true"
+                    [placeholder]="'Selecione o perfil do aluno'"
                     [required]="true"
                     [filter]="true"
-                    [filterFields]="['nome']"
-                    ></p-dropdown>
-
-
-        <div *ngIf="diaSemana.touched && diaSemana.errors">
-          <p class="text-danger my-0 ms-1" *ngIf="diaSemana.errors['required']">Este campo é obrigatório.</p>
-        </div>
+                    [filterFields]="['id']">
+        </p-dropdown>
+        <div *ngIf="diaSemana?.touched && (diaSemana?.errors || objeto.diaSemana !== 1)">
+          <p class="text-danger my-0 ms-1" *ngIf="diaSemana?.errors?.['required']">Este campo é obrigatório.</p>
       </div>
+      </div>
+
       <div class="d-flex flex-column mb-2 col-sm-4 col-4"> <!-- Horário -->
 
 
@@ -87,30 +89,31 @@
       </div>
     </div>
     <div class="row">
-      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
-        <label for="unidade_Id" class="mb-1 ms-1">Unidade: <span class="text-danger">*</span></label>
+      <!-- <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
+        <label for="diaSemana" class="mb-1 ms-1">Unidade: <span class="text-danger">*</span></label>
         <p-dropdown [options]="diaList"
                     appendTo="body"
                     class="w-100"
                     styleClass="w-100"
-                    inputId="unidade_Id"
-                    name="unidade_Id"
-                    [(ngModel)]="objeto.unidade_Id"
-                    #unidade_Id="ngModel"
-                    id="unidade_Id"
+                    inputId="diaSemana"
+                    name="diaSemana"
+                    [(ngModel)]="objeto.diaSemana"
+                    #diaSemana="ngModel"
+                    id="diaSemana"
                     optionLabel="id"
                     optionValue="id"
                     [showClear]="true"
                     [disabled]="loadingEducador"
                     [placeholder]="'Selecione o perfil do aluno'"
-                    [required]="true"
+                    [required]="isDiaSemanaRequired()"
                     [filter]="true"
-                    [filterFields]="['id']"
-                    ></p-dropdown>
-        <div *ngIf="unidade_Id.touched && unidade_Id.errors">
-          <p class="text-danger my-0 ms-1" *ngIf="unidade_Id.errors['required']">Este campo é obrigatório.</p>
+                    [filterFields]="['id']">
+        </p-dropdown>
+        <div *ngIf="diaSemana.touched && diaSemana.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="diaSemana.errors['required']">Este campo é obrigatório.</p>
         </div>
-      </div>
+      </div> -->
+
 
 
       <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
@@ -137,12 +140,42 @@
           <p class="text-danger my-0 ms-1" *ngIf="educador_Id.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
+
+      <div class="d-flex flex-column mb-2 col-md-4 col-sm-6 col-12">
+        <label for="perfis" class="mb-1 ms-1">Perfis: <span class="text-danger">*</span></label>
+        <p-multiSelect
+        [options]="perfisList"
+        appendTo="body"
+        class="w-100"
+        styleClass="w-100"
+        [(ngModel)]="objeto.perfis"
+        #perfis="ngModel"
+        id="perfis"
+        name="perfis"
+        optionLabel="nome"
+        optionValue="id"
+        [showClear]="true"
+        [disabled]="loadingEducador"
+        [placeholder]="'Selecione o educador do aluno'"
+        [required]="true"
+        [filter]="true"
+        [filterFields]="['nome']"
+
+    ></p-multiSelect>
+    <div *ngIf="perfis.touched && perfis.errors">
+      <p class="text-danger my-0 ms-1" *ngIf="perfis.errors['required']">Este campo é obrigatório.</p>
+    </div>
+      </div>
+
+
+
+
     </div>
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">
       <p class="text-danger" *ngIf="form.invalid">Preencha os campos corretamente para salvar.</p>
-      <p-button icon="pi pi-check" (click)="voltar()" label="Salvar" [loading]="loading"
+      <p-button icon="pi pi-check"  label="Salvar" [loading]="loading"
                 [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true" (click)="send()"></p-button>
     </div>
   </ng-template>

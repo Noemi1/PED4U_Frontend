@@ -55,15 +55,11 @@ export class DeleteComponent {
                 }
             } else {
                 this.erro = res.message
-                console.log('Erro no sucesso:', this.erro);
             }
         })
         .catch(res => {
             this.loading = false;
             this.erro = getError(res);
-            console.error('Erro no catch:', this.erro);
-            // Adicione um console.log para o status HTTP, se disponível
-            console.error('Status HTTP:', res?.response?.status);
         })
 }
 

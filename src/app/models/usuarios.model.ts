@@ -1,14 +1,17 @@
+import { PerfilAcesso } from './account-perfil.model';
 import { FilterMatchMode } from "primeng/api";
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
 
 export class UsuarioList {
   id: number = 0;
-  perfilAcesso_Id: number = 0;
+  perfilAcesso: PerfilAcesso = undefined as unknown as PerfilAcesso;
+  perfilAcesso_Id: number = undefined as unknown as number;
   name: string = '';
-  telefoneCelular: number = 0;
   email: string = '';
-  ativo?: boolean;
+  telefoneCelular: string = '';
   dataDesativado?: Date;
+  ativo?: boolean;
+  empresa_Id: number = 0;
 
 }
 
@@ -18,6 +21,7 @@ export class EducadorList {
   name: string = '';
   telefoneCelular: number = 0;
   email: string = '';
+
 
 }
 
@@ -29,7 +33,7 @@ export class Usuario {
   telefoneCelular: number = '' as unknown as number;
   email: string = '';
   dataDesativado?: Date;
-  ativo?: boolean;
+  ativo!: boolean;
 
 }
 
@@ -69,6 +73,17 @@ export var usuarioColumns: Column[] = [
     filterMatchMode: FilterMatchMode.DATE_IS,
   },
   {
+    field: 'perfilAcesso.perfil',
+    header: 'E-mail',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: true,
+    showOperator: false,
+    filterMatchMode: FilterMatchMode.DATE_IS,
+  },
+  {
     field: 'ativo',
     header: 'Ativo',
     maskType: MaskType.options,
@@ -83,6 +98,8 @@ export var usuarioColumns: Column[] = [
         { value: false, output: 'Inativo', class: 'flag-danger' },
     ]
 },
+
+
 ];
 
 

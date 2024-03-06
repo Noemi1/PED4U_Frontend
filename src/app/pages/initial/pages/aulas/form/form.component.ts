@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aula } from '../../../../../models/aula.model';
@@ -14,6 +15,10 @@ import { Subscription } from 'rxjs';
 import { EducadorService } from '../../../../../services/educador.service';
 import { EducadorList } from '../../../../../models/usuarios.model';
 import { formatDate } from '@angular/common';
+import { AlunoAulaRel } from '../../../../../models/aluno.Aula.Rel.model';
+import { AlunoAulaRelService } from '../../../../../services/alunoAulaRel.service';
+import { LancarAula } from '../../../../../models/lancar-aula.model';
+import { ListComponent } from '../list/list.component';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -22,24 +27,26 @@ import { formatDate } from '@angular/common';
 export class FormComponent {
   visible = true;
   loading = false;
+
   qtde = 1
-  objeto: Aula = new Aula;
+  objeto: LancarAula = new LancarAula;
   erro: string = ''
   list: AulaList[] = [];
   turmas: TurmasList[] = [];
   educadores: EducadorList[] = [];
   loadingTurmas = true;
   loadingEducador = true;
-  sexoList = [
-    { id: 1, nome: 'Feminino' },
-    { id: 2, nome: 'Masculino' },
-    { id: 3, nome: 'Outro' },
+  booleanList = [
+    { boolean: true, nome: 'Sim' },
+    { boolean: false, nome: 'Não' },
+
   ]
+  maximized = false
 
 
   subscription: Subscription[] = [];
 
-  title = 'Cadastrar'
+  title = 'Criar aula'
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -47,9 +54,15 @@ export class FormComponent {
     private crypto: Crypto,
     private datepipe: DatePipe,
     private turmaService: TurmasService,
-    private educadorService: EducadorService
+    private educadorService: EducadorService,
+    private alunoAulaRel: AlunoAulaRelService,
+    private aulaLista: ListComponent
   ) {
-
+    this.aulaLista.idClicadoChanged.subscribe((id: number | undefined) => {
+      // Faça o que quiser com o ID recebido aqui
+      console.log('ID da turma clicado:', id);
+      // Atribua o ID recebido à variável ou utilize-o conforme necessário
+    });
     lastValueFrom(this.turmaService.getList())
       .then(res => {
         this.loadingTurmas = false;
@@ -83,18 +96,38 @@ export class FormComponent {
     // });
 
   }
+
+
+
+  onIdClicadoChanged(id: number | undefined) {
+    // Faça o que for necessário com o novo valor de idClicado
+    console.log('Novo valor de idClicado:', id);
+
+  }
+
+  teste(){
+    this.maximized = true
+  }
   ngOnInit() {
+this.onIdClicadoChanged
+    // faz o primeiro post
+    // this.objeto.aula.turma_Id = turmaId // Pega o id da turma da url
+    lastValueFrom(this.alunoAulaRel.post(this.objeto))
+    .then (res => {
+      this.objeto = res.objeto;
+    })
     this.route.params.subscribe(params => {
       const id = params['id'];
+      console.log('dx',id)
       const idDecrypt = this.crypto.decrypt(id);
       lastValueFrom(this.aulaService.getList(true, id))
         .then(res => {
 
           if (idDecrypt != undefined) {
-            console.log(this.objeto.data)
-            const dataNascimentoFormatada = formatDate(this.objeto.data, 'dd/MM/yyyy', 'en-US');
-            this.objeto.data = dataNascimentoFormatada;
-            this.title = 'Editar'
+            console.log(this.objeto.aula.data)
+            const dataNascimentoFormatada = formatDate(this.objeto.aula.data, 'dd/MM/yyyy', 'en-US');
+            this.objeto.aula.data = dataNascimentoFormatada;
+            this.title = 'Editar aula'
           }
         })
         .catch(res => {
@@ -106,9 +139,11 @@ export class FormComponent {
   change(e: any) {
     console.log(e)
     console.log(this.objeto)
-    console.log(this.objeto.data)
+
 
   }
+
+
 
   send() {
     this.loading = true

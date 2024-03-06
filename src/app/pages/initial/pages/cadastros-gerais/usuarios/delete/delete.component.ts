@@ -57,7 +57,6 @@ export class DeleteComponent {
           this.erro = res ? res.message : 'Erro desconhecido';
           console.log('Erro no sucesso:', this.erro);
           lastValueFrom(this.usuarioService.getList());
-          this.voltar();
         }
       })
       .catch(res => {

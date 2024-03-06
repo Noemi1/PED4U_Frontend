@@ -3,11 +3,12 @@
           (visibleChange)="voltar()"
           [style]="{width: '900px'}"
           [modal]="true"
-          [draggable]="true"
           [resizable]="false"
-          [maximizable]="true"
           [closable]="true"
-          [closeOnEscape]="true">
+          [closeOnEscape]="true"
+          [draggable]="false"
+          [resizable]="false"
+          [maximizable]="true">
   <ng-template pTemplate="header">
     <div class="d-flex align-items-center justify-content-center gap-2">
       <p-avatar icon="pi pi-clock" shape="circle" size="large" />
@@ -24,101 +25,51 @@
                id="descricao"
                name="descricao"
                #descricao="ngModel"
-               [(ngModel)]="objeto.descricao"
+               [(ngModel)]="objeto.aula.descricao"
                placeholder="Adicione uma descrição"
                pattern="\S(.*\S)?"
-               (change)="objeto.descricao = descricao.value.trim(); "
+               (change)="objeto.aula.descricao = descricao.value.trim(); "
                required />
         <div *ngIf="descricao.touched && descricao.errors">
-            <p class="text-danger my-0 ms-1" *ngIf="descricao.errors['required']">Este campo é obrigatório.</p>
+          <p class="text-danger my-0 ms-1" *ngIf="descricao.errors['required']">Este campo é obrigatório.</p>
         </div>
-    </div>
-    <div class="d-flex flex-column mb-4 col-md-4 col-sm-4 col-4">
-      <label for="turma_Id" class="mb-1 ms-1">Turmas: <span class="text-danger">*</span></label>
-      <p-dropdown [options]="turmas"
-                  appendTo="body"
-                  class="w-100"
-                  styleClass="w-100"
-                  inputId="turma_Id"
-                  name="turma_Id"
-                  #turma_Id="ngModel"
-                  [(ngModel)]="objeto.turma_Id"
-                  optionLabel="nomeEducador"
-                  optionValue="id"
-                  [showClear]="false"
-                  placeholder="Selecione uma turma"
-                  [required]="true"
-                  [filter]="true"
-                  [filterFields]="['id']"
-                  ></p-dropdown>
-      <div *ngIf="turma_Id.touched && turma_Id.errors">
-          <p class="text-danger my-0 ms-1" *ngIf="turma_Id.errors['required']">Este campo é obrigatório.</p>
       </div>
-  </div>
-
-  </div>
-    <div class="row">
-
-
-
-  <div class="d-flex flex-column mb-4 col-md-4 col-sm-4 col-4">
-    <label for="educador_Id" class="mb-1 ms-1">Educador: <span class="text-danger">*</span></label>
-    <p-dropdown [options]="educadores"
-                appendTo="body"
-                class="w-100"
-                styleClass="w-100"
-                inputId="educador_Id"
-                name="educador_Id"
-                #educador_Id="ngModel"
-                [(ngModel)]="objeto.educador_Id"
-                optionLabel="name"
-                optionValue="id"
-                [showClear]="false"
-                placeholder="Selecione um educador"
-                [required]="true"
-                [filter]="true"
-                [filterFields]="['name']"
-                ></p-dropdown>
-    <div *ngIf="educador_Id.touched && educador_Id.errors">
-        <p class="text-danger my-0 ms-1" *ngIf="educador_Id.errors['required']">Este campo é obrigatório.</p>
     </div>
-</div>
-<div class="d-flex flex-column mb-3 col-sm-3 col-3">
-  <label for="data" class="mb-1 ms-1">Data: <span class="text-danger">*</span></label>
-  <p-calendar dateFormat="dd/mm/yy"
-  [showIcon]="true"
-  [iconDisplay]="'input'"
-  [showButtonBar]="true"
-  appendTo="body"
-  name="data"
-  id="data"
-  (onSelect)="change($event)"
-  (onClear)="change($event)"
-  #data="ngModel"
-  [placeholder]="'dd/mm/yyyy'"
-  [(ngModel)]="objeto.data"
-  [required]="true"></p-calendar>
-  <div *ngIf="data.touched && data.errors">
-      <p class="text-danger my-0 ms-1" *ngIf="data.errors['required']">Este campo é obrigatório.</p>
-  </div>
-</div>
-<div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3">
-  <label for="realizada" class="mb-1 ms-1 ">Realizada:</label>
-  <p-checkbox [(ngModel)]="objeto.realizada"
-              [binary]="true"
-              inputId="binary"
-              name="realizada"
-              id="realizada"
-              name="realizada"
-              #realizada="ngModel"
-              [(ngModel)]="objeto.realizada"
-              placeholder="Material Extra"
-              pattern="\S(.*\S)?"></p-checkbox>
-  <div *ngIf="realizada.touched && realizada.errors">
-      <p class="text-danger my-0 ms-1" *ngIf="realizada.errors['required']">Este campo é obrigatório.</p>
-  </div>
-</div>
-</div>
+    <div class="row">
+      <div class="d-flex flex-column mb-3 col-sm-3 col-3">
+        <label for="data" class="mb-1 ms-1">Data: <span class="text-danger">*</span></label>
+        <p-calendar dateFormat="dd/mm/yy"
+                    [showIcon]="true"
+                    [iconDisplay]="'input'"
+                    [showButtonBar]="true"
+                    appendTo="body"
+                    name="data"
+                    id="data"
+                    (onSelect)="change($event)"
+                    (onClear)="change($event)"
+                    #data="ngModel"
+                    [placeholder]="'dd/mm/yyyy'"
+                    [(ngModel)]="objeto.aula.data"
+                    [required]="true"></p-calendar>
+        <div *ngIf="data.touched && data.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="data.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3">
+        <label for="realizada" class="mb-1 ms-1">Realizada: <span class="text-danger">*</span></label>
+        <p-selectButton [options]="booleanList"
+                        inputId="realizada"
+                        name="realizada"
+                        #realizada="ngModel"
+                        [(ngModel)]="objeto.aula.realizada"
+                        optionLabel="nome"
+                        optionValue="boolean"
+                        [required]="true"></p-selectButton>
+        <div *ngIf="realizada.touched && realizada.errors">
+          <p class="text-danger my-0 ms-1" *ngIf="realizada.errors['required']">Este campo é obrigatório.</p>
+        </div>
+      </div>
+    </div>
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">

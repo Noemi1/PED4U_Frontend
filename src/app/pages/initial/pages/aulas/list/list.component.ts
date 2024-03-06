@@ -10,7 +10,9 @@ import { Subscription } from 'rxjs';
 import { Crypto } from '../../../../../../utils/crypto';
 import { Aula } from '../../../../../models/aula.model';
 import { of } from 'rxjs';
+import { EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -20,27 +22,29 @@ export class ListComponent {
   columns = aulaColumns;
   title = 'Lançar aulas'
   list: AulaList[] = [];
-  PerfilTurmas =  true
+  PerfilTurmas = true
   loading: boolean = true;
   subscription: Subscription[] = []
   objeto: AulaList = new AulaList;
   teste: Aula[] = [];
   visible = true;
+  idClicado: number | undefined;
   datasFormatadas: string[] = [];
   aaulaService: AulaService[] = [];
   idTurma: number = 0
+  @Output() idClicadoChanged: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
   constructor(private aulaService: AulaService,
 
     private router: Router,
     private route: ActivatedRoute) {
+    console.log('o1111i', this.idTurma)
     this.route.params.subscribe(params => {
-      const id = params['turma_id'];
-      this.idTurma = id
-      console.log('turma_id',this.objeto.turma_Id)
+
+      const id = parseInt(params['turma_id'], 10);
       lastValueFrom(this.aulaService.getList(true, id))
         .then(res => {
 
-          console.log('turma_id',this.objeto)
+          console.log('turma_id', this.objeto)
         })
         .catch(res => {
           this.voltar();
@@ -129,4 +133,12 @@ export class ListComponent {
     const ano = data.getFullYear();
     return `${dia}/${mes}/${ano}`;
   }
+
+  ngOnChange(){
+    this.idClicadoChanged.emit(this.idClicado);
+  }
+
+
+
+
 }

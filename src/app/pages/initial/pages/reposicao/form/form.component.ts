@@ -8,7 +8,7 @@ import { insertOrReplace } from '../../../../../helpers/service-list';
 import { Aula } from '../../../../../models/aula.model';
 import { AlunoAulaRel, AlunoAulaRelList } from '../../../../../models/aluno.Aula.Rel.model';
 import { Subscription } from 'rxjs';
-import { AlunoAulaRelService } from '../../../../../services/alunoAulaRel.model';
+import { AlunoAulaRelService } from '../../../../../services/alunoAulaRel.service';
 
 @Component({
   selector: 'app-form',
@@ -49,16 +49,6 @@ export class FormComponent {
 
 
   ngAfterViewInit(): void {
-    // const visivel = localStorage.getItem('loc');
-    // const acaoRealizada = visivel === 'true';
-    // console.log(acaoRealizada)
-    // if (acaoRealizada) {
-    //   // Realizar a ação
-    //   this.visible = true
-    //   console.log('oi')
-    //   // Marcar a ação como realizada no armazenamento local
-    //   localStorage.setItem('loc', 'true');
-    // }
 this.visible = true
     console.log('visible',this.visible)
 

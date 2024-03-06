@@ -13,7 +13,7 @@ const routes: Routes = [
         { path: 'editar/:id', component: FormComponent, title: 'Cadastrar turma' },
         { path: 'excluir/:id', component: DeleteComponent, title: 'Excluir turma' },
         // { path: 'lançar/:turma_id', component: AulasComponent, title: 'Turmas - Lançar aula' },
-        { path: 'lançar/:turma_id', loadChildren: aulas },
+        { path: 'lancar/:turma_id', loadChildren: aulas },
     ] },
 ];
 

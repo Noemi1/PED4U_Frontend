@@ -5,6 +5,7 @@ import { BehaviorSubject, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Aula, AulaList } from '../models/aula.model';
 import { Response } from '../helpers/request-response.interface';
+import { LancarAula } from '../models/lancar-aula.model';
 @Injectable({
     providedIn: 'root'
 })
@@ -52,7 +53,7 @@ export class AulaService {
         }));
     }
 
-   post(request: Aula) {
+   post(request: LancarAula) {
         return this.http.post<Response>(`${this.url}/Aula`, request);
     }
 

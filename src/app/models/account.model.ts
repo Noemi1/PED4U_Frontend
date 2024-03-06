@@ -24,7 +24,7 @@ export interface Account {
     isVerified: boolean;
     jwtToken: string;
     refreshToken: string;
-    perfilAcesso_Id: number;
+    perfilAcesso_Id: number ;
     perfilAcesso: PerfilAcesso;
     role?: Role;
     passwordReset?: Date;

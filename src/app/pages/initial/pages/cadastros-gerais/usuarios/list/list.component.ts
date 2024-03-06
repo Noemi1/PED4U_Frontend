@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Table } from '../../../../../../utils/table';
 import { MenuTableLink } from '../../../../../../helpers/menu-links.interface';
 import { parse } from 'date-fns';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -26,35 +27,39 @@ export class ListComponent {
   objeto: Usuario = new Usuario;
   visible = true;
   tableLinks: MenuTableLink[] = [];
-
+  ativo: any
+  id: any
+  lista: any
   constructor(private usuarioService: UsuarioService,
     private router: Router,
     private route: ActivatedRoute,
     private crypto: Crypto,
-    private table: Table,) {
-      var list = this.usuarioService.list.subscribe(res =>{
-
-        this.list = Object.assign([], res)
-
-      }
-      );
-      this.subscription.push(list);
-      lastValueFrom(this.usuarioService.getList(true));
-
-
-
-      var selected = this.table.selected.subscribe(res => {
-        if (res) {
-            this.tableLinks = [
-                { label: 'Editar', routePath: ['editar'], paramsFieldName: ['id'] },
-                { label: (res.ativo ? 'Desabilitar' : 'Habilitar'), routePath: [ (res.ativo ? 'desabilitar' : 'habilitar') ], paramsFieldName: ['id'] },
-            ];
-            this.tableLinks = this.table.encryptParams(this.tableLinks);
-        }
-    });
-    this.subscription.push(selected);
-
+    private table: Table) {
+    var list = this.usuarioService.list.subscribe(res => {
+      this.list = Object.assign([], res)
+      console.log('teste', this.list)
+      this.lista = this.list
     }
+    );
+    this.subscription.push(list);
+    lastValueFrom(this.usuarioService.getList(true));
+
+
+
+
+
+    // var selected = this.table.selected.subscribe(res => {
+    //   if (res) {
+    //     this.tableLinks = [
+    //       { label: 'Editar', routePath: ['editar'], paramsFieldName: ['id'] },
+    //       { label: (res.ativo ? 'Desabilitar' : 'Habilitar'), routePath: [(res.ativo ? 'desabilitar' : 'habilitar')], paramsFieldName: ['id'] },
+    //     ];
+    //     this.tableLinks = this.table.encryptParams(this.tableLinks);
+    //   }
+    // });
+    // this.subscription.push(selected);
+
+  }
 
   get() {
     lastValueFrom(this.usuarioService.getList(true));
@@ -70,7 +75,15 @@ export class ListComponent {
 
 
 
+  onIdClicadoChanged(id: number | undefined) {
+    const user = this.list.find(user => user.id === id)
 
+    this.ativo = user?.ativo;
+    console.log(user)
+    // Faça o que for necessário com o novo valor de idClicado
+    console.log('Novo valor de idClicado:', id, user, this.ativo);
+
+  }
 
 
 

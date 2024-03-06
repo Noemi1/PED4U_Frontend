@@ -5,6 +5,7 @@ import { BehaviorSubject, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AlunoAulaRel, AlunoAulaRelList } from '../models/aluno.Aula.Rel.model';
 import { Response } from '../helpers/request-response.interface';
+import { LancarAula } from '../models/lancar-aula.model';
 @Injectable({
     providedIn: 'root'
 })
@@ -40,7 +41,7 @@ export class AlunoAulaRelService {
         }));
     }
 
-   post(request: AlunoAulaRel) {
+   post(request: LancarAula) {
         return this.http.post<Response>(`${this.url}/Aluno_Aula_Rel`, request);
     }
 

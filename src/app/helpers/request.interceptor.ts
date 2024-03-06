@@ -42,9 +42,11 @@ export class RequestInterceptor implements HttpInterceptor {
     }
 
     isEnglish(text: string): boolean {
-      const englishChars = /[a-zA-Z]/;
+      const englishChars = /^[a-zA-Z]+$/; // ^ e $ garantem que toda a string seja composta apenas por caracteres do alfabeto inglês
       return englishChars.test(text);
     }
+
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         var notLoading = this.excludeUrlsLoading.filter(x => request.url.includes(x));
         var notToastr = this.excludeUrlsToastr.filter(x => request.url.includes(x));
@@ -72,6 +74,7 @@ export class RequestInterceptor implements HttpInterceptor {
                                 if (notToastr.length == 0) {
                                   if (data.body.mensagem) {
                                     if (this.isEnglish(data.body.mensagem)) {
+                                      console.log(data.body.mensagem)
                                       this.toastr.error("Ocorreu um erro.");
                                     } else {
                                       this.toastr.error(data.body.mensagem);
@@ -104,9 +107,9 @@ export class RequestInterceptor implements HttpInterceptor {
                                     if (request.method == 'POST') {
                                         if(data.body.message){
                                             this.toastr.success(data.body.message,  'Sucesso:', {
-                                              closeButton: true,
-                                              timeOut:0,
-                                              toastClass: 'larger-toast',
+                                              // closeButton: true,
+                                              // timeOut:0,
+                                              // toastClass: 'larger-toast',
 
 
                                             });
@@ -159,6 +162,8 @@ export class RequestInterceptor implements HttpInterceptor {
                     }
                     else if (notToastr.length == 0) {
                       if (this.isEnglish(msg)) {
+                        console.log(this.isEnglish)
+                        console.log(msg)
                         this.toastr.error("Ocorreu um erro.");
                       } else {
                         this.toastr.error(msg);

@@ -15,8 +15,9 @@ export class AlunoAulaRel {
   reposicao: boolean = false;
   falta: boolean = false;
   paginaAtual: number = '' as unknown as number
-  apostilaNome: string = '';
-  pessoaNome: string = '';
+  apostilaAbaco_Id:  number = '' as unknown as number
+  aula_Id:  number = '' as unknown as number
+  aluno_Id:  number = '' as unknown as number
 
 }
 

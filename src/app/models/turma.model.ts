@@ -6,18 +6,18 @@ export class TurmasList {
   capacidadeAlunos: number = 0;
   vagasRestantes: number = 0;
   nomeEducador: string = '';
-  perfis: string = '';
+  perfis: [] = [];
 }
 
 
 export class Turmas {
   id: number = 0;
   horario: string = '';
-  diaSemana: number = '' as unknown as number;
+  diaSemana:  number | null = null;
   qtdeMaxAlunos: number = '' as unknown as number;
   educador_Id: number = '' as unknown as number;
-  unidade_Id: number = '' as unknown as number;
-  perfil_Id: number = '' as unknown as number;
+  unidade_Id: number = 0 as unknown as number;
+  perfis: [] = [];
 }
 
 export var turmasColumns: Column[] = [

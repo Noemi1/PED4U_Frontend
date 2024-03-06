@@ -4,12 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { Role } from '../../../../../../models/account-perfil.model';
-
 import { Account } from '../../../../../../models/account.model';
 import { Usuario } from '../../../../../../models/usuarios.model';
-
-
 import { AccountService } from '../../../../../../services/account.service';
+
 import { UsuarioService } from '../../../../../../services/usuario.service';
 import { Crypto } from '../../../../../../../utils/crypto';
 
@@ -55,9 +53,8 @@ export class DeactivatedComponent {
         this.modal.routerBackOptions = { relativeTo: this.activatedRoute };
 
         var params = this.activatedRoute.params.subscribe(x => {
-            if (x['id']) {
-                this.objeto.id = this.crypto.decrypt(x['id']);
-
+            if (x['usuario_id']) {
+                this.objeto.id = x['usuario_id'];
                 this.isUser = this.account?.id == this.objeto.id
                 this.modal.routerBack = ['../../'];
 

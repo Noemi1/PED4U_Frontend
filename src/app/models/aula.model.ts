@@ -25,7 +25,7 @@ export class Aula {
 export var aulaColumns: Column[] = [
   {
     field: 'educadorNome',
-    header: 'Nome',
+    header: 'Educador',
     maskType: MaskType.undefined,
     filterType: FilterType.text,
     filterDisplay: FilterDisplay.menu,

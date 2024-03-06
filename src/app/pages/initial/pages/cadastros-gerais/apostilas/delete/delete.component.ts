@@ -54,7 +54,6 @@ export class DeleteComponent {
                 }
             } else {
                 this.erro = res.message
-                console.log('Erro no sucesso:', this.erro);
             }
         })
         .catch(res => {

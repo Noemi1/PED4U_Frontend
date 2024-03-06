@@ -10,6 +10,7 @@ import { EducadorService } from '../../../../../../services/educador.service';
 import { EducadorList } from '../../../../../../models/usuarios.model';
 import { Subscription } from 'rxjs';
 import { PerfilList } from '../../../../../../models/perfil.model';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -26,7 +27,9 @@ export class FormComponent {
   dateWithSeconds: Date;
 
   educadores: EducadorList[] = [];
-  loadingEducador = true;
+  perfisList: PerfilList[] = [];
+  loadingPerfil = true;
+  loadingEducador = true
 
 
   title = 'Cadastrar'
@@ -40,25 +43,46 @@ export class FormComponent {
     { id: 5, nome: 'Sexta-Feira' },
   ]
 
+  cities = [
+    { id: 1, nome: 'Segunda-Feira' },
+    { id: 2, nome: 'Terça-Feira' },
+    { id: 3, nome: 'Quarta-Feira' },
+    { id: 4, nome: 'Quinta-Feira' },
+    { id: 5, nome: 'Sexta-Feira' },
+  ]
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private turmaService: TurmasService,
     private crypto: Crypto,
     private educadorService: EducadorService,
+    private perfilService: PerfilService
 
   ) {
     this.dateWithSeconds = new Date();
 
     lastValueFrom(this.educadorService.getList())
-    .then(res => {
-      this.loadingEducador = false;
-      this.educadores = res
-    });
+      .then(res => {
+        this.loadingEducador = false;
+        this.educadores = res
+      });
 
-  var educadores = this.educadorService.list.subscribe(res => this.educadores = res);
-  console.log(educadores)
-  this.subscription.push(educadores);
+    var educadores = this.educadorService.list.subscribe(res => this.educadores = res);
+    console.log(educadores)
+    this.subscription.push(educadores);
+
+
+    lastValueFrom(this.perfilService.getList())
+      .then(res => {
+        this.loadingPerfil = false;
+        this.perfisList = res
+      });
+
+    var perfisList = this.perfilService.list.subscribe(res => this.perfisList = res);
+
+    this.subscription.push(perfisList);
+    console.log('teste', perfisList)
 
   }
 
@@ -70,6 +94,7 @@ export class FormComponent {
       lastValueFrom(this.turmaService.get(idDecrypt))
         .then(res => {
           this.objeto = res;
+          this.objeto.diaSemana = null
           console.log(this.objeto)
           if (idDecrypt != undefined) {
             console.log('testesteste', this.objeto)
@@ -80,6 +105,10 @@ export class FormComponent {
           this.voltar();
         })
     });
+  }
+
+  isDiaSemanaRequired(): boolean {
+    return this.objeto.diaSemana === 0; // Retorna verdadeiro se o valor de diaSemana não for zero
   }
 
 
@@ -109,10 +138,9 @@ export class FormComponent {
     console.log(value);
   }
   send() {
-    if (!this.objeto.horario.endsWith(':00')) {
+    if (!this.objeto.horario.endsWith(':00:00')) {
       this.objeto.horario += ':00';
       console.log('vdd')
-
     }
     this.loading = true;
     return lastValueFrom(this.turmaService.post(this.objeto))
@@ -123,12 +151,13 @@ export class FormComponent {
           } else {
             lastValueFrom(this.turmaService.getList());
           }
-          this.voltar();
+          this.voltar()
+
         } else {
           this.erro = res.message
         }
-        this.loading = false;
-        this.voltar();
+        this.loading = false
+
       })
       .catch(res => {
         console.error(res)
