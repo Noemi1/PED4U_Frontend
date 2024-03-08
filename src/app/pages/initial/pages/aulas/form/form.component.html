@@ -34,8 +34,6 @@
           <p class="text-danger my-0 ms-1" *ngIf="descricao.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
-    </div>
-    <div class="row">
       <div class="d-flex flex-column mb-3 col-sm-3 col-3">
         <label for="data" class="mb-1 ms-1">Data: <span class="text-danger">*</span></label>
         <p-calendar dateFormat="dd/mm/yy"
@@ -55,6 +53,9 @@
           <p class="text-danger my-0 ms-1" *ngIf="data.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
+    </div>
+    <!-- <div class="row">
+
       <div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3">
         <label for="realizada" class="mb-1 ms-1">Realizada: <span class="text-danger">*</span></label>
         <p-selectButton [options]="booleanList"
@@ -69,7 +70,7 @@
           <p class="text-danger my-0 ms-1" *ngIf="realizada.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">
@@ -79,3 +80,4 @@
     </div>
   </ng-template>
 </p-dialog>
+<!-- <app-list-shared></app-list-shared> -->

@@ -33,7 +33,7 @@
             </div>
             <div class="me-2" *ngIf="PerfilTurmas">
 
-              <p-button label="Criar aula" icon="pi pi-plus" [routerLink]="['criar']"></p-button>
+              <p-button label="Criar aula" icon="pi pi-plus" (click)="idRecuperado?.()"></p-button>
             </div>
             <div class="me-2">
               <p-button label="Limpar filtro"

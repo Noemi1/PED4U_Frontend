@@ -20,7 +20,7 @@ import { SelectItem } from 'primeng/api';
 export class ListSharedComponent {
   @Output() idClicadoChanged: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
   @Input() ativo: boolean = false;
-  idClicado: number | undefined;
+  idClicado: number = 0;
   @Input() paginator: boolean = true;
   @ViewChildren('menuItem') contextMenus!: QueryList<ContextMenu>;
   @Input() columns: Column[] = [];
@@ -29,13 +29,13 @@ export class ListSharedComponent {
   @ViewChild('dt1') dt1!: Table;
   @Input() sortTable = true;
   @Input() teste1: any;
+  @Input() idRecuperado: Function | undefined;
   @Input() icone: string = '';
   public selectedItem: any;
   public conteudo = {}
   @Input() PerfilAulas: boolean = false;
   @Input() PerfilTurmas: boolean = false;
   @Input() idAtivo: number = 0;
-
   @Input() menu: MenuItem[] = [
 
     { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar() },
@@ -88,7 +88,6 @@ export class ListSharedComponent {
     private usuarioService: UsuarioService
 
   ) {
-    console.log('oi', this.title, this.list)
     this.filters = this.columns.map(x => x.field)
     console.log(this.filters)
 
@@ -101,26 +100,20 @@ export class ListSharedComponent {
     this.openContextMenu
     if (changes['list']) {
       this.list = changes['list'].currentValue;
-
     }
     if (changes['columns']) {
       this.columns = changes['columns'].currentValue;
       this.filters = this.columns.map(x => x.field)
     }
     this.menu = [
-
       { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar(), visible: this.PerfilAulas != true },
       { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir(), visible: this.PerfilAulas != true },
-      { label: 'Lançar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToAulas(), visible: this.PerfilAulas == true },
+      { label: 'Lançar', icon: 'pi pi-fw pi-pencil', command: () =>  this.navigateToAulas(), visible: this.PerfilAulas == true },
       { label: (this.ativo ? 'Desabilitar' : 'Habilitar'), icon: 'pi pi-fw pi-pencil', command: () => this.navigateToDesabilitar(), visible: this.PerfilAulas !== true },
     ];
-
-
-
-
-
     if (changes['loading']) this.loading = changes['loading'].currentValue;
   }
+
   openContextMenu(event: Event, menu: ContextMenu, item: any) {
     event.preventDefault();
     if (item.id) {
@@ -132,14 +125,16 @@ export class ListSharedComponent {
     if (this.idClicado != undefined) {
       this.usuarioService.setIdClicado(this.idClicado);
     }
-
-    console.log(this.idClicado)
     this.closeAllContextMenus();
     menu.toggle(event);
-
-
+    console.log('vair ')
     this.idClicadoChanged.emit(this.idClicado);
+
+
   }
+
+
+
 
 
   closeAllContextMenus() {
@@ -164,9 +159,9 @@ export class ListSharedComponent {
 
   navigateToAulas() {
     if (this.idClicado !== undefined) {
-      console.log('oi', this.idClicado)
       this.router.navigate(['lancar', this.idClicado], { relativeTo: this.activatedRoute });
     }
+
   }
 
 
@@ -175,8 +170,21 @@ export class ListSharedComponent {
   }
 
 
+
+
+
+
+  navigateToCriar() {
+    console.log('tst', this.idClicado)
+    if (this.idClicado !== undefined) {
+      this.router.navigate(['criar', this.idClicado], { relativeTo: this.activatedRoute });
+    }
+    else{
+      this.openContextMenu
+    }
+
+  }
   navigateToDesabilitar() {
-    console.log('oine')
     if (this.idClicado !== undefined) {
       this.router.navigate(['desabilitar', this.idClicado], { relativeTo: this.activatedRoute });
     }

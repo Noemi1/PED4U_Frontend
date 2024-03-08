@@ -11,7 +11,7 @@ import { LancarAula } from '../models/lancar-aula.model';
 })
 export class AulaService {
     url = environment.url;
-
+    private idExportSubject = new BehaviorSubject<number | undefined>(undefined);
     list = new BehaviorSubject<AulaList[]>([]);
     loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -24,6 +24,15 @@ export class AulaService {
       this.loading.next(!!this.TOKEN_NAME)
      }
 
+
+     setIdExport(id: number | undefined): void {
+      this.idExportSubject.next(id);
+      console.log('confio' ,id)
+    }
+
+    getIdExport() {
+      return this.idExportSubject.asObservable();
+    }
 
 
     getList( loading: boolean = false, turma_id: number) {

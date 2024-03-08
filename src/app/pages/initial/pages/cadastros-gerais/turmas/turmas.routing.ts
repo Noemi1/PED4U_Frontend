@@ -14,6 +14,8 @@ const routes: Routes = [
         { path: 'excluir/:id', component: DeleteComponent, title: 'Excluir turma' },
         // { path: 'lançar/:turma_id', component: AulasComponent, title: 'Turmas - Lançar aula' },
         { path: 'lancar/:turma_id', loadChildren: aulas },
+
+
     ] },
 ];
 

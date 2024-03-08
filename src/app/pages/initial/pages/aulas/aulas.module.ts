@@ -10,6 +10,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
 import {  NgxMaskModule } from 'ngx-mask';
+import { ListComponent as Turmas } from '../cadastros-gerais/turmas/list/list.component';
+import { TurmasModule } from '../cadastros-gerais/turmas/turmas.module';
 @NgModule({
   declarations: [
     ListComponent,
@@ -24,7 +26,7 @@ import {  NgxMaskModule } from 'ngx-mask';
     SharedModule,
     InputNumberModule,
     CheckboxModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
 
   ]
 })

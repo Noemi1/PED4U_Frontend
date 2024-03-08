@@ -42,7 +42,7 @@ export class AlunoAulaRelService {
     }
 
    post(request: LancarAula) {
-        return this.http.post<Response>(`${this.url}/Aluno_Aula_Rel`, request);
+        return this.http.post<Response>(`${this.url}/Aula`, request);
     }
 
     edit(request: AlunoAulaRel) {

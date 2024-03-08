@@ -30,6 +30,7 @@ export class ListComponent {
   ativo: any
   id: any
   lista: any
+  idTeste: any
   constructor(private usuarioService: UsuarioService,
     private router: Router,
     private route: ActivatedRoute,
@@ -60,7 +61,9 @@ export class ListComponent {
     // this.subscription.push(selected);
 
   }
-
+  teste(){
+  console.log('oi', this.idTeste)
+  }
   get() {
     lastValueFrom(this.usuarioService.getList(true));
   }
@@ -76,6 +79,8 @@ export class ListComponent {
 
 
   onIdClicadoChanged(id: number | undefined) {
+    console.log('retorn: ', id)
+    this.idTeste = id
     const user = this.list.find(user => user.id === id)
 
     this.ativo = user?.ativo;

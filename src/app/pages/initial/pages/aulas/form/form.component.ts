@@ -19,6 +19,7 @@ import { AlunoAulaRel } from '../../../../../models/aluno.Aula.Rel.model';
 import { AlunoAulaRelService } from '../../../../../services/alunoAulaRel.service';
 import { LancarAula } from '../../../../../models/lancar-aula.model';
 import { ListComponent } from '../list/list.component';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -27,7 +28,7 @@ import { ListComponent } from '../list/list.component';
 export class FormComponent {
   visible = true;
   loading = false;
-
+  idTurma: number = 0
   qtde = 1
   objeto: LancarAula = new LancarAula;
   erro: string = ''
@@ -58,11 +59,24 @@ export class FormComponent {
     private alunoAulaRel: AlunoAulaRelService,
     private aulaLista: ListComponent
   ) {
-    this.aulaLista.idClicadoChanged.subscribe((id: number | undefined) => {
-      // Faça o que quiser com o ID recebido aqui
-      console.log('ID da turma clicado:', id);
-      // Atribua o ID recebido à variável ou utilize-o conforme necessário
+
+    console.log('teste',this.objeto)
+
+    this.route.params.subscribe(params => {
+
+      const id = parseInt(params['turma_id'], 10);
+      this.idTurma = id
+      console.log('tst',this.idTurma)
+      lastValueFrom(this.aulaService.getList(true, id))
+        .then(res => {
+
+
+        })
+        .catch(res => {
+          this.voltar();
+        })
     });
+
     lastValueFrom(this.turmaService.getList())
       .then(res => {
         this.loadingTurmas = false;
@@ -105,35 +119,38 @@ export class FormComponent {
 
   }
 
-  teste(){
+  teste() {
     this.maximized = true
   }
   ngOnInit() {
-this.onIdClicadoChanged
+    this.onIdClicadoChanged
     // faz o primeiro post
-    // this.objeto.aula.turma_Id = turmaId // Pega o id da turma da url
-    lastValueFrom(this.alunoAulaRel.post(this.objeto))
-    .then (res => {
-      this.objeto = res.objeto;
-    })
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      console.log('dx',id)
-      const idDecrypt = this.crypto.decrypt(id);
-      lastValueFrom(this.aulaService.getList(true, id))
-        .then(res => {
+    this.objeto.aula.turma_Id = this.idTurma // Pega o id da turma da url
+    console.log('turmaid',this.objeto.aula.turma_Id, this.objeto)
+    lastValueFrom(this.aulaService.post(this.objeto))
+      // .then(res => {
+      //   this.objeto = res.objeto;
+      // })
 
-          if (idDecrypt != undefined) {
-            console.log(this.objeto.aula.data)
-            const dataNascimentoFormatada = formatDate(this.objeto.aula.data, 'dd/MM/yyyy', 'en-US');
-            this.objeto.aula.data = dataNascimentoFormatada;
-            this.title = 'Editar aula'
-          }
-        })
-        .catch(res => {
-          this.voltar();
-        })
-    });
+
+
+    // this.route.params.subscribe(params => {
+    //   const id = params['id'];
+    //   const idDecrypt = this.crypto.decrypt(id);
+    //   lastValueFrom(this.aulaService.getList(true, id))
+    //     .then(res => {
+
+    //       if (idDecrypt != undefined) {
+    //         console.log(this.objeto.aula.data)
+    //         const dataNascimentoFormatada = formatDate(this.objeto.aula.data, 'dd/MM/yyyy', 'en-US');
+    //         this.objeto.aula.data = dataNascimentoFormatada;
+    //         this.title = 'Editar aula'
+    //       }
+    //     })
+    //     .catch(res => {
+    //       this.voltar();
+    //     })
+    // });
   }
 
   change(e: any) {
