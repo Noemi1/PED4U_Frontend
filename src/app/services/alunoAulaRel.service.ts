@@ -41,6 +41,13 @@ export class AlunoAulaRelService {
         }));
     }
 
+
+    getTESTE(id: number) {
+      return this.http.get<AlunoAulaRel>(`${this.url}/Aluno_Aula_Rel/list/aluno/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) })
+      .pipe(tap({
+          error: res => this.toastr.error('Não foi possível carregar alunos relacionados.')
+      }));
+  }
    post(request: LancarAula) {
         return this.http.post<Response>(`${this.url}/Aula`, request);
     }

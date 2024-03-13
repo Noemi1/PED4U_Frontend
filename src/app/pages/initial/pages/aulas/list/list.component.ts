@@ -42,7 +42,7 @@ export class ListComponent {
   constructor(private aulaService: AulaService,
     private router: Router,
     private route: ActivatedRoute,
-      private activatedRoute: ActivatedRoute,) {
+    private activatedRoute: ActivatedRoute,) {
     this.route.params.subscribe(params => {
       var id = parseInt(params['turma_id'], 10);
       this.idTurmaN = id
@@ -66,6 +66,7 @@ export class ListComponent {
     this.subscription.push(list);
     lastValueFrom(this.aulaService.getList(true, this.idTurmaN));
 
+
   }
 
   ngOnInit() {
@@ -75,12 +76,12 @@ export class ListComponent {
   }
 
 
-recuperaId(){
-  const idExport = localStorage.getItem('idExport'); // Recupera o valor de idExport do localStorage
-  console.log('Valor de idExport recuperado:', idExport);
-  this.router.navigate(['criar',idExport], { relativeTo: this.activatedRoute });
-  // Faça o que for necessário com o valor recuperado de idExport
-}
+  recuperaId() {
+    const idExport = localStorage.getItem('idExport'); // Recupera o valor de idExport do localStorage
+    console.log('Valor de idExport recuperado:', idExport);
+    this.router.navigate(['criar', idExport], { relativeTo: this.activatedRoute });
+    // Faça o que for necessário com o valor recuperado de idExport
+  }
 
   onIdClicadoChanged(id: number | undefined) {
     const user = this.list.find(user => user.id === id)

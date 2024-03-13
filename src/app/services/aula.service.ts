@@ -42,7 +42,7 @@ export class AulaService {
                next: list => {
                    this.loading.next(false);
                    this.list.next(Object.assign([], list));
-                   console.log('list.',list, turma_id)
+                   console.log('listtt.',list, turma_id)
                    return of(list);
 
                },
@@ -63,7 +63,15 @@ export class AulaService {
     }
 
    post(request: LancarAula) {
-        return this.http.post<Response>(`${this.url}/Aula`, request);
+        return this.http.post<Response>(`${this.url}/Aula`, request).pipe(tap({
+          next: list => {
+            this.loading.next(false);
+            this.list.next(Object.assign([], list));
+            console.log('listtt aula.',list)
+            return of(list);
+
+        }
+        }));
     }
 
     edit(request: Aula) {

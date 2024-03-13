@@ -1,4 +1,4 @@
-import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
+
 
 export class AlunoAulaRelList {
     id: number = 0;
@@ -20,6 +20,8 @@ export class AlunoAulaRel {
   aluno_Id:  number = '' as unknown as number
 
 }
+
+
 
 
 

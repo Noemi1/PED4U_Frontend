@@ -1,3 +1,4 @@
+import { EducadorService } from './../../services/educador.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { EventEmitter, Output } from '@angular/core';
 import { Crypto } from './../../../utils/crypto';
@@ -12,6 +13,7 @@ import { ViewChild, ElementRef } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ColumnFilter } from 'primeng/table';
 import { SelectItem } from 'primeng/api';
+import { lastValueFrom } from 'rxjs';
 @Component({
   selector: 'app-list-shared',
   templateUrl: './list.component.html',
@@ -35,6 +37,7 @@ export class ListSharedComponent {
   public conteudo = {}
   @Input() PerfilAulas: boolean = false;
   @Input() PerfilTurmas: boolean = false;
+  @Input() ListaRels: boolean = false;
   @Input() idAtivo: number = 0;
   @Input() menu: MenuItem[] = [
 
@@ -56,8 +59,8 @@ export class ListSharedComponent {
   filters: string[] = [];
   itemMenuAtivo: number | null = null;
   @Input() filterTable: boolean = false;
-
-
+  item: any;
+  valueChanged: boolean = false;
   filterValue: string = '';
   @Input() id = 0
   formatedList: any = [];
@@ -85,7 +88,8 @@ export class ListSharedComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private crypto: Crypto,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private educadorService: EducadorService
 
   ) {
     this.filters = this.columns.map(x => x.field)
@@ -142,15 +146,35 @@ export class ListSharedComponent {
       this.contextMenus.forEach(menu => menu.hide());
     }
   }
-
-
+  onEnterKeyPressed(value: any) {
+    console.log('Valor alterado:', value);
+  }
   checkContextMenu(event: MouseEvent, menu: ContextMenu, item: any) {
     event.preventDefault();
     this.openContextMenu(event, menu, item)
 
   }
 
+//   onContentChanged(newValue: any, field: string) {
+//     lastValueFrom(this.usuarioService.post(newValue))
+//     .then(res => {
+//       console.log('POST bem-sucedido:', res);
+//       // Limpe o estado de alteração depois que o POST for concluído, se necessário
+//       this.valueChanged = false;
+//     })
+//     .catch(error => {
+//       console.error('Erro ao fazer POST:', error);
+//       // Lide com o erro de forma adequada
+//     });
+//      this.valueChanged = true;
+//     console.log(`Conteúdo alterado no campo ${field}:`, newValue);
+// }
 
+
+
+salvarAlteracoes(event: Event){
+  console.log('oi')
+}
   onClick(): void {
     if (typeof this.service === 'function') {
       this.service();

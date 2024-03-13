@@ -78,7 +78,21 @@
           #itemMenu
               (contextmenu)="checkContextMenu($event, menuItem, item)"
               (click)="menuItem.visible() ?    closeAllContextMenus() : openContextMenu($event, menuItem, item)">
-            <td *ngFor="let coluna of columns">{{ item[coluna.field] }}</td>
+            <!-- <td *ngFor="let coluna of columns">{{ item[coluna.field] }}</td> -->
+            <td  [pEditableColumn]="true" *ngFor="let coluna of columns">
+              <p-cellEditor (save)="salvarAlteracoes($event)" *ngIf="ListaRels">
+                  <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="item[coluna.field]"  />
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{ item[coluna.field] }}
+                  </ng-template>
+              </p-cellEditor>
+<span *ngIf="!ListaRels">
+  {{ item[coluna.field] }}
+</span>
+
+          </td>
             <td class="text-end">
               <p-button
                         [text]="true"

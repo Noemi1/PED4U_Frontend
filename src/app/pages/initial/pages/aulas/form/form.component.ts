@@ -1,4 +1,5 @@
 
+
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aula } from '../../../../../models/aula.model';
@@ -9,7 +10,7 @@ import { Crypto } from '../../../../../../utils/crypto';
 import { AulaList } from '../../../../../models/aula.model';
 import { DatePipe } from '@angular/common';
 import { format } from 'date-fns';
-import { TurmasList } from '../../../../../models/turma.model';
+import { Turmas, TurmasList } from '../../../../../models/turma.model';
 import { TurmasService } from '../../../../../services/turmas.service';
 import { Subscription } from 'rxjs';
 import { EducadorService } from '../../../../../services/educador.service';
@@ -19,6 +20,8 @@ import { AlunoAulaRel } from '../../../../../models/aluno.Aula.Rel.model';
 import { AlunoAulaRelService } from '../../../../../services/alunoAulaRel.service';
 import { LancarAula } from '../../../../../models/lancar-aula.model';
 import { ListComponent } from '../list/list.component';
+import { RelsColumns } from '../../../../../models/lancar-aula.model';
+
 
 @Component({
   selector: 'app-form',
@@ -26,13 +29,15 @@ import { ListComponent } from '../list/list.component';
   styleUrl: './form.component.scss'
 })
 export class FormComponent {
+  columns = RelsColumns
   visible = true;
   loading = false;
   idTurma: number = 0
   qtde = 1
   objeto: LancarAula = new LancarAula;
   erro: string = ''
-  list: AulaList[] = [];
+  // list: AulaList[] = [];
+  list: AlunoAulaRel[] = []
   turmas: TurmasList[] = [];
   educadores: EducadorList[] = [];
   loadingTurmas = true;
@@ -43,11 +48,14 @@ export class FormComponent {
 
   ]
   maximized = false
-
-
+  turma: any
+  educadorId: number = 0
+  rels: any
+  relsValues: any
   subscription: Subscription[] = [];
-
+  dataAtual: any
   title = 'Criar aula'
+  titleRels = 'Rels'
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -57,16 +65,19 @@ export class FormComponent {
     private turmaService: TurmasService,
     private educadorService: EducadorService,
     private alunoAulaRel: AlunoAulaRelService,
-    private aulaLista: ListComponent
+    private aulaLista: ListComponent,
+    private datePipe: DatePipe
   ) {
 
-    console.log('teste',this.objeto)
+
+
+    console.log('teste', this.objeto)
 
     this.route.params.subscribe(params => {
 
       const id = parseInt(params['turma_id'], 10);
       this.idTurma = id
-      console.log('tst',this.idTurma)
+      console.log('tst', this.idTurma)
       lastValueFrom(this.aulaService.getList(true, id))
         .then(res => {
 
@@ -119,18 +130,38 @@ export class FormComponent {
 
   }
 
-  teste() {
-    this.maximized = true
-  }
+
   ngOnInit() {
     this.onIdClicadoChanged
     // faz o primeiro post
-    this.objeto.aula.turma_Id = this.idTurma // Pega o id da turma da url
-    console.log('turmaid',this.objeto.aula.turma_Id, this.objeto)
-    lastValueFrom(this.aulaService.post(this.objeto))
-      // .then(res => {
-      //   this.objeto = res.objeto;
-      // })
+
+    lastValueFrom(this.turmaService.get(this.idTurma)).then(res => {
+      this.turma = res;
+      this.educadorId = this.turma.educador_Id.toString()
+
+      console.log('teeeeste', this.turma, this.turma.educador_Id, this.educadorId)
+
+      const currentDate = new Date();
+      const dataAtual = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
+      this.objeto.aula.data = dataAtual
+      this.objeto.aula.turma_Id = this.idTurma // Pega o id da turma da url
+      console.log('turmaid', this.objeto.aula.turma_Id, this.objeto)
+      this.objeto.aula.educador_Id = this.educadorId
+
+      lastValueFrom(this.aulaService.post(this.objeto)).then(res => {
+        this.rels = res
+        this.relsValues = this.rels.rels
+        console.log(this.relsValues)
+      })
+    }
+
+
+    )
+
+
+    // .then(res => {
+    //   this.objeto = res.objeto;
+    // })
 
 
 

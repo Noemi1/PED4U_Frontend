@@ -12,6 +12,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import {  NgxMaskModule } from 'ngx-mask';
 import { ListComponent as Turmas } from '../cadastros-gerais/turmas/list/list.component';
 import { TurmasModule } from '../cadastros-gerais/turmas/turmas.module';
+import { LOCALE_ID } from '@angular/core';
 @NgModule({
   declarations: [
     ListComponent,
@@ -28,6 +29,9 @@ import { TurmasModule } from '../cadastros-gerais/turmas/turmas.module';
     CheckboxModule,
     NgxMaskModule.forRoot(),
 
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 })
 export class AulasModule { }

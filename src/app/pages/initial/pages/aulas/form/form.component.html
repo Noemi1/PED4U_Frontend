@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row">
+    <div class="row">
 
       <div class="d-flex flex-column justify-content-start mb-3 col-sm-3 col-3">
         <label for="realizada" class="mb-1 ms-1">Realizada: <span class="text-danger">*</span></label>
@@ -70,7 +70,7 @@
           <p class="text-danger my-0 ms-1" *ngIf="realizada.errors['required']">Este campo é obrigatório.</p>
         </div>
       </div>
-    </div> -->
+    </div>
   </form>
   <ng-template pTemplate="footer">
     <div class="d-flex align-items-center justify-content-between">
@@ -79,5 +79,11 @@
                 [disabled]="loading || form.invalid == true" pAutoFocus [autofocus]="true"></p-button>
     </div>
   </ng-template>
+  <app-list-shared
+                   [columns]="columns"
+                   [title]="titleRels"
+                   [list]="relsValues"
+                   [icone]="'pi pi-clock'"
+                   [ListaRels]="true">
+  </app-list-shared>
 </p-dialog>
-<!-- <app-list-shared></app-list-shared> -->
