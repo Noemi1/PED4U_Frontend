@@ -27,7 +27,7 @@
               <p-button label="Atualizar" severity="secondary"
                         (click)="onClick()" [loading]="loading"></p-button>
             </div>
-            <div class="me-2" *ngIf="!PerfilTurmas" >
+            <div class="me-2" *ngIf="!PerfilTurmas">
 
               <p-button label="Cadastrar" icon="pi pi-plus" [routerLink]="['cadastrar']"></p-button>
             </div>
@@ -74,25 +74,28 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
           <tr
-          [style]="{cursor: 'pointer!important'}"
-          #itemMenu
+              [style]="{cursor: 'pointer!important'}"
+              #itemMenu
               (contextmenu)="checkContextMenu($event, menuItem, item)"
               (click)="menuItem.visible() ?    closeAllContextMenus() : openContextMenu($event, menuItem, item)">
-            <!-- <td *ngFor="let coluna of columns">{{ item[coluna.field] }}</td> -->
-            <td  [pEditableColumn]="true" *ngFor="let coluna of columns">
-              <p-cellEditor (save)="salvarAlteracoes($event)" *ngIf="ListaRels">
-                  <ng-template pTemplate="input">
-                      <input pInputText type="text" [(ngModel)]="item[coluna.field]"  />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{ item[coluna.field] }}
-                  </ng-template>
-              </p-cellEditor>
-<span *ngIf="!ListaRels">
-  {{ item[coluna.field] }}
-</span>
 
-          </td>
+            <td [pEditableColumn]="true" *ngFor="let coluna of columns">
+              <p-cellEditor (save)="salvarAlteracoes($event)" *ngIf="ListaRels">
+                <ng-template pTemplate="input" *ngIf="item[coluna.filterType]=='numeric'">
+                  <p-dropdown  [(ngModel)]="item[coluna.field]"></p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="input" *ngIf="item[coluna.filterType]='numeric'">
+                  <p-dropdown  [(ngModel)]="item[coluna.field]"></p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item[coluna.field] }}
+                </ng-template>
+              </p-cellEditor>
+              <span *ngIf="!ListaRels">
+                {{ item[coluna.field] }}
+              </span>
+
+            </td>
             <td class="text-end">
               <p-button
                         [text]="true"

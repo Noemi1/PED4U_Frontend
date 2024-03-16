@@ -2,6 +2,7 @@ import { AlunoAulaRel } from "./aluno.Aula.Rel.model";
 import { ApostilaList } from "./apostilas.model";
 import { Aula } from "./aula.model";
 import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.interface";
+import { FilterMatchMode } from "primeng/api";
 export class  LancarAula {
   aula: Aula = new Aula;
   rels: AlunoAulaRel[] = [];
@@ -16,8 +17,8 @@ export class  LancarAula {
 
 export var RelsColumns: Column[] = [
   {
-    field: 'id',
-    header: 'Id',
+    field: 'aula_Id',
+    header: 'Nome',
     maskType: MaskType.undefined,
     filterType: FilterType.text,
     filterDisplay: FilterDisplay.menu,
@@ -25,61 +26,58 @@ export var RelsColumns: Column[] = [
     showMatchMode: false,
     showOperator: false,
     // filterMatchMode: FilterMatchMode.EQUALS,
-},
+  },
+  {
+    field: 'apostilaAbaco_Id',
+    header: 'Apostila',
+    maskType: MaskType.undefined,
+    filterType: FilterType.text,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
+    // filterMatchMode: FilterMatchMode.EQUALS,
+  },
+  {
+    field: 'paginaAtual',
+    header: 'Página',
+    maskType: MaskType.undefined,
+    filterType: FilterType.numeric,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
+    // filterMatchMode: FilterMatchMode.EQUALS,
+  },
+  {
+    field: 'falta',
+    header: 'Falta',
+    maskType: MaskType.options,
+    filterType: FilterType.boolean,
+    filterDisplay: FilterDisplay.menu,
+    showAddButton: false,
+    showMatchMode: false,
+    showOperator: false,
+    filterMatchMode: FilterMatchMode.EQUALS,
+    values: [
+        { value: true, output: 'Ativo' },
+        { value: false, output: 'Inativo'},
+    ]
+  },
   {
       field: 'reposicao',
       header: 'Reposição',
       maskType: MaskType.undefined,
-      filterType: FilterType.text,
+      filterType: FilterType.boolean,
       filterDisplay: FilterDisplay.menu,
       showAddButton: false,
       showMatchMode: false,
       showOperator: false,
       // filterMatchMode: FilterMatchMode.EQUALS,
   },
-  {
-    field: 'falta',
-    header: 'Falta',
-    maskType: MaskType.undefined,
-    filterType: FilterType.text,
-    filterDisplay: FilterDisplay.menu,
-    showAddButton: false,
-    showMatchMode: false,
-    showOperator: false,
-    // filterMatchMode: FilterMatchMode.EQUALS,
-},
-{
-  field: 'Apostila ábaco',
-  header: 'apostilaAbaco_Id',
-  maskType: MaskType.undefined,
-  filterType: FilterType.text,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: false,
-  showOperator: false,
-  // filterMatchMode: FilterMatchMode.EQUALS,
-},
-{
-  field: 'aula_Id',
-  header: 'Aula',
-  maskType: MaskType.undefined,
-  filterType: FilterType.text,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: false,
-  showOperator: false,
-  // filterMatchMode: FilterMatchMode.EQUALS,
-},
-{
-  field: 'aluna_Id',
-  header: 'Aluno',
-  maskType: MaskType.undefined,
-  filterType: FilterType.text,
-  filterDisplay: FilterDisplay.menu,
-  showAddButton: false,
-  showMatchMode: false,
-  showOperator: false,
-  // filterMatchMode: FilterMatchMode.EQUALS,
-},
+
+
+
+
 
 ];

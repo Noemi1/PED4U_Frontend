@@ -64,11 +64,11 @@ export class AulaService {
 
    post(request: LancarAula) {
         return this.http.post<Response>(`${this.url}/Aula`, request).pipe(tap({
-          next: list => {
+          next: res => {
             this.loading.next(false);
-            this.list.next(Object.assign([], list));
-            console.log('listtt aula.',list)
-            return of(list);
+            // this.list.next(Object.assign([], list));
+            console.log('aula.',res)
+            return of(res);
 
         }
         }));

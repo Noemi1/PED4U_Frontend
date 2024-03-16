@@ -1,3 +1,4 @@
+import { FilterType } from './../../helpers/column.interface';
 import { EducadorService } from './../../services/educador.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { EventEmitter, Output } from '@angular/core';
@@ -66,6 +67,8 @@ export class ListSharedComponent {
   formatedList: any = [];
   @Input() service: any
   cleaned: boolean = false;
+  @Input() dropdownData!: any[];
+  dropdown: boolean = true
   matchModeOptions: SelectItem<any>[] = [
     { label: 'Começa com', value: 'startsWith' },
     { label: 'Contém', value: 'contains' },
@@ -112,7 +115,7 @@ export class ListSharedComponent {
     this.menu = [
       { label: 'Editar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToEditar(), visible: this.PerfilAulas != true },
       { label: 'Excluir', icon: 'pi pi-fw pi-trash', command: () => this.navigateToExcluir(), visible: this.PerfilAulas != true },
-      { label: 'Lançar', icon: 'pi pi-fw pi-pencil', command: () =>  this.navigateToAulas(), visible: this.PerfilAulas == true },
+      { label: 'Lançar', icon: 'pi pi-fw pi-pencil', command: () => this.navigateToAulas(), visible: this.PerfilAulas == true },
       { label: (this.ativo ? 'Desabilitar' : 'Habilitar'), icon: 'pi pi-fw pi-pencil', command: () => this.navigateToDesabilitar(), visible: this.PerfilAulas !== true },
     ];
     if (changes['loading']) this.loading = changes['loading'].currentValue;
@@ -138,6 +141,21 @@ export class ListSharedComponent {
   }
 
 
+  tipoColuna(coluna: any): boolean {
+    if (coluna.filterType === "numeric") {
+      this.dropdown = true;
+      return true;
+    } else {
+      console.log(coluna.filterType);
+      console.log(this.dropdown);
+      return false;
+    }
+  }
+
+  tipoColuna2() {
+    console.log('OI')
+
+  }
 
 
 
@@ -155,26 +173,26 @@ export class ListSharedComponent {
 
   }
 
-//   onContentChanged(newValue: any, field: string) {
-//     lastValueFrom(this.usuarioService.post(newValue))
-//     .then(res => {
-//       console.log('POST bem-sucedido:', res);
-//       // Limpe o estado de alteração depois que o POST for concluído, se necessário
-//       this.valueChanged = false;
-//     })
-//     .catch(error => {
-//       console.error('Erro ao fazer POST:', error);
-//       // Lide com o erro de forma adequada
-//     });
-//      this.valueChanged = true;
-//     console.log(`Conteúdo alterado no campo ${field}:`, newValue);
-// }
+  //   onContentChanged(newValue: any, field: string) {
+  //     lastValueFrom(this.usuarioService.post(newValue))
+  //     .then(res => {
+  //       console.log('POST bem-sucedido:', res);
+  //       // Limpe o estado de alteração depois que o POST for concluído, se necessário
+  //       this.valueChanged = false;
+  //     })
+  //     .catch(error => {
+  //       console.error('Erro ao fazer POST:', error);
+  //       // Lide com o erro de forma adequada
+  //     });
+  //      this.valueChanged = true;
+  //     console.log(`Conteúdo alterado no campo ${field}:`, newValue);
+  // }
 
 
 
-salvarAlteracoes(event: Event){
-  console.log('oi')
-}
+  salvarAlteracoes(event: Event) {
+    console.log('oi')
+  }
   onClick(): void {
     if (typeof this.service === 'function') {
       this.service();
@@ -203,7 +221,7 @@ salvarAlteracoes(event: Event){
     if (this.idClicado !== undefined) {
       this.router.navigate(['criar', this.idClicado], { relativeTo: this.activatedRoute });
     }
-    else{
+    else {
       this.openContextMenu
     }
 

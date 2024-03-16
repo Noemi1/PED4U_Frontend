@@ -11,7 +11,7 @@ export class AlunoAulaRelList {
 }
 
 export class AlunoAulaRel {
-  id: number = 0;
+  id: number = 1;
   reposicao: boolean = false;
   falta: boolean = false;
   paginaAtual: number = '' as unknown as number

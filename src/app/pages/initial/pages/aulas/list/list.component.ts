@@ -35,6 +35,7 @@ export class ListComponent {
   turbina = 0
   idExport: number | undefined;
 
+
   receiveIdExport(id: number | undefined) {
     console.log('Recebido:', id);
     this.idExport = id;
@@ -48,6 +49,7 @@ export class ListComponent {
       this.idTurmaN = id
       lastValueFrom(this.aulaService.getList(true, id))
         .then(res => {
+          console.log('tste')
         })
         .catch(res => {
           this.voltar();
@@ -55,16 +57,24 @@ export class ListComponent {
 
 
     });
+      var list = this.aulaService.list.subscribe(res => {
+        this.list = Object.assign([], res)
+        console.log('lista mudou', this.list)
+        if (this.list && this.list.length > 0) {
+          this.formatarDataNaLista()
+          this.formatarBoleano()
+        }
+      });
+      this.subscription.push(list);
+      // lastValueFrom(this.aulaService.getList(true, this.idTurmaN));
 
-    var list = this.aulaService.list.subscribe(res => {
-      this.list = Object.assign([], res)
-      if (this.list && this.list.length > 0) {
-        this.formatarDataNaLista()
-        this.formatarBoleano()
+      const postRealizado = localStorage.getItem('postRealizado');
+      if (postRealizado == 'false') {
+        console.log('POST realizado no FormComponent');
+
       }
-    });
-    this.subscription.push(list);
-    lastValueFrom(this.aulaService.getList(true, this.idTurmaN));
+
+
 
 
   }
@@ -73,6 +83,12 @@ export class ListComponent {
     const idExport = localStorage.getItem('idExport'); // Recupera o valor de idExport do localStorage
     console.log('Valor de idExport recuperado:', idExport);
     // Faça o que for necessário com o valor recuperado de idExport
+    // this.aulaLista.dadosAtualizados.subscribe(() => {
+    //   console.log('Evento de post concluído recebido no ListComponent');
+    //   // Faça o que quiser quando o evento de post for concluído
+    // });
+
+
   }
 
 
@@ -89,7 +105,13 @@ export class ListComponent {
 
   }
 
+  // onPostCompleted() {
+  //   console.log('Evento de post concluído recebido no componente pai');
 
+
+
+
+  // }
 
   get() {
     lastValueFrom(this.aulaService.getList(true, this.idTurmaN));
@@ -162,6 +184,8 @@ export class ListComponent {
     const ano = data.getFullYear();
     return `${dia}/${mes}/${ano}`;
   }
+
+
 
 
 
